@@ -98,6 +98,7 @@ input:focus,textarea:focus{outline:3px solid #b9d6ec;border-color:var(--accent)}
 .el>h3{background:var(--bar);border-radius:6px;font-size:1.06em;font-weight:700;margin:22px 0 12px;padding:10px 14px}
 .el p{margin:0 0 11px}
 .el ul,.el ol{margin:0 0 12px;padding-left:28px}
+.el ol{padding-left:34px}
 .el li{margin:0 0 8px}
 .read.nomark .el ul{list-style:none;padding-left:28px}
 .read.nomark .el ul ul{padding-left:28px;margin-top:8px}
@@ -195,11 +196,11 @@ function device() {
   const w = window.innerWidth;
   return { w, h: window.innerHeight, touch: 'ontouchstart' in window, kind: w < 600 ? 'phone' : w < 1024 ? 'tablet' : 'desktop' };
 }
-const T = k => (C.texts || {})[k] || '';
-function vars(extra) {
-  const r = C.researcher || {}, st = C.settings || {};
-  const n = S && S.methods.length && MODE !== 'baseline' ? S.methods.length : ((C.allocation || {}).perPerson || 3);
-  return Object.assign({ n, minutes: MODE === 'baseline' ? (st.baselineMinutes || 10) : (st.minutes || 25), count: ISP.activeMethods(C).length,
+const T = k => ((C && C.texts) || {})[k] || '';
+function vars(extra) {   // C is still null on the messages shown before the content has loaded
+  const c = C || {}, r = c.researcher || {}, st = c.settings || {};
+  const n = S && S.methods.length && MODE !== 'baseline' ? S.methods.length : ((c.allocation || {}).perPerson || 3);
+  return Object.assign({ n, minutes: MODE === 'baseline' ? (st.baselineMinutes || 10) : (st.minutes || 25), count: C ? ISP.activeMethods(C).length : 0,
     researcher: r.name || '', affiliation: r.affiliation || '', email: r.email || '', pid: (S && S.pid) || '' }, extra || {});
 }
 const fill = (t, extra) => ISP.fill(t, { group: S && S.group, vars: vars(extra) });
@@ -848,7 +849,8 @@ async function boot() {
     } else S.group = '';
     buildFlow(); return render();
   }
-  if (!API) return message('Study link incomplete', 'This page needs the full study link. Please check that you copied the whole link you were sent.');
+  if (!API) return message('Study link incomplete', 'This page needs the full study link. Please check that you copied the whole link you were sent.',
+    h('p', { class: 'muted small' }, 'Running this study? Open the ', h('a', { href: 'editor.html' }, 'study editor'), ', which gives you the links for participants.'));
   const resume = Q.get('resume');
   try {
     if (resume && /^[A-Z]{1,2}\d+\.[a-z0-9]{12,40}$/i.test(resume)) {
