@@ -551,8 +551,8 @@ function blockFor(i) {
   return b;
 }
 function knowledge(m, b, ctx) {
-  const st = C.settings || {}, out = [];
-  (m.knowledge || []).forEach((q, qi) => {
+  const st = C.settings || {}, out = [], ks = ISP.kq(C, m);
+  ks.forEach((q, qi) => {
     if (!b.order[q.id]) {
       let ids = (q.options || []).map(o => o.id);
       if (st.shuffleOptions !== false) ids = ISP.shuffle(ids);
@@ -562,7 +562,7 @@ function knowledge(m, b, ctx) {
     const opts = b.order[q.id].map(id => id === '_dk' ? { id, text: "I don't know" } : (q.options || []).find(o => o.id === id)).filter(Boolean);
     const fs = question({ id: q.id, type: 'single', text: q.stem, options: opts, long: true }, b.answers, ctx);
     fs.classList.add('kq');
-    fs.prepend(h('div', { class: 'label' }, 'Question ' + (qi + 1) + ' of ' + (m.knowledge || []).length));
+    fs.prepend(h('div', { class: 'label' }, 'Question ' + (qi + 1) + ' of ' + ks.length));
     out.push(fs);
   });
   return out;
@@ -670,7 +670,7 @@ function missing(page) {
   if (page.type === 'part') check(page.part.items || [], S.answers);
   if (page.type === 'ask' || page.type === 'guess') {
     const m = ISP.methodById(C, S.methods[page.i]), b = blockFor(page.i);
-    (m.knowledge || []).forEach(q => { if (b.answers[q.id] === undefined) out.push(q.id); });
+    ISP.kq(C, m).forEach(q => { if (b.answers[q.id] === undefined) out.push(q.id); });
     if (page.type === 'ask') check((C.perMethod || {}).items || [], b.answers);
   }
   return out;
@@ -837,6 +837,7 @@ async function boot() {
     });
     if (!got || !got.content) return message('Preview', 'Open the preview from the editor (Preview button).');
     C = got.content; VER = 0; PV = got.opts || {};
+    if (MODE === 'baseline' && !ISP.knowledgeOn(C)) return message('Preview', 'The non-reader baseline needs the knowledge questions, which are switched off (Method descriptions).');
     S = freshState(); S.group = PV.group || '';
     if (PV.start === 'reading' && MODE !== 'baseline') {
       S.pid = 'PREVIEW'; S.status = 'allocated';
@@ -884,6 +885,7 @@ async function boot() {
     if (cr.status === 'empty') return message('Not open yet', 'This study is not ready yet. Please try again later.');
     C = cr.content; VER = cr.version;
     if (cr.status === 'closed') { $('#brand').textContent = C.title; return message('Thank you', T('closed')); }
+    if (MODE === 'baseline' && !ISP.knowledgeOn(C)) { $('#brand').textContent = C.title; return message('Link not in use', 'This link is not in use for this study. Please check that you copied the whole link you were sent.'); }
     startFresh();
   } catch (e) {
     message('Cannot reach the study', 'The study server did not answer (' + ISP.esc(e.message) + '). Please check your connection and reload the page in a moment.');

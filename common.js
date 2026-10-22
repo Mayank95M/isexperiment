@@ -251,6 +251,9 @@
   ISP.methodById = (c, id) => (c.methods || []).find(m => m.id === id) || null;
   ISP.phaseLabel = (c, id) => ((c.phases || []).find(p => p.id === id) || {}).label || id || '';
   ISP.activeMethods = c => (c.methods || []).filter(m => m.on !== false);
+  // the knowledge questions can be switched off for the whole study (settings.knowledge === false); they stay stored
+  ISP.knowledgeOn = c => !(c && c.settings && c.settings.knowledge === false);
+  ISP.kq = (c, m) => (ISP.knowledgeOn(c) && m && m.knowledge) || [];
   ISP.allItems = c => {
     const out = [];
     (c.parts || []).forEach(p => (p.items || []).forEach(it => out.push({ part: p, item: it })));
@@ -313,14 +316,14 @@
       if (m.on === false) return;
       const empty = (c.elements || []).filter(e => !String((m.elements || {})[e.id] || '').trim()).map(e => e.label);
       if (empty.length) warn(w, 'Empty information element' + (empty.length > 1 ? 's' : '') + ': ' + empty.join(', ') + '.');
-      (m.knowledge || []).forEach(q => {
+      ISP.kq(c, m).forEach(q => {
         if (!q.stem || !(q.options || []).length) err(w, q.id + ' needs a question and answer options.');
         else if (!(q.options || []).some(o => o.id === q.key)) err(w, q.id + ' has no correct answer marked.');
         if ((q.options || []).some(o => !String(o.text || '').trim())) err(w, q.id + ' has an empty answer option.');
       });
-      if (!(m.knowledge || []).length) warn(w, 'It has no knowledge questions.');
+      if (ISP.knowledgeOn(c) && !(m.knowledge || []).length) warn(w, 'It has no knowledge questions.');
     });
-    const kq = active.map(m => (m.knowledge || []).map(q => q.id).join(','));
+    const kq = active.map(m => ISP.kq(c, m).map(q => q.id).join(','));
     if (new Set(kq).size > 1) warn('Methods', 'Methods have different knowledge question codes (' + [...new Set(kq)].join(' / ') + '); the per-method data are easier to compare when every method uses the same codes.');
     const gi = [];
     (c.parts || []).forEach(p => (p.items || []).forEach(it => { if (it.role === 'group') gi.push(it); }));
@@ -351,7 +354,7 @@
       if (it.type === 'matrix' || it.type === 'email') err(w, 'This kind of question cannot be asked after each method description.');
     });
     const pm = new Set(((c.perMethod || {}).items || []).map(i => i.id));
-    active.forEach(m => (m.knowledge || []).forEach(q => { if (pm.has(q.id)) err('Method "' + m.name + '"', 'Knowledge question ' + q.id + ' has the same code as a question after each method description.'); }));
+    active.forEach(m => ISP.kq(c, m).forEach(q => { if (pm.has(q.id)) err('Method "' + m.name + '"', 'Knowledge question ' + q.id + ' has the same code as a question after each method description.'); }));
     const q = c.quality || {};
     const all = new Set(Object.keys(seen));
     (q.attention || []).forEach(a => { if (!all.has(a.id)) warn('Data quality', 'Instructed item ' + a.id + ' is not in the questionnaire.'); });
@@ -486,7 +489,7 @@
     // per method: knowledge right or wrong, the ratings, reading time
     (s.blocks || []).forEach((b, i) => {
       const m = ISP.methodById(c, b.method) || { knowledge: [] }, o = { position: i + 1, method: b.method, phase: m.phase, answers: b.answers || {}, right: 0, asked: 0 };
-      (m.knowledge || []).forEach(k => {
+      ISP.kq(c, m).forEach(k => {
         const v = (b.answers || {})[k.id];
         o.asked++;
         o[k.id + '_ok'] = v === undefined ? null : (v === k.key ? 1 : 0);
