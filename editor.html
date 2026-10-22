@@ -1,0 +1,1692 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Study editor: IS perception study</title>
+<style>
+:root{color-scheme:light;--ink:#1c2328;--ink2:#52514e;--muted:#6b737a;--line:#dde2e6;--soft:#eef1f4;--bg:#f4f5f7;--card:#fff;--accent:#24597f;--accent-d:#1b4766;--sel:#e3eef7;
+  --good:#0ca30c;--good-t:#006300;--crit:#d03b3b;--warn:#b07800;--warnbg:#fff6dc;--errbg:#fdeceb;--okbg:#e9f6e9;--s1:#2a78d6;--track:#cde2fb}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:14.5px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif}
+a{color:var(--accent)}
+header.bar{position:sticky;top:0;z-index:30;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;padding:8px 16px;flex-wrap:wrap}
+.logo{font-weight:700;font-size:15px;white-space:nowrap}
+.logo span{color:var(--muted);font-weight:500}
+.stitle{color:var(--muted);flex:1;min-width:120px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.savest{font-size:12.5px;color:var(--muted);white-space:nowrap}
+.savest.err{color:var(--crit)}
+.layout{display:grid;grid-template-columns:232px minmax(0,1fr);min-height:calc(100vh - 50px)}
+nav.side{background:#fff;border-right:1px solid var(--line);padding:12px 8px;position:sticky;top:50px;height:calc(100vh - 50px);overflow:auto}
+nav.side button{display:flex;width:100%;text-align:left;border:none;background:none;padding:8px 12px;border-radius:7px;font:inherit;color:var(--ink);cursor:pointer;gap:8px;align-items:center}
+nav.side button:hover{background:var(--soft)}
+nav.side button.on{background:var(--sel);color:var(--accent-d);font-weight:600}
+nav.side .cnt{margin-left:auto;font-size:12px;color:var(--muted)}
+nav.side .sep{height:1px;background:var(--line);margin:8px 6px}
+main#main{padding:20px 24px 60px;max-width:1240px;width:100%}
+h1{font-size:22px;margin:0 0 4px}
+h2{font-size:17px;margin:0 0 10px}
+h3{font-size:15px;margin:16px 0 8px}
+.sub{color:var(--muted);margin:0 0 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin:0 0 14px}
+.card.tight{padding:10px 14px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media (max-width:980px){.layout{grid-template-columns:1fr}nav.side{position:static;height:auto;display:flex;flex-wrap:wrap}nav.side button{width:auto}.grid2,.grid3{grid-template-columns:1fr}}
+label.f{display:block;margin:0 0 12px}
+label.f>span.l{display:block;font-weight:600;font-size:13px;margin:0 0 4px}
+label.f>span.hint,.hint{display:block;font-size:12.5px;color:var(--muted);margin-top:3px}
+input[type=text],input[type=number],input[type=url],input[type=password],input[type=email],select,textarea{font:inherit;border:1px solid #bcc6ce;border-radius:6px;padding:7px 9px;width:100%;background:#fff;color:var(--ink)}
+input[type=number]{width:110px}
+textarea{resize:vertical;min-height:60px;line-height:1.45}
+textarea.md{font-family:inherit}
+input:focus,select:focus,textarea:focus{outline:2px solid #9fc4e3;border-color:var(--accent)}
+.bad{border-color:var(--crit)!important;background:var(--errbg)!important}
+.inline{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.inline>label{display:flex;gap:6px;align-items:center}
+label.chk{display:flex;gap:8px;align-items:flex-start;margin:6px 0;cursor:pointer}
+label.chk input{flex:none;margin:3px 0 0;width:16px;height:16px;accent-color:var(--accent)}
+.btn{border:1px solid var(--accent);background:var(--accent);color:#fff;border-radius:7px;padding:7px 14px;font:inherit;font-weight:600;cursor:pointer;white-space:nowrap}
+.btn:hover{background:var(--accent-d)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.sec{background:#fff;color:var(--accent)}
+.btn.sec:hover{background:var(--sel)}
+.btn.small{padding:3px 9px;font-size:13px;font-weight:500}
+.btn.danger{background:#fff;color:var(--crit);border-color:#e3a5a5}
+.btn.danger:hover{background:var(--errbg)}
+.btn.ghost{border-color:transparent;background:none;color:var(--accent)}
+.btn.ghost:hover{background:var(--soft)}
+.icons{display:inline-flex;gap:2px}
+.icons button{border:1px solid transparent;background:none;border-radius:5px;padding:2px 6px;cursor:pointer;color:var(--muted);font-size:13px}
+.icons button:hover{background:var(--soft);color:var(--ink);border-color:var(--line)}
+.icons button.del:hover{color:var(--crit)}
+table.tbl{border-collapse:collapse;width:100%;font-size:13.5px}
+table.tbl th,table.tbl td{border-bottom:1px solid var(--soft);padding:6px 8px;text-align:left;vertical-align:top}
+table.tbl th{font-size:12px;color:var(--muted);font-weight:600;border-bottom:1px solid var(--line);white-space:nowrap}
+table.tbl td.n,table.tbl th.n{text-align:right;font-variant-numeric:tabular-nums}
+table.tbl tr:hover td{background:#fafbfc}
+.scroll{overflow-x:auto}
+.badge{display:inline-flex;gap:4px;align-items:center;font-size:12px;border-radius:999px;padding:1px 8px;background:var(--soft);color:var(--ink2);white-space:nowrap}
+.badge.ok{background:var(--okbg);color:var(--good-t)}
+.badge.err{background:var(--errbg);color:var(--crit)}
+.badge.warn{background:var(--warnbg);color:#7a5400}
+.badge.blue{background:var(--sel);color:var(--accent-d)}
+.msg{border-radius:8px;padding:10px 12px;margin:8px 0;font-size:13.5px}
+.msg.err{background:var(--errbg);color:#8c1d18}
+.msg.warn{background:var(--warnbg);color:#5e4300}
+.msg.ok{background:var(--okbg);color:var(--good-t)}
+.msg.info{background:var(--sel);color:var(--accent-d)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;margin-bottom:14px}
+.tile{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.tile .tl{font-size:12.5px;color:var(--muted)}
+.tile .tv{font-size:28px;font-weight:600;line-height:1.2;margin:2px 0}
+.tile .td{font-size:12.5px;color:var(--ink2)}
+.meter{height:8px;background:var(--track);border-radius:4px;overflow:hidden;margin-top:6px}
+.meter>div{height:100%;background:var(--s1);border-radius:0 4px 4px 0}
+.barcell{display:flex;align-items:center;gap:6px;min-width:120px}
+.barcell .b{height:10px;background:var(--s1);border-radius:0 4px 4px 0;min-width:1px}
+.barcell .v{font-size:12.5px;color:var(--ink2);font-variant-numeric:tabular-nums;white-space:nowrap}
+.heat td.hc{text-align:center;font-variant-numeric:tabular-nums;border:2px solid #fff;border-radius:4px}
+.itemrow{display:grid;grid-template-columns:70px 132px minmax(0,1fr) auto;gap:8px;align-items:center;border:1px solid var(--line);border-radius:8px;padding:6px 8px;margin:6px 0;background:#fff}
+.itemrow .code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;font-weight:600}
+.itemrow .txt{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
+.itemrow.open{border-color:var(--accent);border-bottom-left-radius:0;border-bottom-right-radius:0;margin-bottom:0;background:var(--sel)}
+.itemed{border:1px solid var(--accent);border-top:none;border-radius:0 0 8px 8px;padding:12px;margin:0 0 8px;background:#fcfdfe}
+.opts-ed .orow{display:grid;grid-template-columns:28px minmax(0,1fr) auto auto;gap:6px;align-items:center;margin:4px 0}
+.mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px}
+.preview{border:1px solid var(--line);border-radius:8px;padding:12px 16px;background:#fff;max-height:none}
+.preview p{margin:0 0 8px}
+.mded{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+.mded .elrow{margin:0 0 14px}
+.mded .elrow .eh{display:flex;justify-content:space-between;align-items:baseline;font-weight:600;font-size:13px;margin-bottom:3px}
+.mded .pv{position:sticky;top:62px;max-height:calc(100vh - 80px);overflow:auto;border:1px solid var(--line);border-radius:10px;background:#fff;padding:0 18px 18px}
+@media (max-width:1100px){.mded{grid-template-columns:1fr}.mded .pv{position:static;max-height:none}}
+/* method description preview: same look as the participant page */
+.read{font-size:15px;line-height:1.6}
+.read .mname{font-size:24px;font-weight:700;margin:10px 0 6px;padding-bottom:8px;border-bottom:2px solid var(--soft)}
+.read .el>h3{background:#f2f2f2;border-radius:6px;font-size:1.04em;font-weight:700;margin:18px 0 10px;padding:8px 12px}
+.read .el p{margin:0 0 9px}
+.read .el ul,.read .el ol{margin:0 0 10px;padding-left:24px}
+.read .el li{margin:0 0 6px}
+.read.nomark .el ul{list-style:none}
+.tablewrap{overflow-x:auto;margin:6px 0 12px}
+table.mdt{border-collapse:collapse;font-size:.93em}
+table.mdt td,table.mdt th{border:1px solid #444;padding:5px 9px;vertical-align:top;text-align:left}
+table.mdt th{background:#f2f2f2}
+.kq{border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:0 0 12px;background:#fff}
+.modal{position:fixed;inset:0;background:rgba(20,30,40,.45);z-index:60;display:flex;align-items:flex-start;justify-content:center;padding:40px 16px;overflow:auto}
+.modal[hidden]{display:none}
+.modal .box{background:#fff;border-radius:12px;max-width:760px;width:100%;padding:20px 22px;box-shadow:0 10px 40px rgba(0,0,0,.25)}
+.modal .box.wide{max-width:1100px}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:#1c2328;color:#fff;padding:9px 16px;border-radius:8px;font-size:13.5px;z-index:80;opacity:0;transition:opacity .2s;pointer-events:none;max-width:90vw}
+.toast.on{opacity:1}
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid #c9d6e0;border-top-color:var(--accent);border-radius:50%;animation:sp 1s linear infinite;vertical-align:-2px;margin-right:6px}
+@keyframes sp{to{transform:rotate(360deg)}}
+pre.code{background:#f6f7f8;border:1px solid var(--line);border-radius:6px;padding:8px 10px;font-size:12px;white-space:pre-wrap;max-height:300px;overflow:auto}
+.steps li{margin:0 0 8px}
+.kbd{font-family:ui-monospace,Menlo,Consolas,monospace;background:var(--soft);border-radius:4px;padding:0 4px;font-size:12.5px}
+.pill-row{display:flex;gap:6px;flex-wrap:wrap}
+details>summary{cursor:pointer;font-weight:600}
+.muted{color:var(--muted)}
+.right{text-align:right}
+.mt{margin-top:12px}
+</style>
+<script src="common.js"></script>
+</head>
+<body>
+<header class="bar">
+  <div class="logo">Study editor <span>· IS perception study</span></div>
+  <div class="stitle" id="stitle"></div>
+  <div class="savest" id="savest"></div>
+  <button class="btn sec small" id="pv-btn" type="button">Preview</button>
+  <button class="btn small" id="pub-btn" type="button">Publish</button>
+</header>
+<div class="layout">
+  <nav class="side" id="nav" aria-label="Sections"></nav>
+  <main id="main"></main>
+</div>
+<div class="modal" id="modal" hidden></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+'use strict';
+/* =====================================================================================
+   IS perception study: the researcher's editor. Part 1: core (state, backend, layout,
+   form helpers), Connect & set up, Overview.
+   ===================================================================================== */
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
+const h = (tag, attrs, ...kids) => {
+  const e = document.createElement(tag);
+  Object.entries(attrs || {}).forEach(([k, v]) => {
+    if (v === null || v === undefined || v === false) return;
+    if (k === 'class') e.className = v; else if (k === 'html') e.innerHTML = v; else if (k === 'style' && typeof v === 'object') Object.assign(e.style, v);
+    else if (k.startsWith('on') && typeof v === 'function') e.addEventListener(k.slice(2), v); else e.setAttribute(k, v === true ? '' : v);
+  });
+  kids.flat(Infinity).forEach(k => { if (k !== null && k !== undefined && k !== false) e.append(k.nodeType ? k : document.createTextNode(String(k))); });
+  return e;
+};
+const ls = {
+  get(k) { try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { return null; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } },
+  del(k) { try { localStorage.removeItem(k); } catch (e) { } }
+};
+const LS = 'isp-editor1';
+const E = { conn: null, draft: null, saved: '', published: 0, status: '', sheet: null, sheetUrl: '', dirty: false, section: 'overview', methodId: null,
+  open: new Set(), data: null, vc: {}, versions: [], pendingKey: '' };
+const fmtTime = iso => { if (!iso) return ''; const d = new Date(iso); return isNaN(d) ? String(iso) : d.toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' }); };
+const pct = (x, d = 0) => x === null || x === undefined || !isFinite(x) ? '–' : (x * 100).toFixed(d) + '%';
+const fix = (x, d = 2) => x === null || x === undefined || !isFinite(x) ? '–' : Number(x).toFixed(d);
+const C = () => E.draft;
+
+function toast(msg, ms = 2800) { const t = $('#toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('on'), ms); }
+function modal(kids, opts = {}) {
+  const m = $('#modal'); m.innerHTML = '';
+  const box = h('div', { class: 'box' + (opts.wide ? ' wide' : ''), role: 'dialog', 'aria-modal': 'true' }, kids);
+  m.append(box); m.hidden = false;
+  m.onclick = e => { if (e.target === m && !opts.sticky) closeModal(); };
+  const f = box.querySelector('input, textarea, select, button'); if (f) f.focus();
+  return box;
+}
+function closeModal() { $('#modal').hidden = true; $('#modal').innerHTML = ''; }
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('#modal').hidden) closeModal(); });
+function ask(title, text, ok = 'OK', danger = false) {
+  return new Promise(res => {
+    modal([h('h2', {}, title), typeof text === 'string' ? h('p', {}, text) : text,
+      h('div', { class: 'inline mt', style: { justifyContent: 'flex-end' } },
+        h('button', { class: 'btn sec', type: 'button', onclick: () => { closeModal(); res(false); } }, 'Cancel'),
+        h('button', { class: 'btn' + (danger ? ' danger' : ''), type: 'button', onclick: () => { closeModal(); res(true); } }, ok))]);
+  });
+}
+function download(name, blobOrText, type = 'application/json') {
+  const blob = blobOrText instanceof Blob ? blobOrText : new Blob([blobOrText], { type });
+  const a = h('a', { href: URL.createObjectURL(blob), download: name });
+  document.body.append(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+}
+const stamp = () => new Date().toISOString().slice(0, 16).replace(/[-:T]/g, '').replace(/^(\d{8})(\d{4})$/, '$1_$2');
+
+/* ------------------------------------------------------------------ keeping the draft */
+function loadLocal() {
+  const s = ls.get(LS) || {};
+  E.conn = s.conn || null; E.draft = s.draft || null; E.saved = s.saved || ''; E.section = s.section || 'overview'; E.methodId = s.methodId || null;
+  E.dirty = !!s.dirty; E.pendingKey = s.pendingKey || '';
+}
+function saveLocal() {
+  const ok = ls.set(LS, { conn: E.conn, draft: E.draft, saved: E.saved, section: E.section, methodId: E.methodId, dirty: E.dirty, pendingKey: E.pendingKey });
+  if (!ok) setSave('This browser could not keep a copy (storage full)', true);
+}
+async function api(action, data, tries = 2) {
+  if (!E.conn || !E.conn.url) throw new Error('Not connected to a backend yet (see Connect & set up).');
+  let last;
+  for (let i = 0; i < tries; i++) {
+    try {
+      const res = await fetch(E.conn.url, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(Object.assign({ action, key: E.conn.key }, data || {})) });
+      const j = await res.json();
+      if (j.ok) return j;
+      const err = new Error(j.error || 'The backend said no.');
+      err.conflict = j.conflict; err.server = !j.busy;
+      if (!j.busy) throw err;
+      last = err;
+    } catch (e) { if (e.server) throw e; last = e; }
+    await new Promise(r => setTimeout(r, 800 * (i + 1)));
+  }
+  throw last;
+}
+let pushTimer = null;
+function touch(rerender) {
+  E.dirty = true;
+  saveLocal();
+  setSave(E.conn ? 'Saving…' : 'Changes kept in this browser');
+  clearTimeout(pushTimer);
+  if (E.conn) pushTimer = setTimeout(() => pushDraft(), 1400);
+  $('#stitle').textContent = (E.draft && E.draft.title) || '';
+  if (rerender) render();
+}
+async function pushDraft(force) {
+  if (!E.conn || !E.draft) return;
+  try {
+    const r = await api('saveDraft', { content: E.draft, base: E.saved, force: !!force });
+    E.saved = r.saved; E.dirty = false; saveLocal();
+    setSave('Saved to your Sheet ' + new Date().toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' }));
+  } catch (e) {
+    if (e.conflict) {
+      setSave('Not saved: changed elsewhere', true);
+      modal([h('h2', {}, 'The draft was changed somewhere else'), h('p', {}, e.message + ' Which version do you want to keep?'),
+        h('div', { class: 'inline mt' },
+          h('button', { class: 'btn sec', type: 'button', onclick: async () => { closeModal(); const d = await api('getDraft'); E.draft = d.draft; E.saved = d.saved; E.dirty = false; saveLocal(); render(); toast('Loaded the other version.'); } }, 'Load the other version'),
+          h('button', { class: 'btn', type: 'button', onclick: () => { closeModal(); pushDraft(true); } }, 'Keep mine (overwrite)'))], { sticky: true });
+    } else setSave('Not saved: ' + e.message, true);
+  }
+}
+function setSave(text, err) { const s = $('#savest'); s.textContent = text; s.classList.toggle('err', !!err); }
+window.addEventListener('beforeunload', e => { if (E.dirty && E.conn) { pushDraft(); e.preventDefault(); e.returnValue = ''; } });
+
+/* ------------------------------------------------------------------ layout */
+const NAV = [['overview', 'Overview'], ['texts', 'Study texts'], ['methods', 'Method descriptions'], ['structure', 'Elements, phases, groups'], ['questions', 'Questionnaire'],
+  ['allocation', 'Allocation'], ['quality', 'Screening rules'], null, ['publish', 'Publish & versions'], ['data', 'Data & Excel export'], ['connect', 'Connect & set up']];
+const VIEWS = {};
+function renderNav() {
+  const nav = $('#nav'); nav.innerHTML = '';
+  NAV.forEach(n => {
+    if (!n) { nav.append(h('div', { class: 'sep' })); return; }
+    const [id, label] = n;
+    let cnt = '';
+    if (E.draft && id === 'methods') cnt = ISP.activeMethods(E.draft).length + '/' + (E.draft.methods || []).length;
+    if (E.draft && id === 'questions') cnt = String(ISP.allItems(E.draft).filter(x => x.item.type !== 'note').length);
+    const on = E.section === id || (id === 'methods' && E.section === 'method');
+    nav.append(h('button', { type: 'button', class: on ? 'on' : '', onclick: () => go(id) }, label, cnt ? h('span', { class: 'cnt' }, cnt) : null));
+  });
+}
+function go(section, arg) {
+  if (arg !== undefined) E.methodId = arg;
+  E.section = section; saveLocal(); render(); window.scrollTo(0, 0);
+}
+function render() {
+  renderNav();
+  $('#stitle').textContent = (E.draft && E.draft.title) || '';
+  const main = $('#main'), y = window.scrollY, same = render.last === E.section + ':' + E.methodId;
+  main.innerHTML = '';
+  if (!E.draft && E.section !== 'connect') main.append(noContent());
+  else main.append((VIEWS[E.section] || VIEWS.overview)());
+  render.last = E.section + ':' + E.methodId;
+  if (same) window.scrollTo(0, y);
+}
+function noContent() {
+  return h('div', {}, h('h1', {}, 'No study content yet'),
+    h('p', { class: 'sub' }, 'Load the starting content (the file IS_perception_content.json from the kit), or connect to a backend that already has it.'),
+    h('div', { class: 'card' }, h('div', { class: 'inline' },
+      h('button', { class: 'btn', type: 'button', onclick: () => openFile() }, 'Open a content file…'),
+      h('button', { class: 'btn sec', type: 'button', onclick: () => go('connect') }, 'Connect & set up'))));
+}
+function openFile() {
+  const inp = h('input', { type: 'file', accept: '.json,application/json' });
+  inp.onchange = async () => {
+    const f = inp.files[0]; if (!f) return;
+    try {
+      const c = JSON.parse(await f.text());
+      if (!c || c.kind !== 'perception' || !c.methods || !c.parts) throw new Error('This file is not content for the IS perception study.');
+      if (E.draft && !(await ask('Replace the draft?', 'The draft you are editing will be replaced by the file "' + f.name + '".', 'Replace'))) return;
+      E.draft = migrate(c); touch(); go('overview'); toast('Loaded ' + f.name);
+    } catch (e) { toast('Could not open the file: ' + e.message, 5000); }
+  };
+  inp.click();
+}
+// fills in anything an older content file lacks, so the editor and pages can rely on it
+function migrate(c) {
+  c.texts = c.texts || {}; c.groups = c.groups || []; c.phases = c.phases || []; c.elements = c.elements || []; c.methods = c.methods || []; c.parts = c.parts || [];
+  c.perMethod = c.perMethod || { title: '{method}: a few questions', items: [] }; c.perMethod.items = c.perMethod.items || [];
+  c.scales = c.scales || {}; c.constructs = c.constructs || []; c.researcher = c.researcher || {};
+  c.allocation = Object.assign({ perPerson: 3, order: 'balanced', holdMinutes: 120, randomness: 0, sets: [], weights: { method: 4, position: 2, pair: 1, phase: 0, overall: 1 } }, c.allocation || {});
+  c.settings = Object.assign({ minutes: 25, baselineMinutes: 10, openBook: 'side', listMarkers: 'none', minReadSeconds: 0, shuffleOptions: true, dontKnow: false, allowBack: true, elementNav: false, closeWhenFull: false }, c.settings || {});
+  c.quality = Object.assign({ attention: [], infrequency: [], pairs: [], pairGap: 4, pairFlags: 2, excludeAtFlags: 2 }, c.quality || {});
+  c.methods.forEach(m => { m.elements = m.elements || {}; m.knowledge = m.knowledge || []; if (m.on === undefined) m.on = true; });
+  return c;
+}
+
+/* ------------------------------------------------------------------ form helpers (each writes straight into the draft) */
+function F(label, control, hint) { return h('label', { class: 'f' }, label ? h('span', { class: 'l' }, label) : null, control, hint ? h('span', { class: 'hint' }, hint) : null); }
+function autosize(t) { t.style.height = 'auto'; t.style.height = Math.min(900, Math.max(t.scrollHeight + 2, 60)) + 'px'; }
+function tx(obj, key, o = {}) {
+  const i = h('input', { type: 'text', value: obj[key] == null ? '' : obj[key], placeholder: o.ph || '', class: o.mono ? 'mono' : null, style: o.w ? { width: o.w } : null, maxlength: o.max || null });
+  i.addEventListener('input', () => { obj[key] = o.clean ? o.clean(i.value) : i.value; if (o.on) o.on(i); touch(); });
+  if (o.blur) i.addEventListener('change', () => o.blur(i));
+  return i;
+}
+function nm(obj, key, o = {}) {
+  const i = h('input', { type: 'number', value: obj[key] == null ? '' : obj[key], min: o.min, max: o.max, step: o.step || 1, style: o.w ? { width: o.w } : null });
+  i.addEventListener('input', () => { if (i.value === '') { if (o.blank) delete obj[key]; else return; } else obj[key] = Number(i.value); if (o.on) o.on(i); touch(); });
+  return i;
+}
+function ar(obj, key, o = {}) {
+  const t = h('textarea', { class: o.md ? 'md' : null, rows: o.rows || 3, placeholder: o.ph || '' }, obj[key] == null ? '' : obj[key]);
+  t.addEventListener('input', () => { obj[key] = t.value; autosize(t); if (o.on) o.on(t); touch(); });
+  requestAnimationFrame(() => autosize(t));
+  if (!o.preview) return t;
+  const pv = h('div', { class: 'preview', hidden: true });
+  const tog = h('button', { class: 'btn ghost small', type: 'button', onclick: () => { pv.hidden = !pv.hidden; tog.textContent = pv.hidden ? 'Show as participants see it' : 'Hide preview'; upd(); } }, 'Show as participants see it');
+  const groups = (C().groups || []).map(g => g.id);
+  const upd = () => { if (!pv.hidden) pv.innerHTML = ISP.md(ISP.fill(t.value, { group: groups[groups.length - 1], vars: sampleVars() })); };
+  t.addEventListener('input', upd);
+  return h('div', {}, t, h('div', { class: 'inline' }, tog, h('span', { class: 'hint' }, o.previewNote || 'Preview shown for group ' + (groups[groups.length - 1] || ''))), pv);
+}
+function ck(obj, key, label, o = {}) {
+  const i = h('input', { type: 'checkbox', checked: (o.invert ? !obj[key] : !!obj[key]) ? true : null });
+  i.addEventListener('change', () => { obj[key] = o.invert ? !i.checked : i.checked; if (o.on) o.on(i); touch(o.rerender); });
+  return h('label', { class: 'chk' }, i, h('span', {}, label));
+}
+function sl(obj, key, options, o = {}) {
+  const s = h('select', { style: o.w ? { width: o.w } : null }, options.map(([v, l]) => h('option', { value: v, selected: String(obj[key] == null ? '' : obj[key]) === String(v) ? true : null }, l)));
+  s.addEventListener('change', () => { obj[key] = o.num ? Number(s.value) : s.value; if (o.on) o.on(s); touch(o.rerender); });
+  return s;
+}
+function groupsPicker(obj, key = 'showTo', o = {}) {
+  const gs = C().groups || [], cur = obj[key] || [];
+  return h('div', { class: 'inline' }, h('span', { class: 'muted small' }, o.label || 'Shown to:'),
+    gs.map(g => {
+      const i = h('input', { type: 'checkbox', checked: !cur.length || cur.indexOf(g.id) >= 0 ? true : null });
+      i.addEventListener('change', () => {
+        const boxes = $$('input', i.closest('.inline')), sel = gs.filter((x, k) => boxes[k].checked).map(x => x.id);
+        if (!sel.length) { i.checked = true; toast('At least one group must see it.'); return; }
+        if (sel.length === gs.length) delete obj[key]; else obj[key] = sel;
+        touch(o.rerender);
+      });
+      return h('label', {}, i, g.id);
+    }));
+}
+// up / down / copy / delete buttons for an item in an array
+function arrayButtons(arr, i, o = {}) {
+  const mv = d => { const j = i + d; if (j < 0 || j >= arr.length) return; [arr[i], arr[j]] = [arr[j], arr[i]]; touch(true); };
+  return h('span', { class: 'icons' },
+    h('button', { type: 'button', title: 'Move up', 'aria-label': 'Move up', disabled: i === 0 ? true : null, onclick: () => mv(-1) }, '↑'),
+    h('button', { type: 'button', title: 'Move down', 'aria-label': 'Move down', disabled: i === arr.length - 1 ? true : null, onclick: () => mv(1) }, '↓'),
+    o.copy ? h('button', { type: 'button', title: 'Duplicate', 'aria-label': 'Duplicate', onclick: () => { arr.splice(i + 1, 0, o.copy(ISP.clone(arr[i]))); touch(true); } }, '⧉') : null,
+    o.noDelete ? null : h('button', { type: 'button', class: 'del', title: 'Delete', 'aria-label': 'Delete', onclick: async () => {
+      if (o.confirm && !(await ask('Delete?', o.confirm, 'Delete', true))) return;
+      arr.splice(i, 1); if (o.after) o.after(); touch(true);
+    } }, '✕'));
+}
+function sampleVars() {
+  const r = C().researcher || {}, st = C().settings || {};
+  return { n: (C().allocation || {}).perPerson || 3, minutes: st.minutes || 25, count: ISP.activeMethods(C()).length, researcher: r.name || '', affiliation: r.affiliation || '', email: r.email || '', pid: 'P001', method: 'Lotus Blossom', phase: 'Ideate', position: 1 };
+}
+function uniqueId(base, taken) { let id = ISP.slug(base).replace(/^(\d)/, 'x$1'), k = 2; const t = new Set(taken); if (!t.has(id)) return id; while (t.has(id + '_' + k)) k++; return id + '_' + k; }
+
+/* ------------------------------------------------------------------ backend links */
+function backendId() { const m = String((E.conn || {}).url || '').match(/\/macros\/s\/([A-Za-z0-9_-]+)\/exec/); return m ? m[1] : null; }
+function studyLink(extra) {
+  const base = location.href.split('?')[0].split('#')[0].replace(/editor\.html$/, 'index.html').replace(/\/$/, '/index.html');
+  const q = new URLSearchParams();
+  const id = backendId();
+  if (id) q.set('s', id); else if (E.conn && E.conn.url) q.set('api', E.conn.url);
+  Object.entries(extra || {}).forEach(([k, v]) => { if (v) q.set(k, v); });
+  return base + '?' + q.toString();
+}
+function copyRow(value, label = 'Copy') {
+  const i = h('input', { type: 'text', readonly: true, value, class: 'mono' });
+  return h('div', { class: 'inline', style: { flexWrap: 'nowrap' } }, i, h('button', { class: 'btn sec small', type: 'button', onclick: () => { i.select(); (navigator.clipboard ? navigator.clipboard.writeText(value) : Promise.reject()).catch(() => document.execCommand('copy')); toast('Copied'); } }, label));
+}
+
+/* ------------------------------------------------------------------ Connect & set up */
+const CODE_GS = "/**\n * IS perception study: backend.\n * A Google Apps Script bound to a Google Sheet. It keeps the study content (a draft and every\n * published version), gives each participant three method descriptions from three different\n * design phases by minimisation (balanced per group), saves answers as they go, scores the\n * knowledge questions with keys participants never receive, and keeps email addresses apart.\n *\n * Setup: in your Google Sheet choose Extensions > Apps Script, replace the sample code with this\n * file and SAVE; then Deploy > New deployment > type: Web app, Execute as: Me, Who has access:\n * Anyone. Copy the web app URL and paste it into the editor (editor.html > Connect).\n * After changing this script: Deploy > Manage deployments > pencil > Version: New version > Deploy.\n * Generated by the study editor on __GENERATED__.\n */\nvar ADMIN_KEY = '__ADMIN_KEY__';   // private: lets the editor read and change the study\nvar CHUNK = 40000;                 // characters per cell when storing JSON (a cell holds 50,000)\nvar APP = 'IS perception study';\n\nvar HEADERS = {\n  Content: ['version', 'status', 'saved', 'note', 'json_parts', 'json'],\n  Participants: ['pid', 'token', 'group', 'mode', 'version', 'status', 'step', 'started', 'updated', 'submitted', 'minutes', 'seq', 'methods', 'src', 'json_parts', 'json'],\n  Contacts: ['pid', 'email', 'added'],\n  Log: ['time', 'action', 'detail']\n};\nvar P_PID = 0, P_TOKEN = 1, P_GROUP = 2, P_MODE = 3, P_VER = 4, P_STATUS = 5, P_STEP = 6, P_STARTED = 7, P_UPDATED = 8,\n  P_SUBMITTED = 9, P_MIN = 10, P_SEQ = 11, P_METHODS = 12, P_SRC = 13, P_JSON = 14;\n\nfunction setup() {\n  Object.keys(HEADERS).forEach(function (n) { sheet_(n); });\n  Logger.log('Ready: ' + SpreadsheetApp.getActiveSpreadsheet().getUrl());\n}\n\nfunction doGet(e) {\n  var p = (e && e.parameter) || {};\n  if (p.action === 'content') return json_(safe_(function () { return content_(p); }));\n  return json_({ ok: true, app: APP, backend: 1 });\n}\n\nfunction doPost(e) {\n  var req;\n  try { req = JSON.parse(e.postData.contents); } catch (err) { return json_({ ok: false, error: 'Bad request' }); }\n  return json_(safe_(function () { return route_(req); }));\n}\n\nfunction safe_(fn) {\n  try { var r = fn() || {}; r.ok = true; return r; }\n  catch (err) {\n    var m = String((err && err.message) || err), out = { ok: false, error: m };\n    if (m.indexOf('BUSY: ') === 0) { out.busy = true; out.error = m.slice(6); }\n    if (m.indexOf('CONFLICT: ') === 0) { out.conflict = true; out.error = m.slice(10); }\n    return out;\n  }\n}\nfunction json_(obj) { return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON); }\n\nvar ADMIN = { ping: 1, getDraft: 1, saveDraft: 1, publish: 1, versions: 1, getVersion: 1, setStatus: 1, participants: 1, responses: 1,\n  deleteParticipant: 1, deletePilots: 1, contacts: 1, clearContacts: 1, log: 1 };\n\nfunction route_(r) {\n  if (ADMIN[r.action] && (!ADMIN_KEY || ADMIN_KEY.indexOf('__') === 0 || r.key !== ADMIN_KEY)) throw new Error('The admin key does not match this backend.');\n  switch (r.action) {\n    case 'ping':\n      var ss = SpreadsheetApp.getActiveSpreadsheet();\n      Object.keys(HEADERS).forEach(function (n) { sheet_(n); });\n      return { sheet: ss.getName(), url: ss.getUrl(), status: status_(), published: latestVersion_(), backend: 1 };\n    case 'getDraft': return getDraft_();\n    case 'saveDraft': return locked_(function () { return saveDraft_(r.content, r.base, r.force); });\n    case 'publish': return locked_(function () { return publish_(r.content, r.note); });\n    case 'versions': return { versions: versions_() };\n    case 'getVersion': var c = getVersion_(Number(r.v)); if (!c) throw new Error('No such version.'); return { content: c };\n    case 'setStatus':\n      if (r.status !== 'open' && r.status !== 'closed') throw new Error('Status must be open or closed.');\n      setProp_('STATUS', r.status); log_('status', r.status);\n      return { status: r.status };\n    case 'participants': return { participants: participants_(false) };\n    case 'responses': return { participants: participants_(true), versions: versions_() };\n    case 'deleteParticipant': return locked_(function () { var n = deleteParticipant_(String(r.pid || '')); log_('delete participant', r.pid); return { deleted: n }; });\n    case 'deletePilots': return locked_(function () { var n = deletePilots_(); log_('delete pilot and baseline participants', n); return { deleted: n }; });\n    case 'contacts': return { contacts: table_('Contacts').data.map(function (x) { return { pid: String(x[0]), email: String(x[1] || ''), added: iso_(x[2]) }; }) };\n    case 'clearContacts': return locked_(function () { var n = clearContacts_(); log_('delete email addresses', n); return { cleared: n }; });\n    case 'log': return { log: table_('Log').data.map(function (x) { return { time: iso_(x[0]), action: String(x[1]), detail: String(x[2] || '') }; }) };\n    case 'content': return content_(r);\n    case 'join': return locked_(function () { return join_(r); });\n    case 'allocate': return locked_(function () { return allocate_(r); });\n    case 'resume': return resume_(r);\n    case 'save': return locked_(function () { return save_(r); });\n    case 'submit': return locked_(function () { return submit_(r); });\n    case 'withdraw': return locked_(function () { return withdraw_(r); });\n    case 'contact': return locked_(function () { return contact_(r); });\n  }\n  throw new Error('Unknown action: ' + r.action);\n}\n\n/* ---------- helpers ---------- */\nfunction locked_(fn) {\n  var lock = LockService.getScriptLock();\n  if (!lock.tryLock(30000)) throw new Error('BUSY: The study server is busy. Please try again in a moment.');\n  try { return fn(); }\n  finally { SpreadsheetApp.flush(); lock.releaseLock(); }\n}\nfunction sheet_(name) {\n  var ss = SpreadsheetApp.getActiveSpreadsheet();\n  if (!ss) throw new Error('This script is not attached to a Google Sheet. Open your Sheet, choose Extensions > Apps Script, and paste the script there.');\n  var sh = ss.getSheetByName(name);\n  if (!sh) {\n    sh = ss.insertSheet(name);\n    var h = HEADERS[name];\n    if (h) { ensure_(sh, 1, h.length); sh.getRange(1, 1, 1, h.length).setValues([h]).setFontWeight('bold'); sh.setFrozenRows(1); }\n  }\n  return sh;\n}\nfunction ensure_(sh, row, col) {   // a new tab is 1,000 rows by 26 columns; writing outside it fails\n  var mr = sh.getMaxRows(), mc = sh.getMaxColumns();\n  if (row > mr) sh.insertRowsAfter(mr, row - mr + 200);\n  if (col > mc) sh.insertColumnsAfter(mc, col - mc + 10);\n}\nfunction table_(name) {\n  var sh = sheet_(name), last = sh.getLastRow(), cols = sh.getLastColumn();\n  return { sh: sh, data: last > 1 && cols > 0 ? sh.getRange(2, 1, last - 1, cols).getValues() : [] };\n}\nfunction head_(name, width) {   // the first `width` columns of every data row, without the JSON parts\n  var sh = sheet_(name), last = sh.getLastRow();\n  ensure_(sh, 1, width);\n  return { sh: sh, data: last > 1 ? sh.getRange(2, 1, last - 1, width).getValues() : [] };\n}\nfunction rowAt_(sh, i) { return sh.getRange(i + 2, 1, 1, Math.max(1, sh.getLastColumn())).getValues()[0]; }\nfunction find_(data, test) { for (var i = 0; i < data.length; i++) if (test(data[i])) return i; return -1; }\nfunction pack_(obj) {\n  var s = JSON.stringify(obj), parts = [];\n  for (var i = 0; i < s.length; i += CHUNK) parts.push('~' + s.substr(i, CHUNK));   // '~' keeps Sheets from reading a chunk as a number or formula\n  return parts;\n}\nfunction unpack_(row, at) {\n  var n = Number(row[at]) || 0, s = '';\n  for (var i = 1; i <= n; i++) s += String(row[at + i] || '').substr(1);\n  if (!s) return null;\n  try { return JSON.parse(s); } catch (err) { return null; }\n}\nfunction writeRow_(sh, rowIndex, fixed, parts) {\n  var vals = fixed.concat([parts.length]).concat(parts);\n  var width = Math.max(sh.getLastColumn(), vals.length);\n  while (vals.length < width) vals.push('');\n  ensure_(sh, rowIndex, vals.length);\n  sh.getRange(rowIndex, 1, 1, vals.length).setValues([vals]);\n}\nfunction iso_(v) { return v instanceof Date ? v.toISOString() : (v || ''); }\nfunction cell_(v) {   // text stays text: no formulas, and no \"1-2\" turning into a date\n  if (v === null || v === undefined) return '';\n  if (typeof v === 'number' || typeof v === 'boolean') return v;\n  if (Object.prototype.toString.call(v) === '[object Array]') v = v.join('; ');\n  if (typeof v === 'object') v = JSON.stringify(v);\n  var s = String(v);\n  if (s.length > 45000) s = s.slice(0, 45000) + '...';\n  return s === '' ? '' : \"'\" + s;\n}\nfunction status_() { return prop_('STATUS') || 'open'; }\nfunction prop_(k) { return PropertiesService.getScriptProperties().getProperty(k); }\nfunction setProp_(k, v) { PropertiesService.getScriptProperties().setProperty(k, v); }\nfunction rand_(n) { var s = ''; while (s.length < n) s += Utilities.getUuid().replace(/-/g, ''); return s.slice(0, n); }\nfunction log_(action, detail) { try { sheet_('Log').appendRow([new Date(), action, cell_(detail === undefined ? '' : String(detail))]); } catch (err) { } }\n\n/* ---------- content: a draft (version 0) and published versions 1, 2, 3 ... ---------- */\nfunction latestVersion_() {\n  var t = head_('Content', 2), v = 0;\n  t.data.forEach(function (r) { if (r[1] === 'published' && Number(r[0]) > v) v = Number(r[0]); });\n  return v;\n}\nfunction getVersion_(v) {\n  var t = head_('Content', 2);\n  var i = find_(t.data, function (r) { return Number(r[0]) === v && (v === 0 || r[1] === 'published'); });\n  return i < 0 ? null : unpack_(rowAt_(t.sh, i), 4);\n}\nfunction check_(c) {\n  if (!c || typeof c !== 'object' || c.kind !== 'perception' || !c.methods || !c.groups || !c.parts) throw new Error('This is not content for the IS perception study.');\n  var s = JSON.stringify(c);\n  if (s.length > 3000000) throw new Error('The study content is too large (over 3 MB). Use links for images instead of pasting them.');\n}\nfunction getDraft_() {\n  var t = head_('Content', 3), latest = latestVersion_();\n  var i = find_(t.data, function (r) { return Number(r[0]) === 0; });\n  if (i >= 0) return { draft: unpack_(rowAt_(t.sh, i), 4), saved: iso_(t.data[i][2]), published: latest };\n  return { draft: latest ? getVersion_(latest) : null, saved: '', published: latest };\n}\nfunction saveDraft_(c, base, force) {\n  check_(c);\n  var t = head_('Content', 3), now = new Date();\n  var i = find_(t.data, function (r) { return Number(r[0]) === 0; });\n  var cur = i >= 0 ? iso_(t.data[i][2]) : '';\n  if (!force && base && cur && cur !== base) throw new Error('CONFLICT: The draft was saved from another tab or browser at ' + cur + '.');\n  writeRow_(t.sh, i >= 0 ? i + 2 : t.sh.getLastRow() + 1, [0, 'draft', now, ''], pack_(c));\n  return { saved: now.toISOString() };\n}\nfunction publish_(c, note) {\n  if (!c) c = getDraft_().draft;\n  check_(c);\n  var v = latestVersion_() + 1, now = new Date();\n  c.version = v; c.publishedAt = now.toISOString();\n  var sh = sheet_('Content');\n  writeRow_(sh, sh.getLastRow() + 1, [v, 'published', now, cell_(note || '')], pack_(c));\n  try { setProp_('META_' + v, JSON.stringify(metaOf_(c))); } catch (err) { }   // a property holds 9 KB; without it the summary is rebuilt when needed\n  log_('publish', 'version ' + v + (note ? ': ' + note : ''));\n  var r = saveDraft_(c, null, true);\n  return { version: v, saved: r.saved };\n}\nfunction versions_() {\n  return head_('Content', 4).data.filter(function (r) { return r[1] === 'published'; })\n    .map(function (r) { return { version: Number(r[0]), saved: iso_(r[2]), note: String(r[3] || '') }; })\n    .sort(function (a, b) { return b.version - a.version; });\n}\n/* What participants receive: no answer keys, sources, notes, quality rules or allocation weights. */\nfunction publicView_(c) {\n  var p = JSON.parse(JSON.stringify(c));\n  delete p.quality; delete p.note;\n  p.allocation = { perPerson: (c.allocation || {}).perPerson || 3 };\n  (p.groups || []).forEach(function (g) { delete g.target; });\n  (p.methods || []).forEach(function (m) {\n    delete m.notes;\n    m.knowledge = (m.knowledge || []).map(function (q) { return { id: q.id, label: q.label, stem: q.stem, options: q.options }; });\n  });\n  return p;\n}\nfunction content_(r) {\n  var latest = latestVersion_();\n  if (!latest) return { status: 'empty' };\n  var v = Number(r.v) || latest;\n  var c = getVersion_(v);\n  if (!c) throw new Error('This version of the study does not exist.');\n  return { status: status_(), version: v, latest: latest, content: publicView_(c) };\n}\n/* a small summary of a version, kept in the script properties, so allocation stays fast */\nfunction metaOf_(c) {\n  var a = c.allocation || {};\n  return {\n    phases: (c.phases || []).map(function (p) { return p.id; }),\n    methods: (c.methods || []).filter(function (m) { return m.on !== false; }).map(function (m) { return { id: m.id, phase: m.phase }; }),\n    groups: (c.groups || []).map(function (g) { return { id: g.id, target: Number(g.target) || 0 }; }),\n    k: Number(a.perPerson) || 3, order: a.order || 'balanced', hold: Number(a.holdMinutes) || 120, rnd: Number(a.randomness) || 0,\n    sets: a.sets || [], w: a.weights || {}, closeWhenFull: !!((c.settings || {}).closeWhenFull),\n    keys: (c.methods || []).reduce(function (o, m) { (m.knowledge || []).forEach(function (q) { o[m.id + '.' + q.id] = q.key; }); return o; }, {})\n  };\n}\nfunction meta_(v) {\n  var m = null;\n  try { m = JSON.parse(prop_('META_' + v) || 'null'); } catch (err) { m = null; }\n  if (m) return m;\n  var c = getVersion_(v);\n  if (!c) throw new Error('This version of the study does not exist.');\n  m = metaOf_(c);\n  try { setProp_('META_' + v, JSON.stringify(m)); } catch (err) { }\n  return m;\n}\n\n/* ---------- allocation by minimisation (Pocock and Simon, 1975) ----------\n   Candidates: every set of k active methods from k different phases (or the sets you listed).\n   Counted: finished participants of the same group and kind (live or pilot), plus unfinished ones\n   active in the last `hold` minutes. Chosen: the set that adds least imbalance in method, pair,\n   phase and overall exposure; then the order that adds least imbalance in method x position.\n   Ties are broken at random; `rnd` is the chance of a purely random choice instead. */\nfunction shuffle_(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }\nfunction sets_(m) {\n  var byPhase = {}, phaseOf = {};\n  m.methods.forEach(function (x) { (byPhase[x.phase] = byPhase[x.phase] || []).push(x.id); phaseOf[x.id] = x.phase; });\n  var phases = m.phases.filter(function (p) { return byPhase[p] && byPhase[p].length; });\n  var k = Math.min(m.k, phases.length), out = [];\n  if (m.sets && m.sets.length) {\n    m.sets.forEach(function (s) {\n      var seen = {}, ok = s.length === k;\n      s.forEach(function (id) { var ph = phaseOf[id]; if (!ph || seen[ph]) ok = false; seen[ph] = 1; });\n      if (ok) out.push(s.slice());\n    });\n    if (out.length) return out;\n  }\n  (function pick(start, chosen) {\n    if (out.length > 20000) return;\n    if (chosen.length === k) {\n      (function prod(i, acc) {\n        if (i === chosen.length) { out.push(acc.slice()); return; }\n        byPhase[chosen[i]].forEach(function (id) { acc.push(id); prod(i + 1, acc); acc.pop(); });\n      })(0, []);\n      return;\n    }\n    for (var i = start; i < phases.length; i++) { chosen.push(phases[i]); pick(i + 1, chosen); chosen.pop(); }\n  })(0, []);\n  return out;\n}\nfunction perms_(a) {\n  if (a.length <= 1) return [a.slice()];\n  var out = [];\n  a.forEach(function (x, i) { perms_(a.slice(0, i).concat(a.slice(i + 1))).forEach(function (p) { out.push([x].concat(p)); }); });\n  return out;\n}\nfunction counted_(x, group, pilot, now, hold) {\n  if (!x[P_METHODS] || String(x[P_MODE] || '') === 'baseline') return false;\n  if ((String(x[P_MODE] || '') === 'pilot') !== pilot) return false;\n  var st = x[P_STATUS], upd = x[P_UPDATED] instanceof Date ? x[P_UPDATED].getTime() : new Date(x[P_UPDATED]).getTime() || 0;\n  if (st === 'completed') return true;\n  return (st === 'started' || st === 'in progress') && now - upd < hold * 60000;\n}\nfunction choose_(m, rows, group, pilot) {\n  var w = m.w || {}, wm = num_(w.method, 4), wp = num_(w.position, 2), wr = num_(w.pair, 1), wh = num_(w.phase, 0), wo = num_(w.overall, 1);\n  var phaseOf = {}; m.methods.forEach(function (x) { phaseOf[x.id] = x.phase; });\n  var E = {}, EO = {}, POS = {}, PR = {}, PH = {}, now = new Date().getTime();\n  rows.forEach(function (x) {\n    if (!counted_(x, group, pilot, now, m.hold)) return;\n    var seq = String(x[P_METHODS]).split('|');\n    seq.forEach(function (id) { EO[id] = (EO[id] || 0) + 1; });\n    if (String(x[P_GROUP]) !== group) return;\n    seq.forEach(function (id, i) {\n      E[id] = (E[id] || 0) + 1; POS[id + '@' + i] = (POS[id + '@' + i] || 0) + 1;\n      PH[phaseOf[id]] = (PH[phaseOf[id]] || 0) + 1;\n      for (var j = i + 1; j < seq.length; j++) { var key = [id, seq[j]].sort().join('|'); PR[key] = (PR[key] || 0) + 1; }\n    });\n  });\n  var cand = sets_(m);\n  if (!cand.length) throw new Error('No method set can be formed: check the methods and phases in the study content.');\n  var best = [], bestScore = Infinity, set;\n  if (Math.random() < m.rnd) set = cand[Math.floor(Math.random() * cand.length)];\n  else {\n    cand.forEach(function (s) {\n      var sc = 0;\n      s.forEach(function (id, i) {\n        sc += wm * (E[id] || 0) + wo * (EO[id] || 0) + wh * (PH[phaseOf[id]] || 0);\n        for (var j = i + 1; j < s.length; j++) sc += wr * (PR[[id, s[j]].sort().join('|')] || 0);\n      });\n      if (sc < bestScore - 1e-9) { bestScore = sc; best = [s]; } else if (Math.abs(sc - bestScore) <= 1e-9) best.push(s);\n    });\n    set = best[Math.floor(Math.random() * best.length)];\n  }\n  if (m.order === 'phase') return set.slice().sort(function (a, b) { return m.phases.indexOf(phaseOf[a]) - m.phases.indexOf(phaseOf[b]); });\n  var orders = perms_(set);\n  if (Math.random() < m.rnd || wp <= 0) return orders[Math.floor(Math.random() * orders.length)];\n  var bo = [], bs = Infinity;\n  orders.forEach(function (o) {\n    var sc = 0;\n    o.forEach(function (id, i) { sc += POS[id + '@' + i] || 0; });\n    if (sc < bs) { bs = sc; bo = [o]; } else if (sc === bs) bo.push(o);\n  });\n  return bo[Math.floor(Math.random() * bo.length)];\n}\nfunction num_(v, d) { var n = Number(v); return isFinite(n) && v !== '' && v !== null && v !== undefined ? n : d; }\n\n/* ---------- participants ---------- */\nfunction who_(r) {\n  var t = head_('Participants', P_JSON);\n  var i = find_(t.data, function (x) { return String(x[P_PID]) === String(r.pid) && !!r.token && String(x[P_TOKEN]) === String(r.token); });\n  if (i < 0) throw new Error('This session is not recognised. Reload the study link to start again.');\n  return { t: t, i: i, row: t.data[i] };\n}\nfunction nextPid_(prefix, data) {   // numbers only go up, so a deleted participant's code is never reused\n  var key = 'N_' + prefix, n = Number(prop_(key) || 0);\n  data.forEach(function (x) {\n    var id = String(x[P_PID]);\n    if (id.indexOf(prefix) === 0 && /^\\d+$/.test(id.slice(prefix.length))) n = Math.max(n, Number(id.slice(prefix.length)));\n  });\n  n++; setProp_(key, String(n));\n  var s = String(n); while (s.length < 3) s = '0' + s;\n  return prefix + s;\n}\nfunction join_(r) {\n  var latest = latestVersion_();\n  if (!latest) return { closed: true };\n  var token = String(r.token || '');\n  if (!/^[a-z0-9]{12,40}$/i.test(token)) throw new Error('Bad request');\n  var t = head_('Participants', P_JSON);\n  var again = find_(t.data, function (x) { return String(x[P_TOKEN]) === token; });\n  if (again >= 0) { var x = t.data[again]; return { pid: String(x[P_PID]), version: Number(x[P_VER]), again: true }; }\n  if (status_() !== 'open') return { closed: true };\n  var mode = String(r.mode || '');\n  if (mode !== '' && mode !== 'pilot' && mode !== 'baseline') throw new Error('Bad request');\n  var v = Number(r.version) || latest;\n  if (v > latest || !getVersionExists_(v)) v = latest;\n  var pid = nextPid_(mode === 'pilot' ? 'PL' : mode === 'baseline' ? 'BL' : 'P', t.data);\n  var now = new Date();\n  t.sh.appendRow([pid, token, '', mode, v, 'started', 'consent', now, now, '', '', 0, '', cell_(String(r.src || '').slice(0, 60)), 0]);\n  return { pid: pid, version: v };\n}\nfunction getVersionExists_(v) { return find_(head_('Content', 2).data, function (r) { return Number(r[0]) === v && r[1] === 'published'; }) >= 0; }\nfunction allocate_(r) {\n  var w = who_(r), x = w.row;\n  if (x[P_STATUS] === 'withdrawn') throw new Error('This session was withdrawn.');\n  var m = meta_(Number(x[P_VER])), group = String(r.group || '');\n  if (x[P_METHODS]) return { methods: String(x[P_METHODS]).split('|'), group: String(x[P_GROUP]), again: true };\n  if (!m.groups.some(function (g) { return g.id === group; })) throw new Error('Unknown group: ' + group);\n  var mode = String(x[P_MODE] || ''), methods;\n  if (mode === 'baseline') methods = shuffle_(m.methods.map(function (q) { return q.id; }));\n  else {\n    var pilot = mode === 'pilot';\n    var g = m.groups.filter(function (q) { return q.id === group; })[0];\n    if (!pilot && m.closeWhenFull && g.target > 0) {\n      var done = w.t.data.filter(function (q) { return String(q[P_GROUP]) === group && !String(q[P_MODE] || '') && q[P_STATUS] === 'completed'; }).length;\n      if (done >= g.target) return { full: true };\n    }\n    methods = choose_(m, w.t.data, group, pilot);\n  }\n  var fixed = x.slice(0, P_JSON);\n  fixed[P_GROUP] = group; fixed[P_METHODS] = methods.join('|'); fixed[P_STATUS] = 'in progress'; fixed[P_UPDATED] = new Date();\n  w.t.sh.getRange(w.i + 2, 1, 1, P_JSON).setValues([fixed.map(function (v, k) { return k === P_SRC ? cell_(v) : v; })]);\n  return { methods: methods, group: group };\n}\nfunction resume_(r) {\n  var w = who_(r), x = w.row, st = x[P_STATUS];\n  var out = { status: st, group: String(x[P_GROUP] || ''), mode: String(x[P_MODE] || ''), version: Number(x[P_VER]), methods: x[P_METHODS] ? String(x[P_METHODS]).split('|') : [] };\n  if (st === 'started' || st === 'in progress') out.state = unpack_(rowAt_(w.t.sh, w.i), P_JSON);\n  return out;\n}\nfunction save_(r) {\n  var w = who_(r), st = w.row[P_STATUS];\n  if (st === 'completed' || st === 'withdrawn' || st === 'ineligible') return { ignored: true, status: st };\n  var seq = Number(r.seq) || 0;\n  if (seq && seq < (Number(w.row[P_SEQ]) || 0)) return { stale: true };   // an older copy, e.g. from a second tab\n  var s = JSON.stringify(r.state || {});\n  if (s.length > 500000) throw new Error('Your answers are too long to save. Please shorten them.');\n  var fixed = w.row.slice(0, P_JSON);\n  fixed[P_STATUS] = 'in progress'; fixed[P_STEP] = cell_(String(r.step || '').slice(0, 40)); fixed[P_UPDATED] = new Date();\n  fixed[P_SEQ] = Math.max(seq, Number(w.row[P_SEQ]) || 0); fixed[P_SRC] = cell_(fixed[P_SRC]);\n  writeRow_(w.t.sh, w.i + 2, fixed, pack_(r.state || {}));\n  return { saved: fixed[P_UPDATED].toISOString() };\n}\nfunction submit_(r) {\n  var w = who_(r), st = w.row[P_STATUS];\n  if (st === 'completed' || st === 'ineligible') return { duplicate: true };\n  if (st === 'withdrawn') throw new Error('This session was withdrawn.');\n  var state = r.state || {}, now = new Date(), outcome = r.outcome === 'ineligible' ? 'ineligible' : 'completed';\n  if (JSON.stringify(state).length > 500000) throw new Error('Your answers are too long to save. Please shorten them.');\n  var started = w.row[P_STARTED] instanceof Date ? w.row[P_STARTED] : now;\n  var fixed = w.row.slice(0, P_JSON);\n  fixed[P_STATUS] = outcome; fixed[P_STEP] = 'end'; fixed[P_UPDATED] = now; fixed[P_SUBMITTED] = now;\n  fixed[P_MIN] = Math.round((now.getTime() - started.getTime()) / 6000) / 10; fixed[P_SEQ] = Math.max(Number(r.seq) || 0, Number(w.row[P_SEQ]) || 0);\n  fixed[P_SRC] = cell_(fixed[P_SRC]);\n  writeRow_(w.t.sh, w.i + 2, fixed, pack_(state));\n  // the answers are safe from here on; the readable copy must never undo that\n  if (outcome === 'completed') {\n    try { var cv = getVersion_(Number(w.row[P_VER])) || {}; wide_(flatten_(cv, meta_(Number(w.row[P_VER])), fixed, state), canon_(cv)); }\n    catch (err) { Logger.log('Data sheet not updated: ' + err); }\n  }\n  return { received: now.toISOString(), pid: String(w.row[P_PID]) };\n}\nfunction withdraw_(r) {\n  var w = who_(r), fixed = w.row.slice(0, P_JSON);\n  fixed[P_STATUS] = 'withdrawn'; fixed[P_STEP] = ''; fixed[P_UPDATED] = new Date(); fixed[P_MIN] = ''; fixed[P_METHODS] = ''; fixed[P_SRC] = cell_(fixed[P_SRC]);\n  writeRow_(w.t.sh, w.i + 2, fixed, []);\n  removeRows_('Data', String(w.row[P_PID]));\n  removeRows_('Contacts', String(w.row[P_PID]));\n  return { withdrawn: true };\n}\nfunction contact_(r) {\n  var w = who_(r);\n  if (w.row[P_STATUS] === 'withdrawn') throw new Error('This session was withdrawn.');\n  var email = String(r.email || '').trim();\n  if (email.length > 200 || !/^[^\\s@<>\"']+@[^\\s@<>\"']+\\.[^\\s@<>\"']+$/.test(email)) throw new Error('That email address does not look right.');\n  var pid = String(w.row[P_PID]), t = head_('Contacts', HEADERS.Contacts.length);\n  var i = find_(t.data, function (x) { return String(x[0]) === pid; });\n  if (i >= 0) t.sh.getRange(i + 2, 2, 1, 1).setValues([[cell_(email)]]);\n  else t.sh.appendRow([pid, cell_(email), new Date()]);\n  return { saved: true };\n}\nfunction participants_(withState) {\n  return (withState ? table_('Participants') : head_('Participants', P_JSON)).data.map(function (x) {\n    var o = { pid: String(x[P_PID]), group: String(x[P_GROUP] || ''), mode: String(x[P_MODE] || ''), version: Number(x[P_VER]) || 0, status: x[P_STATUS],\n      step: String(x[P_STEP] || ''), started: iso_(x[P_STARTED]), updated: iso_(x[P_UPDATED]), submitted: iso_(x[P_SUBMITTED]), minutes: x[P_MIN],\n      methods: x[P_METHODS] ? String(x[P_METHODS]).split('|') : [], src: String(x[P_SRC] || '') };\n    if (withState) o.state = unpack_(x, P_JSON);\n    return o;\n  });\n}\nfunction deleteParticipant_(pid) {\n  var t = head_('Participants', 1), n = 0;\n  for (var i = t.data.length - 1; i >= 0; i--) if (String(t.data[i][P_PID]) === pid) { t.sh.deleteRow(i + 2); n++; }\n  removeRows_('Data', pid); removeRows_('Contacts', pid);\n  return n;\n}\nfunction deletePilots_() {\n  var t = head_('Participants', P_MODE + 1), ids = [];\n  for (var i = t.data.length - 1; i >= 0; i--) {\n    var mode = String(t.data[i][P_MODE] || '');\n    if (mode === 'pilot' || mode === 'baseline') { ids.push(String(t.data[i][P_PID])); t.sh.deleteRow(i + 2); }\n  }\n  ids.forEach(function (pid) { removeRows_('Data', pid); removeRows_('Contacts', pid); });\n  return ids.length;\n}\nfunction removeRows_(name, pid) {\n  var sh = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(name);\n  if (!sh || sh.getLastRow() < 2) return;\n  var ids = sh.getRange(2, 1, sh.getLastRow() - 1, 1).getValues();\n  for (var i = ids.length - 1; i >= 0; i--) if (String(ids[i][0]) === pid) sh.deleteRow(i + 2);\n}\nfunction clearContacts_() {\n  var sh = sheet_('Contacts'), n = Math.max(0, sh.getLastRow() - 1);\n  for (var i = sh.getLastRow(); i >= 2; i--) sh.deleteRow(i);\n  return n;\n}\n\n/* ---------- the readable Data sheet: one row per finished participant ---------- */\nfunction items_(c) {   // every question item by id, with its type and options\n  var out = {};\n  (c.parts || []).forEach(function (p) { (p.items || []).forEach(function (it) { out[it.id] = it; }); });\n  ((c.perMethod || {}).items || []).forEach(function (it) { out[it.id] = it; });\n  return out;\n}\nfunction optText_(it, v) {\n  if (!it || !it.options) return v;\n  var o = it.options.filter(function (x) { return x.id === v; })[0];\n  return o ? o.text : v;\n}\nfunction flatten_(c, m, row, s) {\n  var f = { pid: row[P_PID], group: row[P_GROUP], mode: row[P_MODE] || 'live', version: row[P_VER], started: iso_(row[P_STARTED]), submitted: iso_(row[P_SUBMITTED]),\n    minutes: row[P_MIN], methods: row[P_METHODS], src: row[P_SRC] };\n  var its = items_(c), ans = s.answers || {};\n  Object.keys(ans).forEach(function (k) {\n    var it = its[k], v = ans[k];\n    if (it && it.type === 'single') v = optText_(it, v);\n    else if (it && it.type === 'multi' && Object.prototype.toString.call(v) === '[object Array]') v = v.map(function (x) { return optText_(it, x); }).join('; ');\n    f[k] = v;\n  });\n  var phaseOf = {}; (c.methods || []).forEach(function (q) { phaseOf[q.id] = q.phase; });\n  (s.blocks || []).forEach(function (b, i) {\n    var k = 'B' + (i + 1) + '_', a = b.answers || {};\n    f[k + 'method'] = b.method; f[k + 'phase'] = phaseOf[b.method] || '';\n    Object.keys(a).forEach(function (q) {\n      var key = m.keys[b.method + '.' + q];\n      f[k + q] = a[q];\n      if (key !== undefined) f[k + q + '_ok'] = a[q] === key ? 1 : 0;\n    });\n    if (b.read) { f[k + 'read_s'] = Math.round((b.read.active || 0) / 1000); }\n    if (b.ask) { f[k + 'questions_s'] = Math.round((b.ask.active || 0) / 1000); }\n  });\n  var pg = s.pages || {};\n  Object.keys(pg).forEach(function (k) { if (!/^m\\d/.test(k)) f['t_' + k] = Math.round((pg[k].active || 0) / 1000); });\n  return f;\n}\n// the order of the columns when the Data sheet is first written: as in the questionnaire\nfunction canon_(c) {\n  var keys = ['pid', 'group', 'mode', 'version', 'started', 'submitted', 'minutes', 'methods', 'src'];\n  var push = function (v) { if (keys.indexOf(v) < 0) keys.push(v); };\n  var active = (c.methods || []).filter(function (m) { return m.on !== false; });\n  var vars = function (it) {\n    if (it.type === 'note' || it.type === 'email') return;\n    if (it.type !== 'matrix') { push(it.id); if ((it.options || []).some(function (o) { return o.other; })) push(it.id + '_other'); return; }\n    var rows = [];\n    if (it.rows === 'elements') rows = (c.elements || []).map(function (e) { return { id: it.id + '_' + e.id, el: e.id }; });\n    else if (it.rows === 'allocated' || it.rows === 'methods') rows = active.map(function (m) { return { id: it.id + '_' + m.id }; });\n    else rows = (it.rows || []).map(function (r) { return { id: it.id + '_' + r.id }; });\n    (it.extraRows || []).forEach(function (x) {\n      var at = -1; rows.forEach(function (r, i) { if (r.el === x.after || r.id === x.after || r.id === it.id + '_' + x.after) at = i; });\n      if (at >= 0) rows.splice(at + 1, 0, { id: x.id }); else rows.push({ id: x.id });\n    });\n    rows.forEach(function (r) { push(r.id); });\n  };\n  (c.parts || []).forEach(function (p) { if (p.where !== 'after') (p.items || []).forEach(vars); });\n  var k = Number((c.allocation || {}).perPerson) || 3, kq = active.length ? (active[0].knowledge || []) : [];\n  for (var i = 1; i <= k; i++) {\n    var b = 'B' + i + '_';\n    push(b + 'method'); push(b + 'phase');\n    kq.forEach(function (q) { push(b + q.id); push(b + q.id + '_ok'); });\n    ((c.perMethod || {}).items || []).forEach(function (it) { push(b + it.id); });\n    push(b + 'read_s'); push(b + 'questions_s');\n  }\n  (c.parts || []).forEach(function (p) { if (p.where === 'after') (p.items || []).forEach(vars); });\n  return keys;\n}\nfunction wide_(flat, canon) {\n  var ss = SpreadsheetApp.getActiveSpreadsheet();\n  var sh = ss.getSheetByName('Data') || ss.insertSheet('Data');\n  var cols = sh.getLastColumn();\n  var head = cols ? sh.getRange(1, 1, 1, cols).getValues()[0].map(String) : (canon || []).slice();\n  if (!cols) cols = 0;\n  var idx = {};\n  head.forEach(function (h, i) { idx[h] = i; });\n  Object.keys(flat).forEach(function (k) { if (!idx.hasOwnProperty(k)) { idx[k] = head.length; head.push(k); } });\n  if (head.length > cols) { ensure_(sh, 1, head.length); sh.getRange(1, 1, 1, head.length).setValues([head]).setFontWeight('bold'); sh.setFrozenRows(1); }\n  var vals = head.map(function (h) { return flat.hasOwnProperty(h) ? cell_(flat[h]) : ''; });\n  var last = sh.getLastRow(), at = -1;\n  if (last > 1) {\n    var ids = sh.getRange(2, 1, last - 1, 1).getValues();\n    for (var i = 0; i < ids.length; i++) if (String(ids[i][0]) === String(flat.pid)) { at = i + 2; break; }\n  }\n  var target = at > 0 ? at : last + 1;\n  ensure_(sh, target, vals.length);\n  sh.getRange(target, 1, 1, vals.length).setValues([vals]);\n}\n";
+function backendScript(key) { return CODE_GS.replace("'__ADMIN_KEY__'", JSON.stringify(key)).replace('__GENERATED__', new Date().toISOString().slice(0, 10)); }
+VIEWS.connect = () => {
+  const box = h('div', {}, h('h1', {}, 'Connect & set up'), h('p', { class: 'sub' }, 'The study runs from two pages on GitHub Pages (index.html for participants, this editor) and one Google Sheet that stores the content and every answer.'));
+  if (E.conn) {
+    box.append(h('div', { class: 'card' }, h('h2', {}, 'Connected'),
+      h('p', {}, 'Backend: ', h('span', { class: 'mono' }, E.conn.url)), E.sheet ? h('p', {}, 'Google Sheet: ', E.sheetUrl ? h('a', { href: E.sheetUrl, target: '_blank', rel: 'noopener' }, E.sheet) : E.sheet) : null,
+      h('div', { class: 'inline' },
+        h('button', { class: 'btn sec', type: 'button', onclick: async () => { try { await connect(E.conn.url, E.conn.key); toast('The backend answers.'); render(); } catch (e) { toast(e.message, 5000); } } }, 'Check the connection'),
+        h('button', { class: 'btn sec', type: 'button', onclick: () => { modal([h('h2', {}, 'Backend script'), h('p', {}, 'The same script with your admin key, if you need to paste it again (for example after an update of this editor). After pasting: Deploy > Manage deployments > pencil > Version: New version > Deploy.'), copyRow(backendScript(E.conn.key), 'Copy the script'), h('p', { class: 'hint' }, 'Admin key: keep it private; it lets this editor read and change the study.'), copyRow(E.conn.key, 'Copy the key')]); } }, 'Show the backend script'),
+        h('button', { class: 'btn danger', type: 'button', onclick: async () => { if (await ask('Disconnect?', 'This browser forgets the backend address and admin key. The study keeps running; you can connect again with the same address and key.', 'Disconnect', true)) { E.conn = null; E.sheet = null; saveLocal(); render(); } } }, 'Disconnect'))));
+  }
+  if (!E.pendingKey) { E.pendingKey = ISP.uid(28); saveLocal(); }
+  const key = E.conn ? E.conn.key : E.pendingKey;
+  box.append(h('div', { class: 'card' }, h('h2', {}, '1. Create the backend (once, about 10 minutes)'),
+    h('ol', { class: 'steps' },
+      h('li', {}, 'Create a new Google Sheet (', h('a', { href: 'https://sheets.new', target: '_blank', rel: 'noopener' }, 'sheets.new'), ') and name it, for example, "IS perception study". It will hold the content and all the answers.'),
+      h('li', {}, 'In the Sheet choose ', h('b', {}, 'Extensions > Apps Script'), '. Delete the sample code.'),
+      h('li', {}, 'Copy the backend script (it carries your private admin key) and paste it into Apps Script, then save (Ctrl+S or Cmd+S).', h('div', { class: 'mt' }, h('button', { class: 'btn', type: 'button', onclick: () => { const s = backendScript(key); (navigator.clipboard ? navigator.clipboard.writeText(s) : Promise.reject()).then(() => toast('Backend script copied')).catch(() => modal([h('h2', {}, 'Copy the script'), h('textarea', { rows: 12, class: 'mono' }, s)])); } }, 'Copy the backend script'), ' ', h('button', { class: 'btn ghost small', type: 'button', onclick: () => download('Code.gs', backendScript(key), 'text/plain') }, 'or download it as Code.gs'))),
+      h('li', {}, h('b', {}, 'Deploy > New deployment'), ', gear icon > ', h('b', {}, 'Web app'), '. Execute as: ', h('b', {}, 'Me'), '. Who has access: ', h('b', {}, 'Anyone'), '. Deploy, and allow access when Google asks (Advanced > Go to … > Allow: it is your own script).'),
+      h('li', {}, 'Copy the ', h('b', {}, 'Web app URL'), ' (it ends with /exec) and paste it below.'))));
+  const url = h('input', { type: 'url', value: E.conn ? E.conn.url : '', placeholder: 'https://script.google.com/macros/s/…/exec' });
+  const k = h('input', { type: 'text', value: key, class: 'mono' });
+  const status = h('div');
+  box.append(h('div', { class: 'card' }, h('h2', {}, '2. Connect this editor'), F('Web app URL', url), F('Admin key', k, 'Filled in with the key inside the script you copied. If you set up the backend from another browser, paste that key here.'),
+    h('button', { class: 'btn', type: 'button', onclick: async () => {
+      status.innerHTML = ''; status.append(h('div', { class: 'msg info' }, h('span', { class: 'spinner' }), 'Connecting…'));
+      try { await connect(url.value.trim(), k.value.trim()); toast('✓ Connected to "' + E.sheet + '".'); render(); }
+      catch (e) { status.innerHTML = ''; status.append(h('div', { class: 'msg err' }, '✕ ' + e.message)); }
+    } }, 'Connect'), status));
+  box.append(h('div', { class: 'card' }, h('h2', {}, '3. The study content'),
+    h('p', {}, E.draft ? 'This browser has a draft: "' + E.draft.title + '" with ' + E.draft.methods.length + ' methods.' : 'No content loaded yet.'),
+    h('div', { class: 'inline' },
+      h('button', { class: 'btn sec', type: 'button', onclick: openFile }, 'Open a content file…'),
+      E.draft ? h('button', { class: 'btn sec', type: 'button', onclick: () => download('IS_perception_content_' + stamp() + '.json', JSON.stringify(E.draft, null, 1)) }, 'Download the draft as a file') : null,
+      E.draft && E.conn ? h('button', { class: 'btn sec', type: 'button', onclick: () => pushDraft(true).then(() => toast('Draft saved to the Sheet')) }, 'Save the draft to the Sheet now') : null),
+    h('p', { class: 'hint' }, 'Content files contain the answer keys of the knowledge questions: keep them off GitHub. Only index.html, editor.html and common.js go there.')));
+  return box;
+};
+async function connect(url, key) {
+  if (!/^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(url) && !/^http:\/\/(127\.0\.0\.1|localhost)(:\d+)?\//.test(url)) throw new Error('That does not look like a web app URL: it should start with https://script.google.com/macros/s/ and end with /exec.');
+  if (!key) throw new Error('The admin key is missing.');
+  const old = E.conn;
+  E.conn = { url, key };
+  try {
+    const p = await api('ping');
+    E.sheet = p.sheet; E.sheetUrl = p.url; E.status = p.status; E.published = p.published;
+    const d = await api('getDraft');
+    if (d.draft && E.draft && JSON.stringify(d.draft) !== JSON.stringify(E.draft)) {
+      const useServer = await ask('Two versions of the draft', 'The backend has a draft (saved ' + fmtTime(d.saved) + ') that differs from the one in this browser. Load the backend draft? (Cancel keeps this browser\'s draft and saves it to the backend.)', 'Load the backend draft');
+      if (useServer) { E.draft = migrate(d.draft); E.saved = d.saved; E.dirty = false; }
+      else { E.saved = d.saved; await pushDraft(true); }
+    } else if (d.draft) { E.draft = migrate(d.draft); E.saved = d.saved; E.dirty = false; }
+    else if (E.draft) { E.saved = ''; await pushDraft(true); }
+    saveLocal();
+  } catch (e) { E.conn = old; throw e; }
+}
+
+/* ------------------------------------------------------------------ Overview */
+VIEWS.overview = () => {
+  const c = C(), box = h('div', {});
+  box.append(h('h1', {}, c.title || 'Study'), h('p', { class: 'sub' }, E.conn ? 'Connected to "' + (E.sheet || 'your Sheet') + '".' : 'Not connected: you are editing a draft in this browser only.'));
+  // status and publishing
+  const st = h('div', { class: 'card' }, h('h2', {}, 'Study status'));
+  if (E.conn) {
+    const open = E.status === 'open';
+    st.append(h('div', { class: 'inline' },
+      h('span', { class: 'badge ' + (open ? 'ok' : 'err') }, open ? '● Open: new people can start' : '■ Closed: no one new can start'),
+      h('button', { class: 'btn sec small', type: 'button', onclick: async () => { try { const r = await api('setStatus', { status: open ? 'closed' : 'open' }); E.status = r.status; render(); toast(r.status === 'open' ? 'The study is open.' : 'The study is closed. People already in it can finish.'); } catch (e) { toast(e.message, 5000); } } }, open ? 'Close the study' : 'Open the study'),
+      h('span', { class: 'badge' }, E.published ? 'Published version ' + E.published : 'Nothing published yet'),
+      h('span', { class: 'badge ' + (draftDiffers() ? 'warn' : 'ok') }, draftDiffers() ? 'The draft has unpublished changes' : 'The draft matches the published version'),
+      h('button', { class: 'btn small', type: 'button', onclick: () => go('publish') }, 'Publish…')));
+  } else st.append(h('p', {}, 'Connect a backend to publish the study and collect answers. ', h('a', { href: '#', onclick: e => { e.preventDefault(); go('connect'); } }, 'Connect & set up')));
+  box.append(st);
+  // links
+  if (E.conn) {
+    const src = { v: '' };
+    const links = h('div');
+    const upd = () => {
+      links.innerHTML = '';
+      links.append(F('Participants', copyRow(studyLink({ src: src.v })), 'Share this link. Practitioners and educators use the same link: the first question sorts them into their group.'),
+        F('Pilot', copyRow(studyLink({ mode: 'pilot', src: src.v })), 'For trying the whole study yourself or with pilot participants: saved and marked "pilot", balanced separately, never mixed with the real data.'),
+        F('Non-reader baseline', copyRow(studyLink({ mode: 'baseline', src: src.v })), 'People answer the knowledge questions of every method without reading any description: their scores show how far the questions can be answered by guessing or prior knowledge (around 10 people is enough).'));
+    };
+    const srcIn = h('input', { type: 'text', placeholder: 'for example linkedin or email-1', style: { width: '240px' } });
+    srcIn.addEventListener('input', () => { src.v = srcIn.value.trim().replace(/[^A-Za-z0-9_-]/g, ''); upd(); });
+    upd();
+    box.append(h('div', { class: 'card' }, h('h2', {}, 'Links'), F('Recruitment source tag (optional)', srcIn, 'Added to the links so you can report where participants came from.'), links));
+  }
+  // progress
+  const prog = h('div', { class: 'card' }, h('div', { class: 'inline', style: { justifyContent: 'space-between' } }, h('h2', { style: { margin: 0 } }, 'Progress'),
+    E.conn ? h('button', { class: 'btn sec small', type: 'button', onclick: async e => { e.target.disabled = true; try { await loadData(); render(); } catch (er) { toast(er.message, 5000); e.target.disabled = false; } } }, E.data ? 'Refresh (' + new Date(E.data.at).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' }) + ')' : 'Load the answers') : null));
+  if (!E.data) prog.append(h('p', { class: 'muted' }, E.conn ? 'Load the answers to see progress, balance and screening.' : 'Connect a backend to see progress.'));
+  else prog.append(progressView());
+  box.append(prog);
+  // checklist
+  box.append(checklist());
+  return box;
+};
+function draftDiffers() {
+  if (!E.published || !E.vc[E.published]) return !!E.published && E.dirty;
+  const a = Object.assign({}, E.draft), b = Object.assign({}, E.vc[E.published]);
+  delete a.version; delete a.publishedAt; delete b.version; delete b.publishedAt;
+  return JSON.stringify(a) !== JSON.stringify(b);
+}
+function checklist() {
+  const c = C(), v = ISP.validate(c), card = h('div', { class: 'card' }, h('h2', {}, 'Before you launch'));
+  const items = [];
+  const add = (ok, text, level) => items.push(h('li', {}, h('span', { class: 'badge ' + (ok ? 'ok' : level || 'err') }, ok ? '✓' : level === 'warn' ? '!' : '✕'), ' ', text));
+  add(!!E.conn, 'The editor is connected to a backend.');
+  add(E.published > 0, E.published ? 'Version ' + E.published + ' is published.' : 'The study is published.');
+  add(!v.some(x => x.level === 'error'), v.some(x => x.level === 'error') ? 'The content has problems that block publishing (below).' : 'The content passes all checks.');
+  const pilots = E.data ? E.data.participants.filter(p => p.mode === 'pilot' && p.status === 'completed').length : 0;
+  add(pilots >= 3, 'At least 3 people completed a pilot run' + (E.data ? ' (now ' + pilots + ').' : '.'), 'warn');
+  const base = E.data ? E.data.participants.filter(p => p.mode === 'baseline' && p.status === 'completed').length : 0;
+  add(base >= 8, 'About 10 people completed the non-reader baseline' + (E.data ? ' (now ' + base + ').' : '.'), 'warn');
+  add(E.status === 'open', 'The study is open.', 'warn');
+  card.append(h('ul', { style: { listStyle: 'none', padding: 0, margin: 0 } }, items));
+  if (v.length) card.append(h('h3', {}, 'Checks on the content'), h('div', {}, v.map(x => h('div', { class: 'msg ' + (x.level === 'error' ? 'err' : 'warn') }, h('b', {}, x.where + ': '), x.msg))));
+  return card;
+}
+
+/* =====================================================================================
+   Part 2: Study texts and page behaviour, Method descriptions (list, editor, import),
+   knowledge questions.
+   ===================================================================================== */
+const PLACEHOLDERS = h => h('details', { class: 'card tight' }, h('summary', {}, 'Placeholders you can use in any text'),
+  h('table', { class: 'tbl mt' }, h('tbody', {},
+    [['{n}', 'number of method descriptions each person reads'], ['{minutes}', 'the estimated duration (below)'], ['{count}', 'number of active methods (non-reader baseline)'],
+      ['{researcher} {affiliation} {email}', 'from Researcher, below'], ['{pid}', 'the participant code (end page)'], ['{method} {phase} {position}', 'on the pages about one method'],
+      ['{{DE: text}}', 'text shown only to group DE (any group code; several: {{DP,DE: text}})'], ['**bold**  *italic*', 'emphasis; a blank line starts a new paragraph; lines starting with "- " make a list']]
+      .map(([a, b]) => h('tr', {}, h('td', { class: 'mono' }, a), h('td', {}, b))))));
+
+VIEWS.texts = () => {
+  const c = C(), t = c.texts, st = c.settings, r = c.researcher;
+  const box = h('div', {}, h('h1', {}, 'Study texts'), h('p', { class: 'sub' }, 'Everything participants read outside the method descriptions and the questions. Text in [square brackets] still needs filling in.'));
+  box.append(PLACEHOLDERS(h));
+  box.append(h('div', { class: 'card' }, h('h2', {}, 'Study and researcher'),
+    F('Study title (browser tab and page header)', tx(c, 'title')),
+    h('div', { class: 'grid3' }, F('Researcher', tx(r, 'name')), F('Affiliation', tx(r, 'affiliation')), F('Contact email', tx(r, 'email'), 'Shown in the information sheet, the page footer and the end page.'))));
+  box.append(h('div', { class: 'card' }, h('h2', {}, 'Welcome page'), F('Heading', tx(t, 'welcomeTitle')), F('Text', ar(t, 'welcome', { md: true, preview: true, rows: 6 }))));
+  const ci = t.consentItems = t.consentItems || [];
+  box.append(h('div', { class: 'card' }, h('h2', {}, 'Information sheet and consent'),
+    F('Heading', tx(t, 'infoTitle')), F('Information sheet', ar(t, 'info', { md: true, preview: true, rows: 12 }), 'Check it against what your ethics committee approved.'),
+    h('h3', {}, 'Consent statements (each must be ticked)'),
+    h('div', {}, ci.map((s, i) => h('div', { class: 'inline', style: { flexWrap: 'nowrap', margin: '4px 0' } }, tx(ci, i), arrayButtons(ci, i)))),
+    h('button', { class: 'btn sec small', type: 'button', onclick: () => { ci.push('I agree that …'); touch(true); } }, '+ Add a statement'),
+    h('div', { class: 'grid2 mt' }, F('Agree button', tx(t, 'consentAgree')), F('Decline button', tx(t, 'consentDecline'))),
+    F('Shown after declining', ar(t, 'declined', { rows: 2 })),
+    F('Shown to people outside the study population (an answer that leads to "not eligible")', ar(t, 'notEligible', { rows: 2 }))));
+  box.append(h('div', { class: 'card' }, h('h2', {}, 'Reading pages'),
+    F('Note above each method description', tx(t, 'readHint'), 'For example: Read this as you would if you were about to use the method{{DE: or teach it}}.'),
+    F('Button at the end of a description', tx(t, 'readDone')),
+    h('p', { class: 'hint' }, 'The heading, intro and questions shown after each description are under Questionnaire > After each method description.')));
+  box.append(h('div', { class: 'card' }, h('h2', {}, 'End page and messages'),
+    F('End page heading', tx(t, 'endTitle')), F('End page text', ar(t, 'end', { md: true, preview: true, rows: 4 })),
+    h('div', { class: 'grid3' }, F('Study closed', ar(t, 'closed', { rows: 3 })), F('Group full', ar(t, 'full', { rows: 3 })), F('After withdrawing', ar(t, 'withdrawn', { rows: 3 })))));
+  box.append(h('div', { class: 'card' }, h('h2', {}, 'Non-reader baseline'),
+    h('p', { class: 'hint' }, 'The baseline link (Overview) shows the same consent and first page, then only the knowledge questions of every active method, without the descriptions.'),
+    F('Heading', tx(t, 'baselineTitle')), F('Text', ar(t, 'baseline', { md: true, preview: true, rows: 4 }))));
+  box.append(h('div', { class: 'card' }, h('h2', {}, 'How the pages behave'),
+    h('div', { class: 'grid2' },
+      F('Estimated duration (minutes) for {minutes}', nm(st, 'minutes', { min: 1, max: 180 }), 'Allocation shows an estimate from the length of the descriptions.'),
+      F('Estimated duration of the baseline (minutes)', nm(st, 'baselineMinutes', { min: 1, max: 120 }))),
+    F('While answering the questions about a method, the description is', sl(st, 'openBook', [['side', 'beside the questions on wide screens, behind a button on small ones (open book)'], ['button', 'behind a button only (open book)'], ['off', 'not available (closed book)']])),
+    F('Lists in the descriptions', sl(st, 'listMarkers', [['none', 'without bullets, indented, as on the repository pages'], ['bullets', 'with bullets']])),
+    ck(st, 'elementNav', 'Show a row of links to the information elements above each description (changes how the structure is experienced; off by default)'),
+    F('Minimum reading time before the "finished reading" button works (seconds, 0 = none)', nm(st, 'minReadSeconds', { min: 0, max: 600 })),
+    ck(st, 'shuffleOptions', 'Shuffle the answer options of the knowledge questions for each person (recommended)'),
+    ck(st, 'dontKnow', 'Add an "I don\'t know" option to the knowledge questions (counts as wrong)'),
+    ck(st, 'allowBack', 'Allow going back to earlier pages (never back before the allocation)')));
+  return box;
+};
+
+/* ------------------------------------------------------------------ method descriptions: the list */
+const WPM = 200;   // reading speed used for estimates (words per minute, careful reading)
+function methodWords(m) { return Object.values(m.elements || {}).reduce((s, v) => s + ISP.words(v), 0); }
+VIEWS.methods = () => {
+  const c = C(), box = h('div', {});
+  box.append(h('h1', {}, 'Method descriptions'), h('p', { class: 'sub' }, 'Each person reads ' + c.allocation.perPerson + ' of the active methods, each from a different phase. Switch a method off to keep it out of new allocations without deleting it.'));
+  // phases at a glance
+  const byPhase = c.phases.map(p => ({ p, n: ISP.activeMethods(c).filter(m => m.phase === p.id).length }));
+  box.append(h('div', { class: 'card tight' }, h('div', { class: 'inline' }, h('b', {}, 'Active methods per phase:'),
+    byPhase.map(x => h('span', { class: 'badge ' + (x.n ? 'blue' : 'warn') }, x.p.label + ' ' + x.n)),
+    byPhase.filter(x => x.n).length < c.allocation.perPerson ? h('span', { class: 'badge err' }, '✕ fewer phases with an active method than methods per person') : null)));
+  const tb = h('tbody');
+  c.methods.forEach((m, i) => {
+    const w = methodWords(m), empty = c.elements.filter(e => !String(m.elements[e.id] || '').trim()).length;
+    const keysOk = (m.knowledge || []).every(q => (q.options || []).some(o => o.id === q.key));
+    const on = h('input', { type: 'checkbox', checked: m.on !== false ? true : null, 'aria-label': 'Active' });
+    on.addEventListener('change', () => { m.on = on.checked; touch(true); });
+    tb.append(h('tr', {},
+      h('td', {}, on),
+      h('td', {}, h('a', { href: '#', onclick: e => { e.preventDefault(); go('method', m.id); } }, m.name || '(no name)'), h('div', { class: 'mono muted' }, m.id)),
+      h('td', {}, sl(m, 'phase', c.phases.map(p => [p.id, p.label]).concat(m.phase && !c.phases.some(p => p.id === m.phase) ? [[m.phase, m.phase + ' (unknown)']] : []), { rerender: true })),
+      h('td', { class: 'n' }, w), h('td', { class: 'n' }, (w / WPM).toFixed(1) + ' min'),
+      h('td', {}, h('span', { class: 'badge ' + (keysOk && (m.knowledge || []).length ? 'ok' : 'err') }, (m.knowledge || []).length + ' question' + ((m.knowledge || []).length === 1 ? '' : 's') + (keysOk ? '' : ', key missing'))),
+      h('td', {}, empty ? h('span', { class: 'badge warn' }, empty + ' empty') : h('span', { class: 'badge ok' }, 'complete')),
+      h('td', { class: 'right' }, h('button', { class: 'btn sec small', type: 'button', onclick: () => go('method', m.id) }, 'Edit'), ' ',
+        arrayButtons(c.methods, i, { copy: x => { x.id = uniqueId(x.id + '_copy', c.methods.map(q => q.id)); x.name += ' (copy)'; return x; }, confirm: 'Delete the method "' + m.name + '" and its description and questions? People who already read it keep their answers in the data, but the Excel export will no longer show its name or score its questions.' }))));
+  });
+  box.append(h('div', { class: 'card' }, h('div', { class: 'scroll' }, h('table', { class: 'tbl' },
+    h('thead', {}, h('tr', {}, ['On', 'Method', 'Phase', 'Words', 'Reading', 'Knowledge', 'Elements', ''].map((x, k) => h('th', { class: k === 3 || k === 4 ? 'n' : null }, x)))), tb)),
+    h('div', { class: 'inline mt' },
+      h('button', { class: 'btn', type: 'button', onclick: () => addMethod() }, '+ Add a method'),
+      h('button', { class: 'btn sec', type: 'button', onclick: () => importDialog(null) }, '+ Add a method from pasted text'))));
+  box.append(h('p', { class: 'hint' }, 'Changing or adding methods while data are being collected is recorded: every participant\'s data carry the content version they saw. Prefer to finish piloting first.'));
+  return box;
+};
+function blankKnowledge() {
+  return [{ id: 'K1', label: 'When to use it', stem: '', options: ['a', 'b', 'c', 'd'].map(id => ({ id, text: '' })), key: 'a', source: '' },
+    { id: 'K2', label: 'How to use it correctly', stem: '', options: ['a', 'b', 'c', 'd'].map(id => ({ id, text: '' })), key: 'a', source: '' }];
+}
+function addMethod(fromImport) {
+  const c = C(), name = (fromImport && fromImport.name) || 'New method';
+  const m = { id: uniqueId(name, c.methods.map(x => x.id)), name, phase: (fromImport && fromImport.phase) || (c.phases[0] || {}).id || '', on: true,
+    elements: Object.assign({}, (fromImport && fromImport.elements) || {}), knowledge: blankKnowledge(), notes: '' };
+  c.methods.push(m); touch(); go('method', m.id);
+}
+function importDialog(target) {
+  const c = C();
+  const ta = h('textarea', { rows: 14, placeholder: 'Paste the whole method description here: its name on the first line, then each element under its heading (Objective, Detailed description, Steps …).' });
+  const name = { v: target ? target.name : '' }, phase = { v: target ? target.phase : (c.phases[0] || {}).id };
+  const out = h('div');
+  const run = () => {
+    const r = ISP.importDescription(ta.value, c.elements);
+    out.innerHTML = '';
+    if (!ta.value.trim()) return;
+    if (!target && r.name) name.v = r.name;
+    const found = c.elements.filter(e => r.elements[e.id]);
+    out.append(h('div', { class: 'msg ' + (found.length >= c.elements.length - 2 ? 'ok' : 'warn') }, 'Found ' + found.length + ' of ' + c.elements.length + ' elements' + (r.wrapped ? ' (lines from a PDF were joined)' : '') + '. Check the result in the method editor afterwards.'),
+      h('div', { class: 'scroll', style: { maxHeight: '300px', overflow: 'auto' } }, h('table', { class: 'tbl' }, h('tbody', {}, c.elements.map(e => h('tr', {},
+        h('td', { style: { whiteSpace: 'nowrap' } }, e.label), h('td', {}, r.elements[e.id] ? ISP.mdText(r.elements[e.id]).slice(0, 140) + (ISP.mdText(r.elements[e.id]).length > 140 ? '…' : '') : h('span', { class: 'badge warn' }, 'not found'))))))),
+      r.extra.length ? h('p', { class: 'hint' }, 'Text before the first heading was left out: ' + r.extra.join(' / ').slice(0, 200)) : null);
+    if (!target) out.append(h('div', { class: 'grid2 mt' }, F('Name', tx(name, 'v')), F('Phase', sl(phase, 'v', c.phases.map(p => [p.id, p.label])))));
+    out.append(h('div', { class: 'inline mt', style: { justifyContent: 'flex-end' } }, h('button', { class: 'btn', type: 'button', onclick: () => {
+      closeModal();
+      if (target) { target.elements = Object.assign({}, r.elements); touch(true); toast('The elements were replaced.'); }
+      else addMethod({ name: name.v || r.name || 'New method', phase: phase.v, elements: r.elements });
+    } }, target ? 'Replace this method\'s elements' : 'Add the method')));
+  };
+  ta.addEventListener('input', () => { clearTimeout(ta.t); ta.t = setTimeout(run, 300); });
+  modal([h('h2', {}, target ? 'Paste the whole description of "' + target.name + '"' : 'Add a method from pasted text'),
+    h('p', { class: 'hint' }, 'Copy the text from a repository page, a Word file or a PDF. Headings are matched to the information elements, including common variants (for example "Literature / Bibliography", "Method specific skill(s)"); "Time to execute" goes into Required resources.'), ta, out], { wide: true });
+}
+
+/* ------------------------------------------------------------------ one method */
+VIEWS.method = () => {
+  const c = C(), m = c.methods.find(x => x.id === E.methodId);
+  if (!m) { E.section = 'methods'; return VIEWS.methods(); }
+  const box = h('div', {});
+  box.append(h('div', { class: 'inline', style: { justifyContent: 'space-between' } },
+    h('div', {}, h('a', { href: '#', onclick: e => { e.preventDefault(); go('methods'); } }, '← All methods'), h('h1', {}, m.name || '(no name)')),
+    h('div', { class: 'inline' },
+      h('button', { class: 'btn sec', type: 'button', onclick: () => importDialog(m) }, 'Paste a whole description…'),
+      h('button', { class: 'btn sec', type: 'button', onclick: () => openPreview({ start: 'reading', methods: [m.id] }) }, 'Preview as participants see it'))));
+  const idIn = tx(m, 'id', { mono: true, clean: v => v.replace(/[^A-Za-z0-9_]/g, '') });
+  idIn.addEventListener('change', () => {
+    if (!/^[A-Za-z][A-Za-z0-9_]{0,40}$/.test(m.id) || c.methods.filter(x => x.id === m.id).length > 1) { toast('The code must be unique and start with a letter.', 4000); idIn.classList.add('bad'); return; }
+    idIn.classList.remove('bad'); E.methodId = m.id; saveLocal();
+  });
+  box.append(h('div', { class: 'card' }, h('div', { class: 'grid3' },
+    F('Name', tx(m, 'name', { on: () => { const t = $('h1', $('#main')); if (t) t.textContent = m.name; } })),
+    F('Design phase', sl(m, 'phase', c.phases.map(p => [p.id, p.label]))),
+    F('Code', idIn, 'Used in the data (for example A5_' + m.id + '). Avoid changing it once data exist.')),
+    ck(m, 'on', 'Active: can be given to new participants', { rerender: false }),
+    F('Private notes (never shown to participants)', ar(m, 'notes', { rows: 2 }))));
+  // elements with a live preview
+  const pv = h('div', { class: 'pv' });
+  const drawPv = () => { pv.innerHTML = ''; pv.append(h('div', { class: 'hint', style: { padding: '10px 0 0' } }, 'As participants see it (' + methodWords(m) + ' words, about ' + Math.max(1, Math.round(methodWords(m) / WPM)) + ' min)'), descriptionPreview(m)); };
+  const eds = h('div');
+  c.elements.forEach(e => {
+    const t = ar(m.elements, e.id, { md: true, rows: 3, on: () => { clearTimeout(drawPv.t); drawPv.t = setTimeout(drawPv, 250); } });
+    eds.append(h('div', { class: 'elrow' }, h('div', { class: 'eh' }, h('span', {}, e.label), h('span', { class: 'hint' }, e.hint)), t));
+  });
+  drawPv();
+  box.append(h('div', { class: 'card' }, h('h2', {}, 'Information elements'), h('p', { class: 'hint' }, 'Formatting: **bold**, *italic*, a blank line for a new paragraph, "- " for a list item (indent two spaces per level), "| a | b |" lines for a table, links as https://… An empty element is left out of the page.'),
+    h('div', { class: 'mded' }, eds, pv)));
+  box.append(knowledgeEditor(m));
+  return box;
+};
+function descriptionPreview(m) {
+  const c = C(), wrap = h('div', { class: 'read' + (c.settings.listMarkers === 'bullets' ? '' : ' nomark') });
+  wrap.append(h('div', { class: 'mname' }, m.name));
+  c.elements.forEach(e => { const b = String(m.elements[e.id] || '').trim(); if (b) wrap.append(h('section', { class: 'el' }, h('h3', {}, e.label), h('div', { html: ISP.md(b) }))); });
+  return wrap;
+}
+function knowledgeEditor(m) {
+  const card = h('div', { class: 'card' }, h('h2', {}, 'Knowledge questions'),
+    h('p', { class: 'hint' }, 'Short scenarios answered with the description open. The correct answer must be stated in the description; wrong answers should be real misconceptions of similar length. The marked answer and the source never reach participants. Use the same codes (K1, K2) for every method so the data line up.'));
+  const ks = m.knowledge = m.knowledge || [];
+  ks.forEach((q, qi) => {
+    const lens = (q.options || []).map(o => (o.text || '').length), keyLen = ((q.options || []).find(o => o.id === q.key) || {}).text || '';
+    const longest = lens.length && keyLen.length === Math.max(...lens) && lens.filter(x => x === Math.max(...lens)).length === 1;
+    const opts = h('div', { class: 'opts-ed' });
+    (q.options || []).forEach((o, oi) => {
+      const r = h('input', { type: 'radio', name: 'key_' + m.id + '_' + qi, checked: q.key === o.id ? true : null, title: 'Correct answer', 'aria-label': 'Correct answer' });
+      r.addEventListener('change', () => { q.key = o.id; touch(true); });
+      opts.append(h('div', { class: 'orow' }, r, tx(o, 'text'), h('span', { class: 'mono muted' }, o.id), arrayButtons(q.options, oi, { after: () => { if (!q.options.some(x => x.id === q.key) && q.options[0]) q.key = q.options[0].id; } })));
+    });
+    card.append(h('div', { class: 'kq' },
+      h('div', { class: 'inline', style: { justifyContent: 'space-between' } },
+        h('div', { class: 'inline' }, h('span', { class: 'mono' }, 'Code'), tx(q, 'id', { mono: true, w: '70px', clean: v => v.replace(/[^A-Za-z0-9_]/g, '') }), tx(q, 'label', { w: '220px', ph: 'When to use it / How to use it correctly' })),
+        arrayButtons(ks, qi, { confirm: 'Delete this question?' })),
+      F('Question', ar(q, 'stem', { rows: 2 })),
+      h('div', { class: 'l', style: { fontWeight: 600, fontSize: '13px' } }, 'Answer options (the selected circle marks the correct one)'), opts,
+      h('div', { class: 'inline' },
+        h('button', { class: 'btn ghost small', type: 'button', onclick: () => { const id = 'abcdefghij'.split('').find(x => !q.options.some(o => o.id === x)) || ISP.uid(3); q.options.push({ id, text: '' }); touch(true); } }, '+ Add an option'),
+        longest ? h('span', { class: 'badge warn' }, '! The correct answer is the longest option: test-wise people may guess it') : null),
+      F('Where the description states the answer (private)', tx(q, 'source', { ph: 'for example Steps (Pre-test and Pilot)' }))));
+  });
+  card.append(h('button', { class: 'btn sec', type: 'button', onclick: () => {
+    const used = ks.map(q => q.id); let n = ks.length + 1; while (used.indexOf('K' + n) >= 0) n++;
+    ks.push({ id: 'K' + n, label: '', stem: '', options: ['a', 'b', 'c', 'd'].map(id => ({ id, text: '' })), key: 'a', source: '' }); touch(true);
+  } }, '+ Add a knowledge question'));
+  return card;
+}
+
+/* =====================================================================================
+   Part 3: Elements, phases and groups; Questionnaire (pages, questions, the questions after
+   each method description, answer scales, constructs).
+   ===================================================================================== */
+VIEWS.structure = () => {
+  const c = C(), box = h('div', {});
+  box.append(h('h1', {}, 'Elements, phases and groups'), h('p', { class: 'sub' }, 'The information elements make up every method description (in this order) and the rows of the necessity question. Phases and groups drive the allocation.'));
+  // elements
+  const etb = h('tbody');
+  c.elements.forEach((e, i) => {
+    const used = c.methods.filter(m => String(m.elements[e.id] || '').trim()).length;
+    etb.append(h('tr', {}, h('td', { class: 'n muted' }, i + 1), h('td', {}, tx(e, 'label')), h('td', {}, tx(e, 'hint')),
+      h('td', {}, tx(e, 'id', { mono: true, w: '150px', clean: v => v.replace(/[^A-Za-z0-9_]/g, ''), blur: inp => renameElement(e, inp) })),
+      h('td', { class: 'n' }, used + '/' + c.methods.length),
+      h('td', {}, arrayButtons(c.elements, i, { confirm: 'Delete the element "' + e.label + '"? Its text is removed from all ' + c.methods.length + ' method descriptions, and its row from the necessity question.', after: () => { c.methods.forEach(m => { delete m.elements[e.id]; }); } }))));
+  });
+  box.append(h('div', { class: 'card' }, h('h2', {}, 'Information elements'),
+    h('div', { class: 'scroll' }, h('table', { class: 'tbl' }, h('thead', {}, h('tr', {}, ['#', 'Name (heading in every description)', 'What it covers (shown in the necessity question)', 'Code', 'Filled', ''].map(x => h('th', {}, x)))), etb)),
+    h('button', { class: 'btn sec small mt', type: 'button', onclick: () => { c.elements.push({ id: uniqueId('new_element', c.elements.map(x => x.id)), label: 'New element', hint: '' }); touch(true); } }, '+ Add an element')));
+  // phases
+  const ptb = h('tbody');
+  c.phases.forEach((p, i) => {
+    const n = c.methods.filter(m => m.phase === p.id).length;
+    ptb.append(h('tr', {}, h('td', {}, tx(p, 'label')), h('td', {}, tx(p, 'id', { mono: true, w: '140px', clean: v => v.replace(/[^A-Za-z0-9_]/g, ''), blur: inp => renamePhase(p, inp) })),
+      h('td', { class: 'n' }, n), h('td', {}, n ? arrayButtons(c.phases, i, { noDelete: true }) : arrayButtons(c.phases, i, { confirm: 'Delete the phase "' + p.label + '"?' }))));
+  });
+  box.append(h('div', { class: 'card' }, h('h2', {}, 'Design phases'), h('p', { class: 'hint' }, 'No two methods of the same phase are ever given to the same person. A phase that still has methods cannot be deleted.'),
+    h('table', { class: 'tbl' }, h('thead', {}, h('tr', {}, ['Phase', 'Code', 'Methods', ''].map(x => h('th', {}, x)))), ptb),
+    h('button', { class: 'btn sec small mt', type: 'button', onclick: () => { c.phases.push({ id: uniqueId('phase', c.phases.map(x => x.id)), label: 'New phase' }); touch(true); } }, '+ Add a phase')));
+  // groups
+  const gtb = h('tbody');
+  c.groups.forEach((g, i) => {
+    gtb.append(h('tr', {}, h('td', {}, tx(g, 'id', { mono: true, w: '90px', clean: v => v.replace(/[^A-Za-z0-9_]/g, ''), blur: inp => renameGroup(g, inp) })), h('td', {}, tx(g, 'label')),
+      h('td', {}, nm(g, 'target', { min: 0, max: 100000 })), h('td', {}, arrayButtons(c.groups, i, { confirm: 'Delete the group "' + g.label + '"? Answers that lead to it and questions shown only to it must be changed too.' }))));
+  });
+  box.append(h('div', { class: 'card' }, h('h2', {}, 'Participant groups'),
+    h('p', { class: 'hint' }, 'Allocation is balanced within each group. The question marked "decides the group" (Questionnaire) sorts people into groups; questions can be shown to some groups only. The target is the number of finished participants you aim for (see Allocation for closing a full group).'),
+    h('table', { class: 'tbl' }, h('thead', {}, h('tr', {}, ['Code', 'Name', 'Target', ''].map(x => h('th', {}, x)))), gtb),
+    h('button', { class: 'btn sec small mt', type: 'button', onclick: () => { c.groups.push({ id: uniqueId('G', c.groups.map(x => x.id)).toUpperCase(), label: 'New group', target: 30 }); touch(true); } }, '+ Add a group')));
+  return box;
+};
+function renameElement(e, inp) {
+  const c = C(), old = inp.dataset.old || inp.defaultValue;
+  if (!/^[A-Za-z][A-Za-z0-9_]{0,40}$/.test(e.id) || c.elements.filter(x => x.id === e.id).length > 1) { toast('Element codes must be unique and start with a letter.', 4000); e.id = old; inp.value = old; return; }
+  c.methods.forEach(m => { if (old in m.elements && old !== e.id) { m.elements[e.id] = m.elements[old]; delete m.elements[old]; } });
+  ISP.allItems(c).forEach(x => (x.item.extraRows || []).forEach(r => { if (r.after === old) r.after = e.id; }));
+  inp.defaultValue = e.id; touch();
+}
+function renamePhase(p, inp) {
+  const c = C(), old = inp.defaultValue;
+  if (!/^[A-Za-z][A-Za-z0-9_]{0,40}$/.test(p.id) || c.phases.filter(x => x.id === p.id).length > 1) { toast('Phase codes must be unique and start with a letter.', 4000); p.id = old; inp.value = old; return; }
+  c.methods.forEach(m => { if (m.phase === old) m.phase = p.id; });
+  inp.defaultValue = p.id; touch();
+}
+function renameGroup(g, inp) {
+  const c = C(), old = inp.defaultValue;
+  if (!/^[A-Za-z][A-Za-z0-9_]{0,20}$/.test(g.id) || c.groups.filter(x => x.id === g.id).length > 1) { toast('Group codes must be unique and start with a letter.', 4000); g.id = old; inp.value = old; return; }
+  ISP.allItems(c).forEach(x => { (x.item.options || []).forEach(o => { if (o.group === old) o.group = g.id; }); if (x.item.showTo) x.item.showTo = x.item.showTo.map(s => s === old ? g.id : s); });
+  c.parts.forEach(p => { if (p.showTo) p.showTo = p.showTo.map(s => s === old ? g.id : s); });
+  inp.defaultValue = g.id; touch();
+}
+
+/* ------------------------------------------------------------------ the questionnaire */
+const TYPES = [['likert', 'Rating statement'], ['matrix', 'Rating grid (rows)'], ['single', 'One choice'], ['multi', 'Several choices'], ['number', 'Number'],
+  ['text', 'Short text'], ['longtext', 'Long text'], ['email', 'Email (kept apart)'], ['note', 'Text only (no answer)']];
+const TYPE_LABEL = Object.fromEntries(TYPES);
+function allCodes() {
+  const c = C(), out = {};
+  ISP.allItems(c).forEach(x => { if (x.item.type === 'note') return; (x.item.type === 'email' ? [{ v: x.item.id }] : ISP.itemVars(c, x.item)).forEach(v => { out[v.v] = (out[v.v] || 0) + 1; }); });
+  c.methods.forEach(m => (m.knowledge || []).forEach(q => { if (((c.perMethod || {}).items || []).some(i => i.id === q.id)) out[q.id] = (out[q.id] || 0) + 1; }));
+  return out;
+}
+VIEWS.questions = () => {
+  const c = C(), box = h('div', {});
+  box.append(h('h1', {}, 'Questionnaire'), h('p', { class: 'sub' }, 'Pages run in this order: pages before the reading, then each method description followed by its questions, then pages after the reading. Click a question to edit it.'));
+  const codes = allCodes();
+  const before = c.parts.filter(p => p.where !== 'after'), after = c.parts.filter(p => p.where === 'after');
+  before.forEach(p => box.append(partCard(p, codes)));
+  box.append(h('div', { class: 'inline', style: { margin: '0 0 14px' } }, h('button', { class: 'btn sec small', type: 'button', onclick: () => addPart('before') }, '+ Add a page before the reading')));
+  box.append(perMethodCard(codes));
+  after.forEach(p => box.append(partCard(p, codes)));
+  box.append(h('div', { class: 'inline', style: { margin: '0 0 14px' } }, h('button', { class: 'btn sec small', type: 'button', onclick: () => addPart('after') }, '+ Add a page after the reading')));
+  box.append(scalesCard(), constructsCard());
+  return box;
+};
+function addPart(where) {
+  const c = C(), id = uniqueId('P', c.parts.map(p => p.id)).toUpperCase();
+  const at = where === 'before' ? c.parts.filter(p => p.where !== 'after').length : c.parts.length;
+  c.parts.splice(at, 0, { id, title: 'New page', where, intro: '', items: [] });
+  touch(true);
+}
+function partCard(p, codes) {
+  const c = C(), idx = c.parts.indexOf(p);
+  const card = h('div', { class: 'card' });
+  const moveBtns = h('span', { class: 'icons' },
+    h('button', { type: 'button', title: 'Move the page up', onclick: () => { if (idx > 0) { [c.parts[idx - 1], c.parts[idx]] = [c.parts[idx], c.parts[idx - 1]]; touch(true); } } }, '↑'),
+    h('button', { type: 'button', title: 'Move the page down', onclick: () => { if (idx < c.parts.length - 1) { [c.parts[idx + 1], c.parts[idx]] = [c.parts[idx], c.parts[idx + 1]]; touch(true); } } }, '↓'),
+    h('button', { type: 'button', class: 'del', title: 'Delete the page', onclick: async () => { if (await ask('Delete the page "' + p.title + '"?', 'Its ' + (p.items || []).length + ' questions are deleted too.', 'Delete', true)) { c.parts.splice(idx, 1); touch(true); } } }, '✕'));
+  card.append(h('div', { class: 'inline', style: { justifyContent: 'space-between' } },
+    h('div', { class: 'inline' }, h('span', { class: 'badge blue' }, p.where === 'after' ? 'After the reading' : 'Before the reading'), h('span', { class: 'mono muted' }, 'page ' + p.id)), moveBtns));
+  card.append(h('div', { class: 'grid2 mt' }, F('Page heading', tx(p, 'title')),
+    F('Where', sl(p, 'where', [['before', 'Before the method descriptions'], ['after', 'After the method descriptions']], { rerender: true }))));
+  card.append(groupsPicker(p, 'showTo', { label: 'Page shown to:', rerender: true }));
+  card.append(F('Text at the top of the page (optional)', ar(p, 'intro', { md: true, preview: true, rows: 2 })));
+  p.items = p.items || [];
+  card.append(itemList(p.items, codes, { part: p }));
+  return card;
+}
+function perMethodCard(codes) {
+  const c = C(), pm = c.perMethod;
+  const card = h('div', { class: 'card', style: { borderColor: '#9fc4e3', background: '#fbfdff' } });
+  card.append(h('div', { class: 'inline' }, h('span', { class: 'badge blue' }, 'Repeated for each method description'), h('h2', { style: { margin: 0 } }, 'After each method description')));
+  card.append(h('p', { class: 'hint' }, 'Shown after each description: first the method\'s own knowledge questions (edited with each method), then these questions. Answers are stored per method (B1_p1, B2_p1 … in the Sheet; one row per person and method in the Excel export).'));
+  card.append(h('div', { class: 'grid2' }, F('Page heading', tx(pm, 'title'), 'For example {method}: a few questions'), F('Line above the rating statements', tx(pm, 'ratingText'))));
+  card.append(F('Text at the top of the page', ar(pm, 'intro', { md: true, rows: 2 })));
+  card.append(itemList(pm.items, codes, { perMethod: true }));
+  return card;
+}
+function itemList(items, codes, ctx) {
+  const wrap = h('div', { class: 'mt' });
+  items.forEach((it, i) => {
+    const key = (ctx.perMethod ? 'pm:' : (ctx.part.id + ':')) + i;
+    const open = E.open.has(key);
+    const dup = it.type !== 'note' && (it.type === 'email' ? codes[it.id] > 1 : ISP.itemVars(C(), it).some(v => codes[v.v] > 1));
+    const shown = it.showTo && it.showTo.length ? 'only ' + it.showTo.join(', ') : '';
+    const row = h('div', { class: 'itemrow' + (open ? ' open' : '') },
+      h('span', { class: 'code' + (dup ? ' bad' : '') }, it.id || '?'),
+      h('span', {}, h('span', { class: 'badge' }, TYPE_LABEL[it.type] || it.type)),
+      h('span', { class: 'txt', title: ISP.mdText(it.text), onclick: () => { open ? E.open.delete(key) : E.open.add(key); render(); } },
+        it.role === 'group' ? h('span', { class: 'badge blue' }, 'decides the group') : null, ' ', ISP.mdText(it.text) || '(no text)', ' ',
+        shown ? h('span', { class: 'badge warn' }, shown) : null, it.reverse ? h('span', { class: 'badge' }, 'reversed') : null, it.required === false && it.type !== 'note' ? h('span', { class: 'badge' }, 'optional') : null),
+      h('span', { class: 'inline', style: { flexWrap: 'nowrap' } }, h('button', { class: 'btn ghost small', type: 'button', onclick: () => { open ? E.open.delete(key) : E.open.add(key); render(); } }, open ? 'Close' : 'Edit'),
+        arrayButtons(items, i, { copy: x => { x.id = uniqueId(x.id + '_2', Object.keys(allCodes())); delete x.role; return x; }, confirm: 'Delete the question ' + it.id + '?', after: () => E.open.clear() })));
+    wrap.append(row);
+    if (open) wrap.append(itemEditor(it, codes, ctx));
+  });
+  const typeSel = h('select', { style: { width: 'auto' } }, TYPES.filter(t => !ctx.perMethod || ['matrix', 'email'].indexOf(t[0]) < 0).map(([v, l]) => h('option', { value: v }, l)));
+  wrap.append(h('div', { class: 'inline mt' }, h('span', { class: 'muted' }, 'Add a question:'), typeSel, h('button', { class: 'btn sec small', type: 'button', onclick: () => {
+    const it = newItem(typeSel.value, ctx);
+    items.push(it); E.open.clear(); E.open.add((ctx.perMethod ? 'pm:' : ctx.part.id + ':') + (items.length - 1)); touch(true);
+  } }, '+ Add')));
+  return wrap;
+}
+function newItem(type, ctx) {
+  const taken = Object.keys(allCodes()).concat(ISP.allItems(C()).map(x => x.item.id));
+  const base = ctx.perMethod ? 'p' : (ctx.part.id || 'Q');
+  let n = 1; while (taken.indexOf(base + n) >= 0) n++;
+  const it = { id: base + n, type, text: '', required: type !== 'note' && type !== 'email' && type !== 'longtext' };
+  setTypeDefaults(it);
+  return it;
+}
+function setTypeDefaults(it) {
+  const sc = Object.keys(C().scales || {});
+  if (it.type === 'likert' || it.type === 'matrix') it.scale = it.scale || (sc.indexOf('agree7') >= 0 ? 'agree7' : sc[0]);
+  if (it.type === 'matrix') it.rows = it.rows || 'elements';
+  if ((it.type === 'single' || it.type === 'multi') && !(it.options || []).length) it.options = [{ id: 'a', text: 'Option 1' }, { id: 'b', text: 'Option 2' }];
+  if (it.type === 'number') { if (it.min === undefined) it.min = 0; if (it.max === undefined) it.max = 100; }
+  if (it.type === 'email' || it.type === 'note') it.required = false;
+  if (it.type !== 'likert') { delete it.construct; delete it.reverse; }
+  if (it.type !== 'single') delete it.role;
+  if (it.type !== 'matrix') { delete it.rows; delete it.extraRows; }
+  if (it.type !== 'likert' && it.type !== 'matrix') delete it.scale;
+  if (it.type !== 'single' && it.type !== 'multi') delete it.options;
+  if (it.type !== 'number') { delete it.min; delete it.max; delete it.unit; }
+}
+function itemEditor(it, codes, ctx) {
+  const c = C(), ed = h('div', { class: 'itemed' });
+  const idIn = tx(it, 'id', { mono: true, w: '130px', clean: v => v.replace(/[^A-Za-z0-9_]/g, '') });
+  idIn.addEventListener('change', () => render());
+  const typeSel = h('select', { style: { width: 'auto' } }, TYPES.filter(t => !ctx.perMethod || ['matrix', 'email'].indexOf(t[0]) < 0).map(([v, l]) => h('option', { value: v, selected: it.type === v ? true : null }, l)));
+  typeSel.addEventListener('change', () => { it.type = typeSel.value; setTypeDefaults(it); touch(true); });
+  ed.append(h('div', { class: 'inline' }, h('span', { class: 'muted' }, 'Code'), idIn, h('span', { class: 'muted' }, 'Kind'), typeSel,
+    it.type !== 'note' && it.type !== 'email' ? ck(it, 'required', 'Answer required') : null));
+  if (it.type === 'email') ed.append(h('div', { class: 'msg info' }, 'Email addresses are stored in a separate tab (Contacts), never with the answers, and are not in the Excel export of the answers.'));
+  ed.append(F(it.type === 'note' ? 'Text' : 'Question', ar(it, 'text', { md: true, rows: 2 }), ctx.perMethod ? 'You can use {method} for the method\'s name.' : null));
+  ed.append(F('Help line under the question (optional)', tx(it, 'help')));
+  ed.append(groupsPicker(it, 'showTo', { label: 'Asked of:', rerender: true }));
+  const scales = Object.entries(c.scales || {}).map(([k, s]) => [k, (s.label || k) + ' (' + (s.points || []).length + ' points)']);
+  if (it.type === 'likert') {
+    ed.append(h('div', { class: 'grid3 mt' }, F('Answer scale', sl(it, 'scale', scales, { rerender: true })),
+      F('Construct (for the scores)', sl(it, 'construct', [['', '(none)']].concat((c.constructs || []).map(k => [k.id, k.id + ': ' + k.label])), { on: s => { if (!s.value) delete it.construct; } })),
+      h('div', {}, h('span', { class: 'l', style: { fontWeight: 600, fontSize: '13px' } }, 'Wording'), ck(it, 'reverse', 'Negatively worded (reverse-scored)', { rerender: true }))));
+    ed.append(h('p', { class: 'hint' }, 'Consecutive rating statements on the same scale appear together as one grid.'));
+  }
+  if (it.type === 'matrix') {
+    const rowsSel = h('select', {}, [['elements', 'the information elements'], ['allocated', 'the methods this person reads'], ['methods', 'all active methods'], ['custom', 'rows I write']].map(([v, l]) => h('option', { value: v, selected: (Array.isArray(it.rows) ? 'custom' : it.rows) === v ? true : null }, l)));
+    rowsSel.addEventListener('change', () => { it.rows = rowsSel.value === 'custom' ? [{ id: 'r1', text: 'Row 1' }] : rowsSel.value; touch(true); });
+    ed.append(h('div', { class: 'grid2 mt' }, F('Answer scale', sl(it, 'scale', scales, { rerender: true })), F('Rows', rowsSel)));
+    if (Array.isArray(it.rows)) {
+      ed.append(h('div', {}, it.rows.map((r, i) => h('div', { class: 'inline', style: { flexWrap: 'nowrap', margin: '3px 0' } }, tx(r, 'id', { mono: true, w: '90px', clean: v => v.replace(/[^A-Za-z0-9_]/g, '') }), tx(r, 'text'), arrayButtons(it.rows, i))),
+        h('button', { class: 'btn ghost small', type: 'button', onclick: () => { it.rows.push({ id: 'r' + (it.rows.length + 1), text: '' }); touch(true); } }, '+ Add a row')));
+    }
+    it.extraRows = it.extraRows || [];
+    const afterOpts = [['', '(at the end)']].concat(ISP.matrixRows(Object.assign({}, c), Object.assign({}, it, { extraRows: [] })).map(r => [r.el || r.id.replace(it.id + '_', ''), ISP.mdText(r.text).slice(0, 40)]));
+    ed.append(h('h3', {}, 'Extra rows (for example an instructed "please choose 2" row)'),
+      h('div', {}, it.extraRows.map((r, i) => h('div', { class: 'inline', style: { flexWrap: 'nowrap', margin: '3px 0' } }, tx(r, 'id', { mono: true, w: '90px', clean: v => v.replace(/[^A-Za-z0-9_]/g, '') }), tx(r, 'text'),
+        h('span', { class: 'muted' }, 'after'), sl(r, 'after', afterOpts, { w: '200px' }), arrayButtons(it.extraRows, i)))),
+      h('button', { class: 'btn ghost small', type: 'button', onclick: () => { it.extraRows.push({ id: 'ATT' + (Object.keys(codes).filter(k => /^ATT\d+$/.test(k)).length + 1), text: 'To show you are reading carefully, please choose 2 for this row.', after: '' }); touch(true); } }, '+ Add an extra row'));
+    if (it.rows === 'allocated') ed.append(h('p', { class: 'hint' }, 'Must be on a page after the question that decides the group (the methods are allocated when that page is left). Variables: ' + it.id + '_<method code>.'));
+  }
+  if (it.type === 'single' || it.type === 'multi') {
+    if (it.type === 'single' && !ctx.perMethod) {
+      ed.append(ck({ get role() { return it.role === 'group'; }, set role(v) { if (v) { ISP.allItems(c).forEach(x => { if (x.item !== it) delete x.item.role; }); it.role = 'group'; (it.options || []).forEach(o => { if (!o.group) o.group = (c.groups[0] || {}).id; }); } else delete it.role; } }, 'role', 'This question decides the group (each answer leads to a group, or ends the study for people outside the population)', { rerender: true }));
+    }
+    const opts = h('div', { class: 'opts-ed' });
+    (it.options || []).forEach((o, i) => {
+      opts.append(h('div', { class: 'orow', style: { gridTemplateColumns: it.role === 'group' ? '70px minmax(0,1fr) 200px auto auto' : '70px minmax(0,1fr) auto auto' } },
+        tx(o, 'id', { mono: true, clean: v => v.replace(/[^A-Za-z0-9_]/g, '') }), tx(o, 'text'),
+        it.role === 'group' ? sl(o, 'group', c.groups.map(g => [g.id, '→ ' + g.label]).concat([['_none', '→ not eligible (ends)']])) : null,
+        ck(o, 'other', 'asks "which?"'), arrayButtons(it.options, i)));
+    });
+    ed.append(h('h3', {}, 'Answer options'), opts, h('button', { class: 'btn ghost small', type: 'button', onclick: () => { const id = 'abcdefghijklmnopqrstuvwxyz'.split('').find(x => !it.options.some(o => o.id === x)) || ISP.uid(3); it.options.push({ id, text: '' }); touch(true); } }, '+ Add an option'));
+    ed.append(h('p', { class: 'hint' }, 'The Sheet and the Excel export show the option text; the codes keep the data stable if you reword an option.'));
+  }
+  if (it.type === 'number') ed.append(h('div', { class: 'inline mt' }, h('span', {}, 'From'), nm(it, 'min', { blank: true }), h('span', {}, 'to'), nm(it, 'max', { blank: true }), h('span', {}, 'Unit'), tx(it, 'unit', { w: '120px' })));
+  return ed;
+}
+function scalesCard() {
+  const c = C(), card = h('div', { class: 'card' }, h('h2', {}, 'Answer scales'));
+  Object.entries(c.scales).forEach(([key, s]) => {
+    const used = ISP.allItems(c).filter(x => x.item.scale === key).length;
+    const pts = s.points = s.points || [];
+    card.append(h('div', { class: 'kq' },
+      h('div', { class: 'inline', style: { justifyContent: 'space-between' } }, h('div', { class: 'inline' }, h('span', { class: 'mono' }, key), tx(s, 'label', { w: '260px' }), h('span', { class: 'badge' }, 'used by ' + used)),
+        used ? null : h('button', { class: 'btn danger small', type: 'button', onclick: () => { delete c.scales[key]; touch(true); } }, 'Delete')),
+      h('div', { class: 'inline mt' }, pts.map((p, i) => h('span', { class: 'inline', style: { flexWrap: 'nowrap', border: '1px solid var(--line)', borderRadius: '6px', padding: '3px 6px' } },
+        nm(p, 0, { w: '60px' }), tx(p, 1, { w: '150px' }), h('span', { class: 'icons' }, h('button', { type: 'button', class: 'del', title: 'Remove this point', onclick: () => { pts.splice(i, 1); touch(true); } }, '✕')))),
+        h('button', { class: 'btn ghost small', type: 'button', onclick: () => { const last = pts.length ? Number(pts[pts.length - 1][0]) : 0; pts.push([last + 1, '']); touch(true); } }, '+ point'))));
+  });
+  const nk = { v: '' };
+  card.append(h('div', { class: 'inline mt' }, tx(nk, 'v', { ph: 'code of a new scale, e.g. freq5', w: '220px', mono: true }), h('button', { class: 'btn sec small', type: 'button', onclick: () => {
+    const k = nk.v.replace(/[^A-Za-z0-9_]/g, '');
+    if (!k || c.scales[k]) return toast('Give the new scale a new code.');
+    c.scales[k] = { label: k, points: [[1, ''], [2, ''], [3, ''], [4, ''], [5, '']] }; touch(true);
+  } }, '+ Add a scale')));
+  card.append(h('p', { class: 'hint' }, 'Changing the values of a scale that already has answers changes how they are scored: avoid it during data collection.'));
+  return card;
+}
+function constructsCard() {
+  const c = C(), card = h('div', { class: 'card' }, h('h2', {}, 'Constructs (scale scores)'),
+    h('p', { class: 'hint' }, 'Each rating statement can belong to a construct. The Excel export gives each person the mean of a construct\'s statements on the pages before and after the reading, after reversing negatively worded ones, with Cronbach\'s alpha per group.'));
+  const tb = h('tbody');
+  c.constructs.forEach((k, i) => {
+    const n = ISP.allItems(c).filter(x => x.item.construct === k.id && !x.perMethod).length, nb = ((c.perMethod || {}).items || []).filter(x => x.construct === k.id).length;
+    tb.append(h('tr', {}, h('td', {}, tx(k, 'id', { mono: true, w: '90px', clean: v => v.replace(/[^A-Za-z0-9_]/g, '') })), h('td', {}, tx(k, 'label')), h('td', { class: 'n' }, n), h('td', { class: 'n' }, nb), h('td', {}, arrayButtons(c.constructs, i))));
+  });
+  card.append(h('table', { class: 'tbl' }, h('thead', {}, h('tr', {}, ['Code', 'Name', 'Statements', 'After each method', ''].map(x => h('th', {}, x)))), tb),
+    h('button', { class: 'btn sec small mt', type: 'button', onclick: () => { c.constructs.push({ id: 'NEW', label: 'New construct' }); touch(true); } }, '+ Add a construct'));
+  return card;
+}
+
+/* =====================================================================================
+   Part 4: Allocation (settings, duration estimate, simulation, live balance), Screening
+   rules, Preview, Publish & versions.
+   ===================================================================================== */
+const SEQ = ['#cde2fb', '#b7d3f6', '#9ec5f4', '#86b6ef', '#6da7ec', '#5598e7', '#3987e5', '#2a78d6', '#256abf', '#1c5cab', '#184f95', '#104281', '#0d366b'];
+function heat(v, max) { if (!max || !v) return { bg: '#f6f8fa', fg: '#52514e' }; const k = Math.min(SEQ.length - 1, Math.round(v / max * (SEQ.length - 1))); return { bg: SEQ[k], fg: k >= 7 ? '#fff' : '#0b0b0b' }; }
+function barCell(v, max, label, title) {
+  const w = max ? Math.max(1, Math.round(v / max * 100)) : 0;
+  return h('div', { class: 'barcell', title: title || '' }, h('div', { class: 'b', style: { width: w + 'px' } }), h('span', { class: 'v' }, label !== undefined ? label : v));
+}
+function balanceTables(c, rows, title) {
+  const b = ISP.balance(c, rows), groups = c.groups.map(g => g.id), k = c.allocation.perPerson, out = h('div');
+  const ms = ISP.activeMethods(c);
+  const maxE = Math.max(1, ...groups.map(g => Math.max(0, ...Object.values(b[g].exposure))));
+  out.append(h('div', { class: 'scroll' }, h('table', { class: 'tbl' },
+    h('thead', {}, h('tr', {}, h('th', {}, 'Method'), h('th', {}, 'Phase'), groups.map(g => h('th', {}, g + ' (n = ' + b[g].n + ')')), h('th', {}, 'All (n = ' + b.all.n + ')'))),
+    h('tbody', {}, ms.map(m => h('tr', {}, h('td', {}, m.name), h('td', {}, ISP.phaseLabel(c, m.phase)),
+      groups.map(g => h('td', {}, barCell(b[g].exposure[m.id] || 0, maxE, (b[g].exposure[m.id] || 0) + (b[g].n ? ' (' + pct((b[g].exposure[m.id] || 0) / b[g].n) + ')' : ''), m.name + ' read by ' + (b[g].exposure[m.id] || 0) + ' people in ' + g))),
+      h('td', { class: 'n' }, b.all.exposure[m.id] || 0)))),
+    h('tfoot', {}, h('tr', {}, h('td', { colspan: 2, class: 'muted' }, 'Largest difference between methods'), groups.map(g => h('td', {}, h('span', { class: 'badge ' + (b[g].spread <= 1 ? 'ok' : b[g].spread <= 2 ? 'warn' : 'err') }, (b[g].spread <= 1 ? '✓ ' : '! ') + b[g].spread))), h('td', { class: 'n' }, b.all.spread))))));
+  // method x position
+  const posWrap = h('div', { class: 'grid2 mt' });
+  groups.forEach(g => {
+    const max = Math.max(1, ...ms.map(m => Math.max(...(b[g].position[m.id] || [0]))));
+    posWrap.append(h('div', {}, h('h3', {}, g + ': method by position'), h('table', { class: 'tbl heat' },
+      h('thead', {}, h('tr', {}, h('th', {}, 'Method'), Array.from({ length: k }, (_, i) => h('th', { class: 'n' }, 'Pos ' + (i + 1))))),
+      h('tbody', {}, ms.map(m => h('tr', {}, h('td', {}, m.name), (b[g].position[m.id] || Array(k).fill(0)).map((v, i) => { const col = heat(v, max); return h('td', { class: 'hc', style: { background: col.bg, color: col.fg }, title: m.name + ' in position ' + (i + 1) + ' for ' + v + ' people (' + g + ')' }, v); }))))),
+      h('p', { class: 'hint' }, 'Largest difference across cells: ' + b[g].posSpread + '. Pairs read together: ' + (() => { const pv = Object.values(b[g].pairs); return pv.length ? Object.keys(b[g].pairs).length + ' combinations, each ' + Math.min(...pv) + '–' + Math.max(...pv) + ' times' : 'none yet'; })())));
+  });
+  out.append(posWrap);
+  return out;
+}
+function durationEstimate(c) {
+  const m = ISP.metaOf(c), sets = ISP.candidateSets(m);
+  const words = {}; ISP.activeMethods(c).forEach(x => { words[x.id] = methodWords(x); });
+  const reads = sets.map(s => s.reduce((t, id) => t + words[id], 0) / WPM).sort((a, b) => a - b);
+  const sec = (it, perMethod) => {
+    if (it.type === 'note') return 5; if (it.type === 'likert') return 6; if (it.type === 'matrix') return 5 * ISP.matrixRows(c, it, perMethod ? null : sets[0]).length;
+    if (it.type === 'longtext') return it.required === false ? 15 : 45; if (it.type === 'text') return 15; if (it.type === 'email') return 8; return 9;
+  };
+  let q = 0;
+  c.parts.forEach(p => (p.items || []).forEach(it => { q += sec(it); }));
+  const kq = ISP.mean(ISP.activeMethods(c).map(x => (x.knowledge || []).length)) || 0;
+  q += c.allocation.perPerson * (kq * 30 + ((c.perMethod || {}).items || []).reduce((t, it) => t + sec(it, true), 0));
+  q = q / 60 + 1.5;   // plus the welcome and consent pages
+  return { readMin: reads[0], readMax: reads[reads.length - 1], readMed: ISP.median(reads), qMin: q, sets: sets.length };
+}
+VIEWS.allocation = () => {
+  const c = C(), a = c.allocation, st = c.settings, box = h('div', {});
+  box.append(h('h1', {}, 'Allocation'), h('p', { class: 'sub' }, 'Each new participant gets the set of ' + a.perPerson + ' methods (each from a different phase) and the order that keep their group most balanced, by minimisation (Pocock and Simon, 1975), with ties broken at random. The backend does this the moment the person leaves the page with the group question.'));
+  const phasesWithMethods = new Set(ISP.activeMethods(c).map(m => m.phase)).size;
+  box.append(h('div', { class: 'card' }, h('h2', {}, 'Rules'),
+    h('div', { class: 'grid3' },
+      F('Methods per person', nm(a, 'perPerson', { min: 1, max: Math.max(1, phasesWithMethods), on: () => render() }), 'At most the number of phases with an active method (' + phasesWithMethods + ').'),
+      F('Order of the methods', sl(a, 'order', [['balanced', 'balanced across positions (recommended)'], ['phase', 'in the order of the phases']])),
+      F('Count an unfinished person for (minutes)', nm(a, 'holdMinutes', { min: 10, max: 10000 }), 'After this, a person who stopped no longer holds their methods, so drop-outs do not unbalance the data.')),
+    h('div', { class: 'grid2' },
+      F('Chance of a purely random choice instead (0 to 0.5)', nm(a, 'randomness', { min: 0, max: 0.5, step: 0.05 }), '0 = always the most balancing choice. A little randomness (0.1–0.2) makes the next allocation unpredictable, at a small cost in balance.'),
+      h('div', {}, ck(st, 'closeWhenFull', 'Close a group when it reaches its target (Elements, phases, groups): later people of that group see the "group full" message'))),
+    h('details', { class: 'mt' }, h('summary', {}, 'Advanced: what counts as balance, and fixed combinations'),
+      h('p', { class: 'hint' }, 'Weights of each kind of imbalance when choosing a set (method exposure in the group, method by position, pairs of methods read together, phase exposure, and method exposure across all groups). With the same number of methods in every phase, balancing the methods also balances the phases, so the phase weight is 0; raise it only if phases with fewer methods must still be read as often as the others.'),
+      h('div', { class: 'inline' }, ['method', 'position', 'pair', 'phase', 'overall'].map(k2 => h('label', { class: 'inline' }, k2, nm(a.weights, k2, { min: 0, max: 20, step: 0.5, w: '70px' })))),
+      setsEditor(c))));
+  const est = durationEstimate(c);
+  box.append(h('div', { class: 'card' }, h('h2', {}, 'How long it takes'),
+    h('div', { class: 'tiles' },
+      h('div', { class: 'tile' }, h('div', { class: 'tl' }, 'Reading (' + WPM + ' words a minute)'), h('div', { class: 'tv' }, est.readMin.toFixed(0) + '–' + est.readMax.toFixed(0) + ' min'), h('div', { class: 'td' }, 'median ' + est.readMed.toFixed(1) + ' min over ' + est.sets + ' possible sets')),
+      h('div', { class: 'tile' }, h('div', { class: 'tl' }, 'Questions (estimate)'), h('div', { class: 'tv' }, Math.round(est.qMin) + ' min'), h('div', { class: 'td' }, 'from the number and kind of questions')),
+      h('div', { class: 'tile' }, h('div', { class: 'tl' }, 'Total'), h('div', { class: 'tv' }, Math.round(est.readMin + est.qMin) + '–' + Math.round(est.readMax + est.qMin) + ' min'), h('div', { class: 'td' }, 'the welcome page says ' + st.minutes + ' min')))));
+  // simulation
+  const sim = { n: {}, drop: 15, seed: 7 };
+  c.groups.forEach(g => { sim.n[g.id] = Number(g.target) || 30; });
+  const res = h('div');
+  const run = () => {
+    res.innerHTML = '';
+    try {
+      const rows = ISP.simulate(c, sim.n, sim.seed, sim.drop / 100);
+      res.append(h('div', { class: 'msg info' }, 'Simulated ' + rows.length + ' finished participants (' + sim.drop + '% dropped out on the way and freed their methods).'), balanceTables(c, rows),
+        h('button', { class: 'btn sec small mt', type: 'button', onclick: () => download('allocation_simulation_' + stamp() + '.xlsx', XLSX.build([{ name: 'Simulated allocation', rows: [['person', 'group'].concat(Array.from({ length: c.allocation.perPerson }, (_, i) => 'method ' + (i + 1)))].concat(rows.map((r, i) => [i + 1, r.group].concat(r.methods.map(id => (ISP.methodById(c, id) || {}).name || id)))), widths: [8, 8, 26, 26, 26, 26, 26] }])) }, 'Download the simulated allocation (Excel)'));
+    } catch (e) { res.append(h('div', { class: 'msg err' }, e.message)); }
+  };
+  box.append(h('div', { class: 'card' }, h('h2', {}, 'Try it: simulate the allocation'),
+    h('div', { class: 'inline' }, c.groups.map(g => h('label', { class: 'inline' }, g.id, nm(sim.n, g.id, { min: 0, max: 2000, w: '80px' }))),
+      h('label', { class: 'inline' }, 'drop-outs %', nm(sim, 'drop', { min: 0, max: 80, w: '70px' })), h('label', { class: 'inline' }, 'seed', nm(sim, 'seed', { min: 1, max: 99999, w: '90px' })),
+      h('button', { class: 'btn', type: 'button', onclick: run }, 'Simulate')),
+    h('p', { class: 'hint' }, 'Uses exactly the rules of the backend with the settings above (the draft), on people arriving in random order. Nothing is saved.'), res));
+  // live balance
+  const live = h('div', { class: 'card' }, h('h2', {}, 'Balance so far (real participants)'));
+  if (!E.data) live.append(h('p', { class: 'muted' }, E.conn ? 'Load the answers (Overview or Data) to see it.' : 'Connect a backend to see it.'));
+  else {
+    const rows = E.data.participants.filter(p => !p.mode && p.methods.length && (p.status === 'completed' || p.status === 'in progress')).map(p => ({ group: p.group, methods: p.methods }));
+    live.append(h('p', { class: 'hint' }, 'Finished and unfinished participants of the live link (pilot and baseline excluded).'), balanceTables(c, rows));
+  }
+  box.append(live);
+  box.append(h('div', { class: 'card' }, h('h2', {}, 'For the method section of your paper'),
+    h('p', {}, 'Each participant read ' + a.perPerson + ' method descriptions, each from a different design phase, drawn from ' + ISP.activeMethods(c).length + ' descriptions (' + c.phases.map(p => ISP.activeMethods(c).filter(m => m.phase === p.id).length + ' for ' + p.label).join(', ') + '). '
+      + 'Descriptions were allocated by minimisation (Pocock and Simon, 1975), separately for ' + c.groups.map(g => g.label.toLowerCase()).join(' and ') + ': each new participant received the set and the order that least increased the imbalance in how often each description was read, in which position, and together with which other descriptions; ties were broken at random' + (a.randomness ? ', and with probability ' + a.randomness + ' a random set and order were given instead' : '') + '. '
+      + 'Participants who stopped held their allocation for ' + a.holdMinutes + ' minutes.')));
+  return box;
+};
+function setsEditor(c) {
+  const a = c.allocation;
+  const ta = h('textarea', { rows: 4, class: 'mono', placeholder: 'Leave empty to use every possible set. Or list sets, one per line, by method code, e.g.\ninterview, lotus, ab' }, (a.sets || []).map(s => s.join(', ')).join('\n'));
+  const msg = h('div');
+  const check = () => {
+    const ids = new Set(ISP.activeMethods(c).map(m => m.id)), phaseOf = {}; c.methods.forEach(m => { phaseOf[m.id] = m.phase; });
+    const sets = ta.value.split('\n').map(l => l.split(/[,;\s]+/).map(x => x.trim()).filter(Boolean)).filter(s => s.length);
+    const bad = sets.map((s, i) => { const ph = s.map(id => phaseOf[id]); if (s.some(id => !ids.has(id))) return 'line ' + (i + 1) + ': unknown or inactive method'; if (new Set(ph).size !== ph.length) return 'line ' + (i + 1) + ': two methods of one phase'; if (s.length !== a.perPerson) return 'line ' + (i + 1) + ': needs ' + a.perPerson + ' methods'; return null; }).filter(Boolean);
+    msg.innerHTML = '';
+    if (bad.length) msg.append(h('div', { class: 'msg err' }, bad.join('; '), '. Invalid lines are ignored.'));
+    else if (sets.length) msg.append(h('div', { class: 'msg ok' }, '✓ ' + sets.length + ' valid sets: only these are given.'));
+    a.sets = sets.filter((s, i) => !bad.some(b => b.startsWith('line ' + (i + 1) + ':')));
+  };
+  ta.addEventListener('input', () => { check(); touch(); });
+  requestAnimationFrame(check);
+  return h('div', { class: 'mt' }, F('Fixed combinations (optional)', ta, 'Methods are still ordered by the rules above. Use this only if some combinations must be avoided, for example two very long descriptions together.'), msg);
+}
+
+/* ------------------------------------------------------------------ screening rules */
+VIEWS.quality = () => {
+  const c = C(), q = c.quality, box = h('div', {});
+  box.append(h('h1', {}, 'Screening rules'), h('p', { class: 'sub' }, 'Decided before data collection (ideally pre-registered) and applied in the Excel export: "exclude" rules remove a person; other rules add a flag, and a person with the stated number of flags is removed too. A value of 0 switches a rule off. The Excel export always applies the rules as they are set here. Sources: Meade and Craig (2012), Curran (2016), Huang et al. (2012).'));
+  const codes = Object.keys(allCodes());
+  const codeSel = (obj, key) => sl(obj, key, [['', '(choose)']].concat(codes.map(x => [x, x])), { w: '140px' });
+  q.attention = q.attention || []; q.infrequency = q.infrequency || []; q.pairs = q.pairs || [];
+  box.append(h('div', { class: 'card' }, h('h2', {}, 'Exclude'),
+    h('h3', {}, 'Instructed items: anything but the asked-for answer excludes'),
+    h('div', {}, q.attention.map((x, i) => h('div', { class: 'inline', style: { margin: '3px 0' } }, codeSel(x, 'id'), h('span', {}, 'must be'), nm(x, 'expect', { w: '70px' }), arrayButtons(q.attention, i)))),
+    h('button', { class: 'btn ghost small', type: 'button', onclick: () => { q.attention.push({ id: '', expect: 3 }); touch(true); } }, '+ Add'),
+    h('h3', {}, '"Should we use your answers?" item'),
+    (() => { q.useMe = q.useMe || { id: '', exclude: [] }; const exIn = h('input', { type: 'text', value: (q.useMe.exclude || []).join(', '), class: 'mono', style: { width: '160px' } }); exIn.addEventListener('input', () => { q.useMe.exclude = exIn.value.split(/[,\s]+/).filter(Boolean); touch(); }); return h('div', { class: 'inline' }, codeSel(q.useMe, 'id'), h('span', {}, 'excludes when the answer code is'), exIn); })()));
+  box.append(h('div', { class: 'card' }, h('h2', {}, 'Flag'),
+    h('h3', {}, 'Must-reject items: an answer at or above the value flags'),
+    h('div', {}, q.infrequency.map((x, i) => h('div', { class: 'inline', style: { margin: '3px 0' } }, codeSel(x, 'id'), h('span', {}, 'flag from'), nm(x, 'flagFrom', { w: '70px' }), arrayButtons(q.infrequency, i)))),
+    h('button', { class: 'btn ghost small', type: 'button', onclick: () => { q.infrequency.push({ id: '', flagFrom: 5 }); touch(true); } }, '+ Add'),
+    h('h3', {}, 'Opposite-worded pairs'),
+    h('div', {}, q.pairs.map((pr, i) => h('div', { class: 'inline', style: { margin: '3px 0' } }, codeSel(pr, 0), h('span', {}, 'and'), codeSel(pr, 1), arrayButtons(q.pairs, i)))),
+    h('button', { class: 'btn ghost small', type: 'button', onclick: () => { q.pairs.push(['', '']); touch(true); } }, '+ Add a pair'),
+    h('div', { class: 'inline mt' }, h('span', {}, 'A pair is inconsistent when |x − (min + max − y)| ≥'), nm(q, 'pairGap', { w: '60px' }), h('span', {}, '; flag at'), nm(q, 'pairFlags', { w: '60px' }), h('span', {}, 'inconsistent pairs')),
+    h('h3', {}, 'Long strings'),
+    (() => { q.longString = q.longString || { part: '', run: 8 }; return h('div', { class: 'inline' }, h('span', {}, 'Flag the same answer'), nm(q.longString, 'run', { w: '60px' }), h('span', {}, 'times in a row on page'), sl(q.longString, 'part', [['', '(none)']].concat(c.parts.map(p => [p.id, p.id + ': ' + p.title])))); })(),
+    h('h3', {}, 'Speed'),
+    (() => { q.speed = q.speed || { readSeconds: 30, part: '', itemSeconds: 2 }; return h('div', {}, h('div', { class: 'inline' }, h('span', {}, 'Flag reading any method description in under'), nm(q.speed, 'readSeconds', { w: '70px' }), h('span', {}, 'seconds (active time)')),
+      h('div', { class: 'inline mt' }, h('span', {}, 'Flag answering page'), sl(q.speed, 'part', [['', '(none)']].concat(c.parts.map(p => [p.id, p.id + ': ' + p.title]))), h('span', {}, 'at under'), nm(q.speed, 'itemSeconds', { w: '70px', step: 0.5 }), h('span', {}, 'seconds per question'))); })(),
+    h('div', { class: 'inline mt' }, h('b', {}, 'Exclude a person with'), nm(q, 'excludeAtFlags', { w: '60px', min: 1 }), h('b', {}, 'or more flags'))));
+  if (E.data) {
+    const done = prepared().filter(p => p.status === 'completed' && !p.mode);
+    const ex = done.filter(p => p.sc.excluded);
+    const reasons = {}; done.forEach(p => { p.sc.exclude.concat(p.sc.flags).forEach(r => { const k = r.replace(/[\d.]+/g, '#').replace(/: .*$/, ''); reasons[k] = (reasons[k] || 0) + 1; }); });
+    box.append(h('div', { class: 'card' }, h('h2', {}, 'With these rules, today'), h('p', {}, ex.length + ' of ' + done.length + ' finished participants would be excluded (' + pct(done.length ? ex.length / done.length : null) + ').'),
+      h('table', { class: 'tbl' }, h('tbody', {}, Object.entries(reasons).sort((x, y) => y[1] - x[1]).map(([k, v]) => h('tr', {}, h('td', {}, k), h('td', { class: 'n' }, v)))))));
+  }
+  return box;
+};
+
+/* ------------------------------------------------------------------ preview */
+let previewWin = null, previewPayload = null;
+window.addEventListener('message', e => {
+  if (e.data && e.data.type === 'isp-preview-ready' && previewPayload && e.source === previewWin) previewWin.postMessage(previewPayload, '*');
+});
+function openPreview(opts) {
+  const c = C();
+  if (!opts) {
+    const o = { mode: '', group: c.groups[0] ? c.groups[0].id : '', start: 'begin', pick: 'auto', methods: Array(c.allocation.perPerson).fill('') };
+    const picks = h('div');
+    const drawPicks = () => {
+      picks.innerHTML = '';
+      if (o.pick !== 'choose') return;
+      picks.append(h('div', { class: 'inline' }, o.methods.map((v, i) => sl(o.methods, i, [['', 'Method ' + (i + 1) + '…']].concat(ISP.activeMethods(c).map(m => [m.id, m.name + ' (' + ISP.phaseLabel(c, m.phase) + ')'])), { w: '230px' }))));
+    };
+    const pickSel = sl(o, 'pick', [['auto', 'as the allocation would choose'], ['choose', 'I choose them']], { on: drawPicks });
+    modal([h('h2', {}, 'Preview the study'), h('p', { class: 'hint' }, 'Opens the participant page in a new tab with the current draft (even unpublished). Nothing is saved.'),
+      F('What', sl(o, 'mode', [['', 'The study'], ['baseline', 'The non-reader baseline']])),
+      F('As a member of', sl(o, 'group', c.groups.map(g => [g.id, g.label]))),
+      F('Start at', sl(o, 'start', [['begin', 'the welcome page'], ['reading', 'the first method description']])),
+      F('Methods', pickSel), picks,
+      h('div', { class: 'inline mt', style: { justifyContent: 'flex-end' } }, h('button', { class: 'btn', type: 'button', onclick: () => {
+        const methods = o.pick === 'choose' ? o.methods.filter(Boolean) : null;
+        if (methods) { const ph = methods.map(id => ISP.methodById(c, id).phase); if (new Set(ph).size !== ph.length) return toast('Choose methods from different phases.'); }
+        closeModal(); openPreview({ mode: o.mode, group: o.group, start: o.start, methods });
+      } }, 'Open the preview'))]);
+    return;
+  }
+  previewPayload = { type: 'isp-preview', content: ISP.clone(c), opts: { group: opts.group || (c.groups[0] || {}).id, start: opts.start, methods: opts.methods || null } };
+  ls.set('isp:preview', previewPayload);
+  const url = location.href.split('?')[0].split('#')[0].replace(/editor\.html$/, 'index.html').replace(/\/$/, '/index.html') + '?preview=1' + (opts.mode ? '&mode=' + opts.mode : '');
+  previewWin = window.open(url, 'isp-preview');
+  if (!previewWin) toast('The browser blocked the new tab: allow pop-ups for this page.', 5000);
+}
+
+/* ------------------------------------------------------------------ publish & versions */
+function diffSummary(a, b) {
+  if (!b) return ['Everything (nothing published yet).'];
+  const out = [], J = JSON.stringify;
+  const textKeys = new Set(Object.keys(a.texts || {}).concat(Object.keys(b.texts || {})));
+  const tch = [...textKeys].filter(k => J(a.texts[k]) !== J(b.texts[k]));
+  if (tch.length) out.push('Study texts: ' + tch.join(', '));
+  if (J(a.researcher) !== J(b.researcher) || a.title !== b.title) out.push('Title or researcher details');
+  const am = Object.fromEntries(a.methods.map(m => [m.id, m])), bm = Object.fromEntries(b.methods.map(m => [m.id, m]));
+  Object.keys(am).forEach(id => {
+    if (!bm[id]) { out.push('New method: ' + am[id].name); return; }
+    const ch = [];
+    if (am[id].name !== bm[id].name) ch.push('name'); if (am[id].phase !== bm[id].phase) ch.push('phase'); if ((am[id].on !== false) !== (bm[id].on !== false)) ch.push(am[id].on !== false ? 'switched on' : 'switched off');
+    const els = (a.elements || []).filter(e => (am[id].elements[e.id] || '') !== (bm[id].elements[e.id] || '')).map(e => e.label);
+    if (els.length) ch.push('elements: ' + els.join(', '));
+    if (J(am[id].knowledge) !== J(bm[id].knowledge)) ch.push('knowledge questions');
+    if (ch.length) out.push(am[id].name + ': ' + ch.join('; '));
+  });
+  Object.keys(bm).forEach(id => { if (!am[id]) out.push('Deleted method: ' + bm[id].name); });
+  const ai = Object.fromEntries(ISP.allItems(a).map(x => [x.item.id, x.item])), bi = Object.fromEntries(ISP.allItems(b).map(x => [x.item.id, x.item]));
+  const added = Object.keys(ai).filter(k => !bi[k]), removed = Object.keys(bi).filter(k => !ai[k]), changed = Object.keys(ai).filter(k => bi[k] && J(ai[k]) !== J(bi[k]));
+  if (added.length) out.push('New questions: ' + added.join(', '));
+  if (removed.length) out.push('Deleted questions: ' + removed.join(', '));
+  if (changed.length) out.push('Changed questions: ' + changed.join(', '));
+  if (J(a.parts.map(p => [p.id, p.title, p.where, p.intro, p.showTo, p.items.map(i => i.id)])) !== J(b.parts.map(p => [p.id, p.title, p.where, p.intro, p.showTo, p.items.map(i => i.id)]))) out.push('Pages: order, headings, texts or who sees them');
+  ['elements', 'phases', 'groups', 'scales', 'constructs', 'allocation', 'settings', 'quality'].forEach(k => { if (J(a[k]) !== J(b[k])) out.push({ elements: 'Information elements', phases: 'Phases', groups: 'Groups', scales: 'Answer scales', constructs: 'Constructs', allocation: 'Allocation rules', settings: 'Page behaviour', quality: 'Screening rules' }[k]); });
+  if (J(a.perMethod) !== J(b.perMethod)) out.push('Questions after each method description (page texts)');
+  return out.length ? out : ['No changes.'];
+}
+VIEWS.publish = () => {
+  const c = C(), box = h('div', {});
+  box.append(h('h1', {}, 'Publish & versions'), h('p', { class: 'sub' }, 'Participants always get the latest published version; your edits stay in the draft until you publish. Every participant\'s data record the version they saw, and published versions are never changed.'));
+  if (!E.conn) { box.append(h('div', { class: 'msg warn' }, 'Connect a backend first (Connect & set up).')); return box; }
+  const v = ISP.validate(c), errs = v.filter(x => x.level === 'error');
+  const card = h('div', { class: 'card' }, h('h2', {}, 'Publish version ' + (E.published + 1)));
+  card.append(errs.length ? h('div', { class: 'msg err' }, '✕ ' + errs.length + ' problem' + (errs.length > 1 ? 's' : '') + ' must be fixed first:', h('ul', {}, errs.map(x => h('li', {}, x.where + ': ' + x.msg))))
+    : h('div', { class: 'msg ok' }, '✓ The content passes the checks.' + (v.length ? ' ' + v.length + ' warning' + (v.length > 1 ? 's' : '') + ' (Overview).' : '')));
+  const prev = E.vc[E.published];
+  const diff = h('ul', {}, diffSummary(c, prev).map(x => h('li', {}, x)));
+  card.append(h('h3', {}, 'What changes for participants'), prev || !E.published ? diff : h('p', { class: 'muted' }, 'Loading the published version…'));
+  if (!prev && E.published) api('getVersion', { v: E.published }).then(r => { E.vc[E.published] = r.content; render(); }).catch(() => { });
+  const live = E.data ? E.data.participants.filter(p => !p.mode && p.status === 'completed').length : null;
+  if (live) card.append(h('div', { class: 'msg warn' }, live + ' people have already finished with earlier versions. Changes to the method descriptions or the questions make their data harder to compare with later data; fixing typos is fine. The version is recorded per participant.'));
+  const note = { v: '' };
+  card.append(F('Note for your records (what and why)', tx(note, 'v', { ph: 'for example: fixed typo in the Survey description' })),
+    h('button', { class: 'btn', type: 'button', disabled: errs.length ? true : null, onclick: async e => {
+      e.target.disabled = true;
+      try {
+        clearTimeout(pushTimer);
+        const r = await api('publish', { content: c, note: note.v });
+        E.published = r.version; E.saved = r.saved; E.dirty = false; c.version = r.version;
+        E.vc[r.version] = ISP.clone(c); saveLocal(); setSave('Version ' + r.version + ' published'); toast('Version ' + r.version + ' is published.'); render();
+      } catch (er) { toast(er.message, 6000); e.target.disabled = false; }
+    } }, 'Publish version ' + (E.published + 1)));
+  box.append(card);
+  const vc = h('div', { class: 'card' }, h('h2', {}, 'Published versions'));
+  box.append(vc);
+  api('versions').then(r => {
+    E.versions = r.versions;
+    const counts = {}; (E.data ? E.data.participants : []).forEach(p => { counts[p.version] = (counts[p.version] || 0) + 1; });
+    vc.append(h('table', { class: 'tbl' }, h('thead', {}, h('tr', {}, ['Version', 'Published', 'Note', 'Participants', ''].map(x => h('th', {}, x)))),
+      h('tbody', {}, r.versions.map(x => h('tr', {}, h('td', {}, x.version), h('td', {}, fmtTime(x.saved)), h('td', {}, x.note), h('td', { class: 'n' }, E.data ? (counts[x.version] || 0) : '–'),
+        h('td', { class: 'right' },
+          h('button', { class: 'btn ghost small', type: 'button', onclick: async () => { const g = E.vc[x.version] || (await api('getVersion', { v: x.version })).content; E.vc[x.version] = g; download('IS_perception_v' + x.version + '.json', JSON.stringify(g, null, 1)); } }, 'Download'),
+          h('button', { class: 'btn ghost small', type: 'button', onclick: async () => {
+            if (!(await ask('Load version ' + x.version + ' into the draft?', 'The current draft is replaced (download it first if you need it). Nothing changes for participants until you publish.', 'Load it'))) return;
+            const g = E.vc[x.version] || (await api('getVersion', { v: x.version })).content; E.vc[x.version] = g;
+            E.draft = migrate(ISP.clone(g)); touch(true); toast('Version ' + x.version + ' loaded into the draft.');
+          } }, 'Load into the draft')))))));
+    if (!r.versions.length) vc.append(h('p', { class: 'muted' }, 'Nothing published yet.'));
+  }).catch(e => vc.append(h('div', { class: 'msg err' }, e.message)));
+  return box;
+};
+
+/* =====================================================================================
+   Part 5: Data (progress, participants, contacts, log) and the analysis workbook (.xlsx).
+   ===================================================================================== */
+async function loadData() {
+  const r = await api('responses');
+  E.data = { participants: r.participants, at: Date.now() };
+  E.versions = r.versions || [];
+  const need = [...new Set(r.participants.map(p => p.version).concat([E.published]).filter(Boolean))].filter(v => !E.vc[v]);
+  for (const v of need) { try { E.vc[v] = (await api('getVersion', { v })).content; } catch (e) { } }
+  E.prep = null;
+}
+// every participant with the content of the version they saw, and their scores
+function prepared() {
+  const qk = JSON.stringify(E.draft.quality || {});
+  if (E.prep && E.prep.at === E.data.at && E.prep.draft === E.draft && E.prep.q === qk) return E.prep.list;
+  const list = E.data.participants.map(p => {
+    // the questions as the person saw them; the screening rules as they are set now
+    const c = Object.assign({}, E.vc[p.version] || E.draft, { quality: E.draft.quality });
+    let sc = { flags: [], exclude: [], scales: {}, blocks: [], knowledge: 0, knowledgeOf: 0 };
+    try { if (p.state) sc = ISP.score(c, p); } catch (e) { sc.error = e.message; }
+    return Object.assign({}, p, { c, sc });
+  });
+  E.prep = { at: E.data.at, draft: E.draft, q: qk, list };
+  return list;
+}
+const kindOf = p => p.mode === 'pilot' ? 'pilot' : p.mode === 'baseline' ? 'baseline' : 'live';
+function progressView() {
+  const c = C(), list = prepared(), hold = (c.allocation.holdMinutes || 120) * 60000, now = Date.now();
+  const live = list.filter(p => !p.mode);
+  const done = live.filter(p => p.status === 'completed');
+  const active = live.filter(p => (p.status === 'in progress' || p.status === 'started') && now - new Date(p.updated).getTime() < hold);
+  const stopped = live.filter(p => (p.status === 'in progress' || p.status === 'started') && now - new Date(p.updated).getTime() >= hold);
+  const out = h('div', {}), tiles = h('div', { class: 'tiles' });
+  c.groups.forEach(g => {
+    const n = done.filter(p => p.group === g.id).length, t = Number(g.target) || 0;
+    tiles.append(h('div', { class: 'tile' }, h('div', { class: 'tl' }, g.label + ' finished'), h('div', { class: 'tv' }, n), h('div', { class: 'td' }, t ? 'of ' + t + ' (' + pct(n / t) + ')' : 'no target set'),
+      t ? h('div', { class: 'meter', title: n + ' of ' + t }, h('div', { style: { width: Math.min(100, n / t * 100) + '%' } })) : null));
+  });
+  const mins = done.map(p => Number(p.minutes)).filter(x => x > 0);
+  const ex = done.filter(p => p.sc.excluded).length;
+  tiles.append(h('div', { class: 'tile' }, h('div', { class: 'tl' }, 'In progress now'), h('div', { class: 'tv' }, active.length), h('div', { class: 'td' }, stopped.length + ' stopped without finishing')),
+    h('div', { class: 'tile' }, h('div', { class: 'tl' }, 'Median time to finish'), h('div', { class: 'tv' }, mins.length ? ISP.median(mins).toFixed(0) + ' min' : '–'), h('div', { class: 'td' }, mins.length ? 'middle half ' + quant(mins, 0.25).toFixed(0) + '–' + quant(mins, 0.75).toFixed(0) + ' min' : '')),
+    h('div', { class: 'tile' }, h('div', { class: 'tl' }, 'Set aside by screening'), h('div', { class: 'tv' }, ex), h('div', { class: 'td' }, done.length ? pct(ex / done.length) + ' of finished' : '')),
+    h('div', { class: 'tile' }, h('div', { class: 'tl' }, 'Pilot and baseline'), h('div', { class: 'tv' }, list.filter(p => p.mode === 'pilot' && p.status === 'completed').length + ' / ' + list.filter(p => p.mode === 'baseline' && p.status === 'completed').length), h('div', { class: 'td' }, 'finished pilot / baseline')));
+  out.append(tiles);
+  const allocRows = live.filter(p => p.methods.length && (p.status === 'completed' || active.indexOf(p) >= 0)).map(p => ({ group: p.group, methods: p.methods }));
+  if (allocRows.length) out.append(h('details', {}, h('summary', {}, 'Balance of the allocation so far'), balanceTables(c, allocRows)));
+  return out;
+}
+function quant(xs, q) { const a = xs.slice().sort((x, y) => x - y); if (!a.length) return null; const i = (a.length - 1) * q, lo = Math.floor(i); return a[lo] + (a[Math.ceil(i)] - a[lo]) * (i - lo); }
+
+VIEWS.data = () => {
+  const box = h('div', {});
+  box.append(h('h1', {}, 'Data & Excel export'), h('p', { class: 'sub' }, 'All answers live in your Google Sheet (tabs Participants and Data). Here you can follow them, check individuals, and download an analysis workbook with scores, screening, the necessity ratios and the allocation.'));
+  if (!E.conn) { box.append(h('div', { class: 'msg warn' }, 'Connect a backend first (Connect & set up).')); return box; }
+  const bar = h('div', { class: 'card inline' },
+    h('button', { class: 'btn sec', type: 'button', onclick: async e => { e.target.disabled = true; try { await loadData(); render(); } catch (er) { toast(er.message, 6000); e.target.disabled = false; } } }, E.data ? 'Refresh' : 'Load the answers'),
+    E.data ? h('span', { class: 'muted' }, 'Loaded ' + new Date(E.data.at).toLocaleTimeString()) : null,
+    h('span', { style: { flex: 1 } }),
+    E.data ? h('button', { class: 'btn', type: 'button', onclick: exportDialog }, 'Download the Excel workbook…') : null,
+    E.data ? h('button', { class: 'btn ghost', type: 'button', onclick: () => download('IS_perception_raw_' + stamp() + '.json', JSON.stringify({ exported: new Date().toISOString(), participants: E.data.participants, versions: E.versions }, null, 1)) }, 'Raw data (JSON)') : null);
+  box.append(bar);
+  if (!E.data) return box;
+  const list = prepared();
+  const f = E.filter = E.filter || { kind: 'live', status: 'all', q: '' };
+  const shown = list.filter(p => (f.kind === 'all' || kindOf(p) === f.kind) && (f.status === 'all' || p.status === f.status) && (!f.q || (p.pid + ' ' + p.group + ' ' + p.src + ' ' + p.methods.join(' ')).toLowerCase().indexOf(f.q.toLowerCase()) >= 0));
+  const qIn = h('input', { type: 'text', value: f.q, placeholder: 'Search code, group, source, method', style: { width: '260px' } });
+  qIn.addEventListener('input', () => { f.q = qIn.value; clearTimeout(qIn.t); qIn.t = setTimeout(render, 300); });
+  box.append(h('div', { class: 'card' },
+    h('div', { class: 'inline' }, sl(f, 'kind', [['live', 'Live link'], ['pilot', 'Pilot'], ['baseline', 'Non-reader baseline'], ['all', 'Everyone']], { w: '180px', on: () => render() }),
+      sl(f, 'status', [['all', 'Any status'], ['completed', 'Finished'], ['in progress', 'In progress'], ['started', 'Started'], ['withdrawn', 'Withdrawn'], ['ineligible', 'Not eligible']], { w: '160px', on: () => render() }), qIn,
+      h('span', { class: 'muted' }, shown.length + ' shown')),
+    h('div', { class: 'scroll mt' }, h('table', { class: 'tbl' },
+      h('thead', {}, h('tr', {}, ['Code', 'Group', 'Kind', 'Status', 'Version', 'Started', 'Minutes', 'Methods read', 'Knowledge', 'Screening', ''].map((x, i) => h('th', { class: i === 6 ? 'n' : null }, x)))),
+      h('tbody', {}, shown.slice().reverse().slice(0, 400).map(p => h('tr', {},
+        h('td', { class: 'mono' }, p.pid), h('td', {}, p.group), h('td', {}, kindOf(p)), h('td', {}, statusBadge(p)), h('td', {}, p.version), h('td', {}, fmtTime(p.started)), h('td', { class: 'n' }, p.minutes || ''),
+        h('td', {}, p.methods.map(id => (ISP.methodById(p.c, id) || { name: id }).name).join(', ')),
+        h('td', {}, p.sc.knowledgeOf ? p.sc.knowledge + '/' + p.sc.knowledgeOf : ''),
+        h('td', {}, p.status !== 'completed' || p.mode === 'baseline' ? '' : p.sc.excluded ? h('span', { class: 'badge err', title: p.sc.reason }, '✕ set aside') : p.sc.flags.length ? h('span', { class: 'badge warn', title: p.sc.flags.join('; ') }, '! ' + p.sc.flags.length + ' flag') : h('span', { class: 'badge ok' }, '✓')),
+        h('td', { class: 'right' }, h('button', { class: 'btn ghost small', type: 'button', onclick: () => personDialog(p) }, 'View'))))))),
+    shown.length > 400 ? h('p', { class: 'hint' }, 'Showing the latest 400. The workbook has everyone.') : null));
+  box.append(h('div', { class: 'card' }, h('h2', {}, 'Housekeeping'),
+    h('div', { class: 'inline' },
+      h('button', { class: 'btn sec', type: 'button', onclick: contactsDialog }, 'Follow-up email addresses…'),
+      h('button', { class: 'btn sec', type: 'button', onclick: async () => {
+        const n = list.filter(p => p.mode).length;
+        if (!(await ask('Delete all pilot and baseline participants?', n + ' pilot and baseline participants (and their rows in Data and Contacts) will be deleted from the Sheet. Live participants are not touched. Download the workbook first if you need their answers.', 'Delete them', true))) return;
+        try { const r = await api('deletePilots'); toast(r.deleted + ' deleted.'); await loadData(); render(); } catch (e) { toast(e.message, 6000); }
+      } }, 'Delete pilot and baseline participants…'),
+      h('button', { class: 'btn sec', type: 'button', onclick: async () => { try { const r = await api('log'); modal([h('h2', {}, 'Activity log'), h('p', { class: 'hint' }, 'Every publish, opening or closing, and deletion, with its time: your audit trail.'), h('div', { class: 'scroll', style: { maxHeight: '60vh', overflow: 'auto' } }, h('table', { class: 'tbl' }, h('tbody', {}, r.log.slice().reverse().map(x => h('tr', {}, h('td', {}, fmtTime(x.time)), h('td', {}, x.action), h('td', {}, x.detail))))))], { wide: true }); } catch (e) { toast(e.message, 5000); } } }, 'Activity log'))));
+  return box;
+};
+function statusBadge(p) {
+  const m = { completed: ['ok', 'finished'], 'in progress': ['blue', 'in progress'], started: ['', 'started'], withdrawn: ['err', 'withdrawn'], ineligible: ['warn', 'not eligible'] }[p.status] || ['', p.status];
+  return h('span', { class: 'badge ' + m[0] }, m[1]);
+}
+function personDialog(p) {
+  const c = p.c, s = p.state || {}, a = s.answers || {};
+  const rows = [];
+  ISP.allItems(c).filter(x => !x.perMethod).forEach(x => {
+    const it = x.item;
+    if (it.type === 'note' || it.type === 'email') return;
+    if (it.type === 'matrix') ISP.matrixRows(c, it, p.methods).forEach(r => { if (a[r.id] !== undefined) rows.push([r.id, ISP.mdText(r.text), a[r.id]]); });
+    else if (a[it.id] !== undefined) rows.push([it.id, ISP.mdText(it.text), decode(c, it, a[it.id]) + (a[it.id + '_other'] ? ' (' + a[it.id + '_other'] + ')' : '')]);
+  });
+  const blocks = (s.blocks || []).map((b, i) => {
+    const m = ISP.methodById(c, b.method) || { name: b.method, knowledge: [] }, sb = p.sc.blocks[i] || {};
+    return h('div', { class: 'kq' }, h('b', {}, (i + 1) + '. ' + m.name), h('span', { class: 'muted' }, ' · read ' + (sb.read_s != null ? Math.round(sb.read_s / 6) / 10 + ' min' : '–') + ', looked back ' + (sb.lookback_s || 0) + ' s'),
+      h('div', {}, (m.knowledge || []).map(q => { const v = (b.answers || {})[q.id], ok = v === q.key; return h('div', {}, h('span', { class: 'badge ' + (ok ? 'ok' : 'err') }, ok ? '✓' : '✕'), ' ', q.id + ': ' + (((q.options || []).find(o => o.id === v) || {}).text || (v === '_dk' ? "I don't know" : v || '–'))); })),
+      h('div', { class: 'muted' }, ((c.perMethod || {}).items || []).map(it => it.id + ' = ' + ((b.answers || {})[it.id] ?? '–')).join(' · ')));
+  });
+  const sc = p.sc;
+  modal([h('h2', {}, p.pid + ' · ' + (p.group || 'no group') + ' · ' + kindOf(p)),
+    h('p', { class: 'muted' }, 'Status ' + p.status + ', version ' + p.version + ', started ' + fmtTime(p.started) + (p.minutes ? ', ' + p.minutes + ' min' : '') + (p.src ? ', source ' + p.src : '') + (s.device ? ', ' + s.device.kind + ' ' + s.device.w + '×' + s.device.h : '')),
+    p.status === 'completed' && p.mode !== 'baseline' ? h('div', { class: 'msg ' + (sc.excluded ? 'err' : sc.flags.length ? 'warn' : 'ok') }, sc.excluded ? 'Set aside: ' + sc.reason : sc.flags.length ? 'Flags: ' + sc.flags.join('; ') : 'Passes the screening.') : null,
+    Object.keys(sc.scales || {}).filter(k => !/_n$/.test(k)).length ? h('p', {}, h('b', {}, 'Scores: '), Object.keys(sc.scales).filter(k => !/_n$/.test(k)).map(k => k + ' ' + fix(sc.scales[k])).join(' · ')) : null,
+    h('h3', {}, 'Method descriptions'), blocks.length ? blocks : h('p', { class: 'muted' }, 'None yet.'),
+    h('h3', {}, 'Answers'), h('div', { class: 'scroll', style: { maxHeight: '40vh', overflow: 'auto' } }, h('table', { class: 'tbl' }, h('tbody', {}, rows.map(r => h('tr', {}, h('td', { class: 'mono' }, r[0]), h('td', {}, r[1]), h('td', {}, String(r[2]))))))),
+    h('div', { class: 'inline mt', style: { justifyContent: 'space-between' } },
+      h('button', { class: 'btn danger', type: 'button', onclick: async () => {
+        if (!(await ask('Delete ' + p.pid + '?', 'Their answers, their row in Data and any email address are deleted from the Sheet. Use this when someone asks for their data to be withdrawn.', 'Delete', true))) return;
+        try { await api('deleteParticipant', { pid: p.pid }); toast(p.pid + ' deleted.'); await loadData(); render(); } catch (e) { toast(e.message, 6000); }
+      } }, 'Delete this participant…'),
+      h('button', { class: 'btn', type: 'button', onclick: closeModal }, 'Close'))], { wide: true });
+}
+async function contactsDialog() {
+  try {
+    const r = await api('contacts');
+    modal([h('h2', {}, 'Follow-up email addresses'), h('p', { class: 'hint' }, 'Kept in the Contacts tab, apart from the answers, and never in the answers workbook. Delete them once the follow-up is done, as the information sheet promises.'),
+      h('p', {}, r.contacts.length + ' address' + (r.contacts.length === 1 ? '' : 'es') + '.'),
+      h('div', { class: 'inline' },
+        h('button', { class: 'btn sec', type: 'button', disabled: r.contacts.length ? null : true, onclick: () => download('IS_perception_contacts_' + stamp() + '.xlsx', XLSX.build([{ name: 'Contacts', rows: [['participant', 'email', 'added']].concat(r.contacts.map(x => [x.pid, x.email, fmtTime(x.added)])), widths: [12, 36, 22] }])) }, 'Download them (Excel)'),
+        h('button', { class: 'btn danger', type: 'button', disabled: r.contacts.length ? null : true, onclick: async () => { if (!(await ask('Delete all email addresses?', 'This cannot be undone.', 'Delete all', true))) return; try { const x = await api('clearContacts'); toast(x.cleared + ' deleted.'); closeModal(); } catch (e) { toast(e.message, 6000); } } }, 'Delete all email addresses…'))]);
+  } catch (e) { toast(e.message, 6000); }
+}
+
+/* ------------------------------------------------------------------ the analysis workbook */
+function decode(c, it, v) {
+  if (v === undefined || v === null) return '';
+  if (it && it.type === 'single') return v === '_dk' ? "I don't know" : (((it.options || []).find(o => o.id === v) || {}).text || v);
+  if (it && it.type === 'multi' && Array.isArray(v)) return v.map(x => ((it.options || []).find(o => o.id === x) || {}).text || x).join('; ');
+  return v;
+}
+function exportDialog() {
+  const o = { who: 'live', incomplete: false };
+  modal([h('h2', {}, 'Download the Excel workbook'),
+    F('Participants', sl(o, 'who', [['live', 'Live link only (for the analysis)'], ['live+pilot', 'Live and pilot'], ['pilot', 'Pilot only']])),
+    ck(o, 'incomplete', 'Also list people who did not finish (in the Participants sheet only, marked)'),
+    h('p', { class: 'hint' }, 'The non-reader baseline always gets its own sheet. Email addresses are never included. People set aside by the screening stay in the workbook, marked, so you can rerun the results with everyone.'),
+    h('div', { class: 'inline mt', style: { justifyContent: 'flex-end' } }, h('button', { class: 'btn', type: 'button', onclick: () => {
+      closeModal();
+      try { const sheets = buildWorkbook(o); download('IS_perception_data_' + stamp() + '.xlsx', XLSX.build(sheets)); toast('Workbook downloaded (' + sheets.length + ' sheets).'); }
+      catch (e) { console.error(e); toast('Could not build the workbook: ' + e.message, 8000); }
+    } }, 'Download'))]);
+}
+function codebook(c) {
+  const out = [], k = c.allocation.perPerson, ms = ISP.activeMethods(c), kq = ms.length ? ms[0].knowledge || [] : [];
+  const add = (v, page, text, kind, values, reverse, construct, who) => out.push({ v, page, text, kind, values, reverse: reverse ? 'yes' : '', construct: construct || '', who: who || 'all' });
+  const who = it => it.showTo && it.showTo.length ? it.showTo.join(', ') : 'all';
+  const items = p => (p.items || []).forEach(it => {
+    if (it.type === 'note' || it.type === 'email') return;
+    ISP.itemVars(c, it).forEach(x => add(x.v, p.id + ': ' + p.title, ISP.mdText(x.text), TYPE_LABEL[it.type], x.values, x.reverse, x.construct, who(it)));
+  });
+  c.parts.filter(p => p.where !== 'after').forEach(items);
+  for (let i = 1; i <= k; i++) {
+    const pg = 'Method ' + i;
+    add('B' + i + '_method', pg, 'Code of the method read in position ' + i, 'text', ms.map(m => m.id + ' = ' + m.name).join('; '));
+    add('B' + i + '_phase', pg, 'Its design phase', 'text', c.phases.map(p => p.id).join('; '));
+    kq.forEach(q => { add('B' + i + '_' + q.id, pg, 'Knowledge question ' + q.id + ' (' + (q.label || '') + '): the option chosen', 'one choice', 'option text'); add('B' + i + '_' + q.id + '_ok', pg, 'Knowledge question ' + q.id + ' answered correctly', 'derived', '1 = right; 0 = wrong'); });
+    ((c.perMethod || {}).items || []).forEach(it => ISP.itemVars(c, it).forEach(x => add('B' + i + '_' + x.v, pg, ISP.mdText(x.text), TYPE_LABEL[it.type], x.values, x.reverse, x.construct, who(it))));
+    add('B' + i + '_read_s', pg, 'Active seconds on the method description', 'derived', 'seconds');
+    add('B' + i + '_lookback_s', pg, 'Seconds spent looking back at the description while answering its questions', 'derived', 'seconds');
+  }
+  c.parts.filter(p => p.where === 'after').forEach(items);
+  c.constructs.forEach(x => add('score_' + x.id, 'Scores', x.label + ': mean of its statements before/after the reading, negatively worded ones reversed', 'derived', 'scale mean'));
+  add('knowledge_right', 'Scores', 'Knowledge questions answered correctly', 'derived', 'count'); add('knowledge_asked', 'Scores', 'Knowledge questions asked', 'derived', 'count');
+  add('flags', 'Screening', 'Screening flags', 'derived', 'text'); add('n_flags', 'Screening', 'Number of flags', 'derived', 'count');
+  add('excluded', 'Screening', 'Set aside by the screening rules', 'derived', '1 = set aside; 0 = kept'); add('excluded_reason', 'Screening', 'Why', 'derived', 'text');
+  return out;
+}
+function buildWorkbook(o) {
+  const c = C(), all = prepared();
+  const inKind = p => o.who === 'live' ? !p.mode : o.who === 'pilot' ? p.mode === 'pilot' : (p.mode === '' || p.mode === 'pilot');
+  const people = all.filter(p => inKind(p) && (p.status === 'completed' || (o.incomplete && (p.status === 'in progress' || p.status === 'started'))));
+  const done = people.filter(p => p.status === 'completed');
+  const kept = done.filter(p => !p.sc.excluded);
+  const k = c.allocation.perPerson, ms = ISP.activeMethods(c);
+  const items = {}; ISP.allItems(c).forEach(x => { items[x.item.id] = x.item; });
+  const cb = codebook(c), cbAns = cb.filter(x => !/^B\d+_|^score_|^knowledge_|^flags$|^n_flags$|^excluded/.test(x.v));
+  const groups = c.groups.map(g => g.id);
+  const sheets = [];
+  // Read me
+  const readme = [['IS perception study: analysis workbook'], ['Exported', new Date().toLocaleString()], ['Participants', o.who + (o.incomplete ? ', including unfinished' : ', finished only')],
+    ['Finished', done.length + ' (' + groups.map(g => g + ' ' + done.filter(p => p.group === g).length).join(', ') + ')'], ['Kept after screening', kept.length + ' (set aside: ' + (done.length - kept.length) + ')'],
+    ['Content versions', [...new Set(people.map(p => p.version))].sort().join(', ')], [],
+    ['Sheet', 'What it holds'],
+    ['Participants', 'One row per person: answers (option texts), the method read in each position with its knowledge answers and ratings, scale scores, and the screening.'],
+    ['Per method', 'One row per person and method read: knowledge right/wrong, ratings, reading time, looking back, and seconds on each information element.'],
+    ['Scales', 'Each construct per group (people kept after screening): N, mean, SD, 95% CI, share at or above 5, Cronbach\'s alpha.'],
+    ['Methods', 'Each method per group: readers, % right on each knowledge question (and in the non-reader baseline), mean ratings, confident-but-wrong, reading time.'],
+    ['Elements (CVR)', 'Lawshe\'s content validity ratio per element and group, with the exact critical value (one-tailed binomial, p = .05; Ayre and Scally, 2014), and reading time per element.'],
+    ['Allocation', 'How often each method was read, in which position, and which pairs were read together, per group.'],
+    ['Open answers', 'The written answers, for qualitative coding.'], ['Baseline', 'Non-reader baseline: knowledge answers without any description.'],
+    ['Codebook', 'Every variable: page, wording, kind, values, reversed, construct, who was asked.'], ['Versions', 'The published versions of the content.'], [],
+    ['Scoring', 'Scale scores are means of their statements on the pages before and after the reading, with negatively worded statements reversed (min + max − x). Ratings after each method description stay per method.'],
+    ['Screening', 'Rules as set in the editor (Screening rules): ' + JSON.stringify(c.quality)], ['Reading time', 'Active time: the page was visible and the person had scrolled, typed or moved the pointer within the last 2 minutes.']];
+  sheets.push({ name: 'Read me', rows: readme, widths: [24, 120], fmt: { 1: 'wrap' }, noHeader: true });
+  // Participants
+  const pHead = ['pid', 'group', 'kind', 'status', 'version', 'started', 'submitted', 'minutes', 'source', 'device'].concat(cbAns.filter(x => c.parts.some(p => p.where !== 'after' && (p.items || []).some(it => x.v === it.id || x.v.indexOf(it.id + '_') === 0))).map(x => x.v));
+  const beforeVars = pHead.slice(10);
+  const afterVars = cbAns.map(x => x.v).filter(v => beforeVars.indexOf(v) < 0);
+  const kq = ms.length ? (ms[0].knowledge || []).map(q => q.id) : [];
+  const pmIds = ((c.perMethod || {}).items || []).map(it => it.id);
+  const bHead = []; for (let i = 1; i <= k; i++) { bHead.push('B' + i + '_method', 'B' + i + '_phase'); kq.forEach(q => bHead.push('B' + i + '_' + q, 'B' + i + '_' + q + '_ok')); pmIds.forEach(x => bHead.push('B' + i + '_' + x)); bHead.push('B' + i + '_read_s', 'B' + i + '_lookback_s'); }
+  const scoreHead = c.constructs.map(x => 'score_' + x.id).concat(['knowledge_right', 'knowledge_asked', 'flags', 'n_flags', 'excluded', 'excluded_reason', 'pairs_inconsistent', 'longest_run', 's_per_item']);
+  const head = pHead.concat(bHead, afterVars, scoreHead);
+  const ansVal = (p, v) => {
+    const a = (p.state || {}).answers || {};
+    if (!(v in a)) return '';
+    const base = v.replace(/_other$/, '');
+    return /_other$/.test(v) ? a[v] : decode(p.c, items[v] || items[base], a[v]);
+  };
+  const pRows = [head];
+  people.forEach(p => {
+    const s = p.state || {}, row = [p.pid, p.group, kindOf(p), p.status, p.version, fmtTime(p.started), fmtTime(p.submitted), Number(p.minutes) || '', p.src, s.device ? s.device.kind : ''];
+    beforeVars.forEach(v => row.push(ansVal(p, v)));
+    for (let i = 0; i < k; i++) {
+      const b = (s.blocks || [])[i] || {}, sb = p.sc.blocks[i] || {}, m = ISP.methodById(p.c, b.method) || { knowledge: [] };
+      row.push(b.method || '', m.phase || '');
+      kq.forEach(q => { const qq = (m.knowledge || []).find(x => x.id === q); const v = (b.answers || {})[q]; row.push(v === undefined ? '' : decode(p.c, { type: 'single', options: qq ? qq.options : [] }, v), sb[q + '_ok'] == null ? '' : sb[q + '_ok']); });
+      pmIds.forEach(x => row.push((b.answers || {})[x] ?? ''));
+      row.push(sb.read_s ?? '', sb.lookback_s ?? '');
+    }
+    afterVars.forEach(v => row.push(ansVal(p, v)));
+    c.constructs.forEach(x => row.push(p.sc.scales[x.id] ?? ''));
+    row.push(p.sc.knowledge, p.sc.knowledgeOf, (p.sc.exclude || []).concat(p.sc.flags || []).join('; '), (p.sc.flags || []).length, p.status === 'completed' ? (p.sc.excluded ? 1 : 0) : '', p.sc.reason || '', p.sc.pairsInconsistent ?? '', p.sc.longString ?? '', p.sc.secondsPerItem ?? '');
+    pRows.push(row);
+  });
+  const dec = {}; c.constructs.forEach(x => { dec[head.indexOf('score_' + x.id)] = 'dec2'; });
+  sheets.push({ name: 'Participants', rows: pRows, widths: head.map(x => Math.min(28, Math.max(8, x.length + 2))), fmt: dec });
+  // Per method (long)
+  const els = c.elements;
+  const famItem = ISP.allItems(c).map(x => x.item).find(it => it.type === 'matrix' && it.rows === 'allocated');
+  const cus = ((c.perMethod || {}).items || []).find(it => it.type === 'likert' && it.construct === 'CUS');
+  const cusHi = cus ? Math.floor((ISP.scaleRange(c, cus.scale)[0] + ISP.scaleRange(c, cus.scale)[1]) / 2) + 1 : null;
+  const lHead = ['pid', 'group', 'excluded', 'position', 'method', 'method_name', 'phase', 'familiarity'].concat(kq.flatMap(q => [q, q + '_ok']), pmIds, cus ? kq.map(q => 'confident_wrong_' + q) : [], ['read_s', 'reached_end', 'lookback_s', 'lookback_opens'], els.map(e => 'read_' + e.id), els.map(e => 'back_' + e.id));
+  const lRows = [lHead];
+  done.forEach(p => (p.state.blocks || []).forEach((b, i) => {
+    const m = ISP.methodById(p.c, b.method) || { knowledge: [], name: b.method }, sb = p.sc.blocks[i] || {}, a = p.state.answers || {};
+    const row = [p.pid, p.group, p.sc.excluded ? 1 : 0, i + 1, b.method, m.name, m.phase, famItem ? (a[famItem.id + '_' + b.method] ?? '') : ''];
+    kq.forEach(q => { const qq = (m.knowledge || []).find(x => x.id === q); const v = (b.answers || {})[q]; row.push(v === undefined ? '' : decode(p.c, { type: 'single', options: qq ? qq.options : [] }, v), sb[q + '_ok'] ?? ''); });
+    pmIds.forEach(x => row.push((b.answers || {})[x] ?? ''));
+    if (cus) kq.forEach(q => { const cv = (b.answers || {})[cus.id]; row.push(typeof cv === 'number' && sb[q + '_ok'] != null ? (cv >= cusHi && sb[q + '_ok'] === 0 ? 1 : 0) : ''); });
+    row.push(sb.read_s ?? '', b.read ? (b.read.end ? 1 : 0) : '', sb.lookback_s ?? '', b.ask ? (b.ask.opens || 0) : '');
+    els.forEach(e => row.push(b.read && b.read.elements && b.read.elements[e.id] != null ? b.read.elements[e.id] : ''));
+    els.forEach(e => row.push(b.ask && b.ask.elements && b.ask.elements[e.id] != null ? b.ask.elements[e.id] : ''));
+    lRows.push(row);
+  }));
+  sheets.push({ name: 'Per method', rows: lRows, widths: lHead.map(x => Math.min(22, Math.max(7, x.length + 1))) });
+  // Scales
+  const gsets = groups.map(g => [g, kept.filter(p => p.group === g)]).concat([['All', kept]]);
+  const sRows = [['construct', 'name', 'statements', 'group', 'N', 'mean', 'SD', 'CI 95% low', 'CI 95% high', 'share with mean ≥ 5', 'Cronbach alpha']];
+  c.constructs.forEach(x => {
+    const its = []; c.parts.forEach(p => (p.items || []).forEach(it => { if (it.type === 'likert' && it.construct === x.id) its.push(it); }));
+    if (!its.length) return;
+    gsets.forEach(([g, ps]) => {
+      const scores = ps.map(p => p.sc.scales[x.id]).filter(v => typeof v === 'number');
+      if (!scores.length) return;
+      const mat = ps.map(p => its.map(it => { const v = (p.state.answers || {})[it.id]; if (typeof v !== 'number') return null; const [lo, hi] = ISP.scaleRange(c, it.scale); return it.reverse ? lo + hi - v : v; })).filter(r => r.every(v => typeof v === 'number'));
+      const ci = ISP.ci95(scores);
+      sRows.push([x.id, x.label, its.map(it => it.id + (it.reverse ? ' (R)' : '')).join(', '), g, scores.length, ISP.mean(scores), ISP.sd(scores) ?? '', ci ? ci[0] : '', ci ? ci[1] : '', scores.filter(v => v >= 5).length / scores.length, ISP.alpha(mat) ?? '']);
+    });
+  });
+  sheets.push({ name: 'Scales', rows: sRows, widths: [10, 24, 40, 8, 6, 8, 8, 10, 10, 12, 10], fmt: { 5: 'dec2', 6: 'dec2', 7: 'dec2', 8: 'dec2', 9: 'pct', 10: 'dec2' } });
+  // Methods
+  const base = all.filter(p => p.mode === 'baseline' && p.status === 'completed');
+  const mHead = ['method', 'name', 'phase', 'words', 'group', 'readers'].concat(kq.map(q => q + ' % right'), kq.length > 1 ? ['all right %'] : [], pmIds.map(x => x + ' mean'), cus ? kq.map(q => 'confident but ' + q + ' wrong %') : [], ['median reading min', 'median looking back s'], kq.map(q => 'baseline ' + q + ' % right'), ['baseline N', 'chance %']);
+  const mRows = [mHead];
+  ms.forEach(m => {
+    const nOpt = ISP.mean((m.knowledge || []).map(q => (q.options || []).length)) || 4;
+    [['All', null]].concat(groups.map(g => [g, g])).forEach(([gl, g]) => {
+      const bl = [];
+      kept.forEach(p => { if (g && p.group !== g) return; (p.state.blocks || []).forEach((b, i) => { if (b.method === m.id) bl.push({ b, sb: p.sc.blocks[i] || {} }); }); });
+      const row = [m.id, m.name, ISP.phaseLabel(c, m.phase), methodWords(m), gl, bl.length];
+      kq.forEach(q => { const v = bl.map(x => x.sb[q + '_ok']).filter(x => x != null); row.push(v.length ? ISP.mean(v) : ''); });
+      if (kq.length > 1) { const v = bl.filter(x => kq.every(q => x.sb[q + '_ok'] != null)); row.push(v.length ? v.filter(x => kq.every(q => x.sb[q + '_ok'] === 1)).length / v.length : ''); }
+      pmIds.forEach(x => { const v = bl.map(y => (y.b.answers || {})[x]).filter(z => typeof z === 'number'); row.push(v.length ? ISP.mean(v) : ''); });
+      if (cus) kq.forEach(q => { const v = bl.filter(x => typeof (x.b.answers || {})[cus.id] === 'number' && x.sb[q + '_ok'] != null); row.push(v.length ? v.filter(x => x.b.answers[cus.id] >= cusHi && x.sb[q + '_ok'] === 0).length / v.length : ''); });
+      const rd = bl.map(x => x.sb.read_s).filter(x => typeof x === 'number'), lb = bl.map(x => x.sb.lookback_s).filter(x => typeof x === 'number');
+      row.push(rd.length ? ISP.median(rd) / 60 : '', lb.length ? ISP.median(lb) : '');
+      const bb = []; base.forEach(p => { if (g && p.group !== g) return; (p.state.blocks || []).forEach((b, i) => { if (b.method === m.id) bb.push(p.sc.blocks[i] || {}); }); });
+      kq.forEach(q => { const v = bb.map(x => x[q + '_ok']).filter(x => x != null); row.push(v.length ? ISP.mean(v) : ''); });
+      row.push(bb.length, 1 / nOpt);
+      mRows.push(row);
+    });
+  });
+  const mFmt = {}; mHead.forEach((x, i) => { if (/%/.test(x)) mFmt[i] = 'pct'; else if (/mean|median/.test(x)) mFmt[i] = 'dec2'; });
+  sheets.push({ name: 'Methods', rows: mRows, widths: mHead.map(x => Math.min(20, Math.max(8, x.length + 1))), fmt: mFmt });
+  // Elements (CVR)
+  const ei = ISP.allItems(c).map(x => x.item).find(it => it.type === 'matrix' && it.rows === 'elements');
+  if (ei) {
+    const [lo, hi] = ISP.scaleRange(c, ei.scale);
+    const eHead = ['element', 'name'];
+    gsets.forEach(([g]) => eHead.push(g + ' N', g + ' essential', g + ' CVR', g + ' critical CVR', g + ' meets', g + ' mean'));
+    eHead.push('median reading s', 'median looking back s');
+    const eRows = [eHead];
+    els.forEach(e => {
+      const v = ei.id + '_' + e.id, row = [e.id, e.label];
+      gsets.forEach(([g, ps]) => {
+        const vals = ps.map(p => (p.state.answers || {})[v]).filter(x => typeof x === 'number');
+        const N = vals.length, ne = vals.filter(x => x === hi).length, crit = ISP.cvrCritical(N), cvr = ISP.cvr(ne, N);
+        row.push(N, ne, N ? cvr : '', crit && crit.cvr !== null ? crit.cvr : '', N && crit && crit.cvr !== null ? (cvr >= crit.cvr - 1e-9 ? 'yes' : 'no') : '', N ? ISP.mean(vals) : '');
+      });
+      const rd = [], lb = [];
+      kept.forEach(p => (p.state.blocks || []).forEach(b => { if (b.read && b.read.elements && b.read.elements[e.id] != null) rd.push(b.read.elements[e.id]); if (b.ask && b.ask.elements && b.ask.elements[e.id] != null) lb.push(b.ask.elements[e.id]); }));
+      row.push(rd.length ? ISP.median(rd) : '', lb.length ? ISP.median(lb) : '');
+      eRows.push(row);
+    });
+    const eFmt = {}; eHead.forEach((x, i) => { if (/CVR|mean/.test(x)) eFmt[i] = 'dec2'; if (/median/.test(x)) eFmt[i] = 'dec1'; });
+    sheets.push({ name: 'Elements (CVR)', rows: eRows, widths: eHead.map((x, i) => i === 1 ? 24 : Math.min(16, Math.max(7, x.length + 1))), fmt: eFmt });
+  }
+  // Allocation
+  const alloc = people.filter(p => p.methods.length).map(p => ({ group: p.group, methods: p.methods }));
+  const bal = ISP.balance(c, alloc), aRows = [['group', 'method', 'name', 'phase', 'read by'].concat(Array.from({ length: k }, (_, i) => 'position ' + (i + 1)))];
+  groups.concat(['all']).forEach(g => ms.forEach(m => aRows.push([g, m.id, m.name, ISP.phaseLabel(c, m.phase), bal[g].exposure[m.id] || 0].concat((bal[g].position[m.id] || Array(k).fill(0))))));
+  aRows.push([]); aRows.push(['group', 'pair read together', '', '', 'times']);
+  groups.forEach(g => Object.entries(bal[g].pairs).sort().forEach(([pk, n]) => aRows.push([g, pk.replace('|', ' + '), '', '', n])));
+  sheets.push({ name: 'Allocation', rows: aRows, widths: [8, 24, 24, 12, 9, 11, 11, 11, 11, 11] });
+  // Open answers
+  const openIts = ISP.allItems(c).map(x => x.item).filter(it => it.type === 'longtext' || it.type === 'text');
+  if (openIts.length) {
+    const oRows = [['pid', 'group', 'excluded'].concat(openIts.map(it => it.id))];
+    done.forEach(p => { const a = p.state.answers || {}; if (openIts.some(it => String(a[it.id] || '').trim())) oRows.push([p.pid, p.group, p.sc.excluded ? 1 : 0].concat(openIts.map(it => a[it.id] || ''))); });
+    sheets.push({ name: 'Open answers', rows: oRows, widths: [8, 7, 9].concat(openIts.map(() => 70)), fmt: Object.fromEntries(openIts.map((_, i) => [i + 3, 'wrap'])) });
+  }
+  // Baseline
+  const bRows = [['pid', 'group', 'method', 'name', 'familiarity'].concat(kq.flatMap(q => [q, q + '_ok']))];
+  base.forEach(p => (p.state.blocks || []).forEach((b, i) => {
+    const m = ISP.methodById(p.c, b.method) || { knowledge: [], name: b.method }, sb = p.sc.blocks[i] || {}, a = p.state.answers || {};
+    const row = [p.pid, p.group, b.method, m.name, famItem ? (a[famItem.id + '_' + b.method] ?? '') : ''];
+    kq.forEach(q => { const qq = (m.knowledge || []).find(x => x.id === q); const v = (b.answers || {})[q]; row.push(v === undefined ? '' : decode(p.c, { type: 'single', options: qq ? qq.options : [] }, v), sb[q + '_ok'] ?? ''); });
+    bRows.push(row);
+  }));
+  sheets.push({ name: 'Baseline', rows: bRows, widths: [8, 7, 14, 24, 11, 40, 6, 40, 6], fmt: { 5: 'wrap', 7: 'wrap' } });
+  // Codebook and versions
+  sheets.push({ name: 'Codebook', rows: [['variable', 'page', 'question or meaning', 'kind', 'values', 'reversed', 'construct', 'asked of']].concat(cb.map(x => [x.v, x.page, x.text, x.kind, x.values, x.reverse, x.construct, x.who])), widths: [18, 24, 60, 14, 50, 9, 10, 10], fmt: { 2: 'wrap', 4: 'wrap' } });
+  const counts = {}; people.forEach(p => { counts[p.version] = (counts[p.version] || 0) + 1; });
+  sheets.push({ name: 'Versions', rows: [['version', 'published', 'note', 'participants in this file']].concat((E.versions || []).map(x => [x.version, fmtTime(x.saved), x.note, counts[x.version] || 0])), widths: [9, 22, 60, 12] });
+  return sheets;
+}
+
+/* ------------------------------------------------------------------ a small .xlsx writer (no library) */
+const XLSX = (() => {
+  const T = new Uint32Array(256); for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; T[n] = c >>> 0; }
+  const crc = u => { let c = 0xFFFFFFFF; for (let i = 0; i < u.length; i++) c = T[(c ^ u[i]) & 0xFF] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; };
+  const enc = new TextEncoder();
+  function zip(files) {
+    const parts = [], central = []; let off = 0;
+    files.forEach(f => {
+      const name = enc.encode(f.name), data = f.data, c = crc(data);
+      const lh = new DataView(new ArrayBuffer(30));
+      lh.setUint32(0, 0x04034b50, true); lh.setUint16(4, 20, true); lh.setUint16(8, 0, true); lh.setUint32(14, c, true); lh.setUint32(18, data.length, true); lh.setUint32(22, data.length, true); lh.setUint16(26, name.length, true);
+      parts.push(new Uint8Array(lh.buffer), name, data);
+      const ch = new DataView(new ArrayBuffer(46));
+      ch.setUint32(0, 0x02014b50, true); ch.setUint16(4, 20, true); ch.setUint16(6, 20, true); ch.setUint32(16, c, true); ch.setUint32(20, data.length, true); ch.setUint32(24, data.length, true); ch.setUint16(28, name.length, true); ch.setUint32(42, off, true);
+      central.push(new Uint8Array(ch.buffer), name);
+      off += 30 + name.length + data.length;
+    });
+    const size = central.reduce((s, a) => s + a.length, 0);
+    const end = new DataView(new ArrayBuffer(22));
+    end.setUint32(0, 0x06054b50, true); end.setUint16(8, files.length, true); end.setUint16(10, files.length, true); end.setUint32(12, size, true); end.setUint32(16, off, true);
+    return new Blob(parts.concat(central, [new Uint8Array(end.buffer)]), { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+  }
+  const x = s => String(s).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F￾￿]/g, '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  const col = n => { let s = ''; n++; while (n) { const m = (n - 1) % 26; s = String.fromCharCode(65 + m) + s; n = Math.floor((n - 1) / 26); } return s; };
+  const STYLE = { head: 1, wrap: 2, pct: 3, dec2: 4, dec1: 5, bold: 6 };
+  function sheet(s) {
+    const fmt = s.fmt || {};
+    const body = s.rows.map((r, i) => '<row r="' + (i + 1) + '">' + (r || []).map((v, j) => {
+      if (v === '' || v === null || v === undefined) return '';
+      const ref = col(j) + (i + 1);
+      const st = i === 0 && !s.noHeader ? STYLE.head : (s.noHeader && j === 0 ? STYLE.bold : STYLE[fmt[j]] || 0);
+      const sa = st ? ' s="' + st + '"' : '';
+      if (typeof v === 'number' && isFinite(v)) return '<c r="' + ref + '"' + sa + '><v>' + v + '</v></c>';
+      if (typeof v === 'boolean') return '<c r="' + ref + '"' + sa + ' t="b"><v>' + (v ? 1 : 0) + '</v></c>';
+      let t = String(v); if (t.length > 32000) t = t.slice(0, 32000);
+      return '<c r="' + ref + '"' + sa + ' t="inlineStr"><is><t xml:space="preserve">' + x(t) + '</t></is></c>';
+    }).join('') + '</row>').join('');
+    const cols = s.widths ? '<cols>' + s.widths.map((w, i) => '<col min="' + (i + 1) + '" max="' + (i + 1) + '" width="' + w + '" customWidth="1"/>').join('') + '</cols>' : '';
+    const pane = s.noHeader ? '' : '<pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/>';
+    return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetViews><sheetView workbookViewId="0">' + pane + '</sheetView></sheetViews>'
+      + cols + '<sheetData>' + body + '</sheetData>' + (s.rows.length > 1 && !s.noHeader && s.rows[0].length ? '<autoFilter ref="A1:' + col(s.rows[0].length - 1) + s.rows.length + '"/>' : '') + '</worksheet>';
+  }
+  function build(sheets) {
+    const X = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n', files = [], put = (name, s) => files.push({ name, data: enc.encode(s) });
+    const names = []; sheets.forEach(s => { let n = String(s.name).replace(/[\\/?*[\]:]/g, ' ').slice(0, 31); while (names.indexOf(n) >= 0) n = n.slice(0, 28) + '_' + names.length; names.push(n); });
+    put('[Content_Types].xml', X + '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>' + sheets.map((_, i) => '<Override PartName="/xl/worksheets/sheet' + (i + 1) + '.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>').join('') + '</Types>');
+    put('_rels/.rels', X + '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>');
+    put('xl/workbook.xml', X + '<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets>' + sheets.map((s, i) => '<sheet name="' + x(names[i]) + '" sheetId="' + (i + 1) + '" r:id="rId' + (i + 1) + '"/>').join('') + '</sheets>'
+      + (sheets.some(s => s.rows.length > 1 && !s.noHeader) ? '<definedNames>' + sheets.map((s, i) => s.rows.length > 1 && !s.noHeader && s.rows[0].length ? '<definedName name="_xlnm._FilterDatabase" localSheetId="' + i + '" hidden="1">\'' + x(names[i]).replace(/'/g, "''") + '\'!$A$1:$' + col(s.rows[0].length - 1) + '$' + s.rows.length + '</definedName>' : '').join('') + '</definedNames>' : '') + '</workbook>');
+    put('xl/_rels/workbook.xml.rels', X + '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">' + sheets.map((_, i) => '<Relationship Id="rId' + (i + 1) + '" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet' + (i + 1) + '.xml"/>').join('') + '<Relationship Id="rId' + (sheets.length + 1) + '" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>');
+    put('xl/styles.xml', X + '<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><numFmts count="3"><numFmt numFmtId="164" formatCode="0.0%"/><numFmt numFmtId="165" formatCode="0.00"/><numFmt numFmtId="166" formatCode="0.0"/></numFmts>'
+      + '<fonts count="2"><font><sz val="11"/><name val="Calibri"/></font><font><b/><sz val="11"/><name val="Calibri"/></font></fonts>'
+      + '<fills count="3"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FFEEF2F5"/><bgColor indexed="64"/></patternFill></fill></fills>'
+      + '<borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs>'
+      + '<cellXfs count="7"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/>'
+      + '<xf numFmtId="0" fontId="1" fillId="2" borderId="0" xfId="0" applyFont="1" applyFill="1" applyAlignment="1"><alignment wrapText="1" vertical="top"/></xf>'
+      + '<xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyAlignment="1"><alignment wrapText="1" vertical="top"/></xf>'
+      + '<xf numFmtId="164" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/><xf numFmtId="165" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/>'
+      + '<xf numFmtId="166" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/><xf numFmtId="0" fontId="1" fillId="0" borderId="0" xfId="0" applyFont="1"/></cellXfs>'
+      + '<cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>');
+    sheets.forEach((s, i) => put('xl/worksheets/sheet' + (i + 1) + '.xml', sheet(s)));
+    return zip(files);
+  }
+  return { build };
+})();
+
+/* ------------------------------------------------------------------ start */
+$('#pv-btn').addEventListener('click', () => { if (!E.draft) return toast('Load the study content first.'); openPreview(); });
+$('#pub-btn').addEventListener('click', () => { if (!E.draft) return toast('Load the study content first.'); go('publish'); });
+async function start() {
+  loadLocal();
+  if (E.draft) E.draft = migrate(E.draft);
+  render();
+  if (E.conn) {
+    setSave('Connecting…');
+    try {
+      const p = await api('ping');
+      E.sheet = p.sheet; E.sheetUrl = p.url; E.status = p.status; E.published = p.published;
+      const d = await api('getDraft');
+      if (d.draft && (!E.draft || (d.saved && d.saved !== E.saved && !E.dirty))) { E.draft = migrate(d.draft); E.saved = d.saved; }
+      else if (d.draft && d.saved !== E.saved && E.dirty) {
+        const useServer = await ask('Two versions of the draft', 'This browser has changes that were not saved to the Sheet, and the Sheet has a newer draft (' + fmtTime(d.saved) + '). Load the Sheet\'s draft? (Cancel keeps this browser\'s changes and saves them.)', 'Load the Sheet\'s draft');
+        if (useServer) { E.draft = migrate(d.draft); E.saved = d.saved; E.dirty = false; } else { E.saved = d.saved; await pushDraft(true); }
+      } else if (E.dirty) await pushDraft();
+      saveLocal();
+      setSave('Connected');
+      if (E.published) { try { E.vc[E.published] = (await api('getVersion', { v: E.published })).content; } catch (e) { } }
+      render();
+      try { await loadData(); if (['overview', 'data', 'allocation', 'quality'].indexOf(E.section) >= 0) render(); } catch (e) { }
+    } catch (e) { setSave('Backend not reachable: ' + e.message, true); }
+  } else setSave(E.draft ? 'Not connected: changes stay in this browser' : '');
+}
+window.__editor = { E, ISP, XLSX, buildWorkbook, prepared, loadData, render, go, migrate, codebook };   // for the automated tests
+start();
+
+</script>
+</body>
+</html>

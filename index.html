@@ -1,0 +1,895 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Design method descriptions study</title>
+<style>
+:root{color-scheme:light;--ink:#1c2328;--muted:#5a6670;--line:#dbe1e6;--soft:#eef2f5;--bg:#f5f6f8;--card:#fff;--accent:#24597f;--accent-d:#1b4766;--sel:#e3eef7;--err:#b3261e;--errbg:#fdeceb;--note:#fff7e0;--bar:#f2f2f2;--read:17px}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;-webkit-text-size-adjust:100%}
+a{color:var(--accent)}
+header.top{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line)}
+.top-in{max-width:1400px;margin:0 auto;padding:9px 16px;display:flex;align-items:center;gap:14px}
+.brand{font-weight:600;font-size:14px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1}
+.step{font-size:13px;color:var(--muted);white-space:nowrap}
+.prog{height:4px;background:var(--soft)}
+.prog>div{height:100%;width:0;background:var(--accent);transition:width .3s}
+.pv-banner{background:#5b3a8c;color:#fff;font-size:13px;padding:6px 16px;text-align:center}
+main{max-width:880px;margin:0 auto;padding:22px 16px 40px;outline:none}
+main.wide{max-width:1400px}
+main.narrow{max-width:800px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:26px 28px;margin-bottom:18px}
+h1{font-size:26px;line-height:1.25;margin:0 0 14px}
+h2{font-size:20px;margin:0 0 12px}
+.kicker{font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:6px}
+.lead p{margin:0 0 12px}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+.btns{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:22px}
+.btns .sp{flex:1}
+button{font:inherit}
+.btn{border:1px solid var(--accent);background:var(--accent);color:#fff;border-radius:8px;padding:11px 20px;font-weight:600;cursor:pointer;min-height:44px}
+.btn:hover{background:var(--accent-d)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.sec{background:#fff;color:var(--accent)}
+.btn.sec:hover{background:var(--sel)}
+.btn.link{border:none;background:none;color:var(--accent);padding:8px 4px;text-decoration:underline;font-weight:500}
+.info-box{border:1px solid var(--line);border-radius:8px;padding:16px 18px;background:#fbfcfd;max-height:none}
+.info-box p{margin:0 0 10px}
+.check{display:flex;gap:12px;align-items:flex-start;padding:10px 12px;border:1px solid var(--line);border-radius:8px;margin:8px 0;cursor:pointer;background:#fff}
+.check input{width:20px;height:20px;margin:2px 0 0;flex:none;accent-color:var(--accent)}
+.check.on{border-color:var(--accent);background:var(--sel)}
+/* questions */
+.q{margin:0 0 26px;border:0;padding:0;min-width:0}
+.q>legend,.q .qt{font-weight:600;margin:0 0 10px;padding:0;font-size:16.5px}
+.q .help{font-size:14px;color:var(--muted);margin:-4px 0 10px}
+.q.missing .qt,.q.missing>legend{color:var(--err)}
+.q.missing{background:var(--errbg);box-shadow:0 0 0 8px var(--errbg);border-radius:4px}
+.opts{display:grid;gap:8px}
+.opts.c2{grid-template-columns:1fr 1fr}
+.opt{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-radius:8px;padding:11px 13px;cursor:pointer;background:#fff;line-height:1.4}
+.opt:hover{border-color:#9fb4c4}
+.opt input{width:19px;height:19px;margin:1px 0 0;flex:none;accent-color:var(--accent)}
+.opt.on{border-color:var(--accent);background:var(--sel)}
+.opt input:focus-visible{outline:3px solid #7fb0d6;outline-offset:2px}
+.other-in{margin:8px 0 0 31px}
+input[type=text],input[type=number],input[type=email],textarea{font:inherit;border:1px solid #b9c4cc;border-radius:7px;padding:10px 12px;width:100%;background:#fff;color:var(--ink)}
+input[type=number]{max-width:160px}
+textarea{min-height:96px;resize:vertical}
+input:focus,textarea:focus{outline:3px solid #b9d6ec;border-color:var(--accent)}
+.unit{margin-left:8px;color:var(--muted)}
+.err{color:var(--err);font-size:14px;margin-top:6px}
+.pagerr{background:var(--errbg);color:var(--err);border-radius:8px;padding:10px 14px;margin-top:16px;font-weight:600}
+/* rating grids */
+.grid{margin:0 0 26px}
+.grid .gstem{font-weight:600;margin:0 0 10px;font-size:16.5px}
+.ghead,.grow{display:grid;grid-template-columns:minmax(200px,1fr) repeat(var(--n),minmax(46px,66px));align-items:center}
+.ghead{position:sticky;top:46px;z-index:5;background:#fff;border-bottom:2px solid var(--line);font-size:12.5px;line-height:1.25;color:var(--muted);text-align:center;padding:6px 0}
+.ghead>div:first-child{text-align:left}
+.grow{border-bottom:1px solid var(--soft);padding:2px 0}
+.grow:nth-child(even){background:#fafbfc}
+.grow .gt{padding:10px 10px 10px 4px;line-height:1.4}
+.grow.missing{background:var(--errbg)}
+.grow.missing .gt{color:var(--err)}
+.cell{display:flex;justify-content:center;align-items:center;cursor:pointer;min-height:44px}
+.cell input{width:21px;height:21px;margin:0;accent-color:var(--accent);cursor:pointer}
+.cell .cn{display:none}
+.endcap{display:none}
+@media (max-width:720px){
+  .card{padding:20px 16px}
+  h1{font-size:23px}
+  .opts.c2{grid-template-columns:1fr}
+  .ghead{display:none}
+  .grow{display:block;padding:12px 4px;background:none!important}
+  .grow .gt{padding:0 0 8px}
+  .grow .cells{display:grid;grid-template-columns:repeat(var(--n),1fr);gap:4px}
+  .cell{flex-direction:column;border:1px solid var(--line);border-radius:7px;min-height:52px;font-size:14px}
+  .cell .cn{display:block;font-size:13px;color:var(--muted)}
+  .cell.on{border-color:var(--accent);background:var(--sel)}
+  .endcap{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:4px}
+}
+@media (min-width:721px){.grow .cells{display:contents}}
+/* method descriptions */
+.read{font-size:var(--read);line-height:1.62}
+.read .mname{font-size:30px;font-weight:700;margin:4px 0 6px;padding-bottom:10px;border-bottom:2px solid var(--soft)}
+.el{margin:0 0 6px}
+.el>h3{background:var(--bar);border-radius:6px;font-size:1.06em;font-weight:700;margin:22px 0 12px;padding:10px 14px}
+.el p{margin:0 0 11px}
+.el ul,.el ol{margin:0 0 12px;padding-left:28px}
+.el li{margin:0 0 8px}
+.read.nomark .el ul{list-style:none;padding-left:28px}
+.read.nomark .el ul ul{padding-left:28px;margin-top:8px}
+.el .mdh{font-size:1em;margin:14px 0 8px}
+.tablewrap{overflow-x:auto;margin:6px 0 14px}
+table.mdt{border-collapse:collapse;font-size:.94em}
+table.mdt td,table.mdt th{border:1px solid #444;padding:6px 10px;vertical-align:top;text-align:left}
+table.mdt th{background:var(--bar)}
+.read img{max-width:100%;height:auto}
+.hint{background:var(--note);border-radius:8px;padding:10px 14px;font-size:14.5px;margin:0 0 6px}
+.readbar{display:flex;align-items:center;gap:8px;justify-content:flex-end;margin:-6px 0 6px}
+.readbar button{border:1px solid var(--line);background:#fff;border-radius:6px;padding:4px 10px;cursor:pointer;font-size:14px}
+.toc{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 4px}
+.toc a{font-size:13px;border:1px solid var(--line);border-radius:999px;padding:3px 10px;text-decoration:none;color:var(--muted);background:#fff}
+.donebar{margin-top:30px;padding-top:18px;border-top:2px solid var(--soft)}
+/* questions beside the description */
+.asklay{display:block}
+.asklay.side{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:22px;align-items:start}
+.panel{display:none}
+.asklay.side .panel{display:block;position:sticky;top:58px;height:calc(100vh - 74px);overflow:auto;background:#fff;border:1px solid var(--line);border-radius:10px;padding:0 22px 22px}
+.panel .phead{position:sticky;top:0;background:#fff;padding:12px 0 8px;font-size:13px;color:var(--muted);font-weight:600;border-bottom:1px solid var(--soft);z-index:2}
+.openpanel{display:inline-flex;gap:8px;align-items:center;margin:0 0 16px}
+.asklay.side .openpanel{display:none}
+.overlay{position:fixed;inset:0;z-index:50;background:#fff;overflow:auto;padding:0 16px 30px}
+.overlay .ohead{position:sticky;top:0;background:#fff;display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line);z-index:2}
+.kq .label{font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600}
+/* footer, dialogs */
+footer.foot{max-width:780px;margin:0 auto;padding:6px 16px 40px;font-size:13.5px;color:var(--muted);display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+footer.foot button{background:none;border:none;color:var(--muted);text-decoration:underline;cursor:pointer;font-size:13.5px;padding:4px}
+.modal{position:fixed;inset:0;background:rgba(20,30,40,.45);z-index:60;display:flex;align-items:center;justify-content:center;padding:16px}
+.modal[hidden]{display:none}
+.modal .box{background:#fff;border-radius:12px;max-width:520px;width:100%;padding:22px 24px;box-shadow:0 10px 40px rgba(0,0,0,.25)}
+.modal .box h2{margin-top:0}
+.copyrow{display:flex;gap:8px}
+.copyrow input{flex:1;font-size:13px}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#1c2328;color:#fff;padding:10px 16px;border-radius:8px;font-size:14px;z-index:70;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.on{opacity:1}
+.spinner{display:inline-block;width:18px;height:18px;border:3px solid #c9d6e0;border-top-color:var(--accent);border-radius:50%;animation:sp 1s linear infinite;vertical-align:-3px;margin-right:8px}
+@keyframes sp{to{transform:rotate(360deg)}}
+.center{text-align:center;padding:50px 10px}
+pre.json{white-space:pre-wrap;font-size:12px;background:#f7f7f7;border-radius:6px;padding:10px;max-height:340px;overflow:auto}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media print{header.top,footer.foot,.btns{display:none}}
+</style>
+<script src="common.js"></script>
+</head>
+<body>
+<header class="top" id="top" hidden>
+  <div id="pvb" class="pv-banner" hidden>Preview: nothing you answer here is saved.</div>
+  <div class="top-in"><div class="brand" id="brand"></div><div class="step" id="stepinfo"></div></div>
+  <div class="prog"><div id="bar"></div></div>
+</header>
+<main id="app" tabindex="-1"><div class="center"><span class="spinner"></span>Loading the study…</div></main>
+<footer class="foot" id="foot" hidden></footer>
+<div class="modal" id="modal" hidden></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+'use strict';
+/* =============================== setup =============================== */
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
+const h = (tag, attrs = {}, ...kids) => {
+  const e = document.createElement(tag);
+  Object.entries(attrs || {}).forEach(([k, v]) => {
+    if (v === null || v === undefined || v === false) return;
+    if (k === 'class') e.className = v; else if (k === 'html') e.innerHTML = v; else if (k.startsWith('on')) e.addEventListener(k.slice(2), v); else e.setAttribute(k, v === true ? '' : v);
+  });
+  kids.flat().forEach(k => { if (k !== null && k !== undefined && k !== false) e.append(k.nodeType ? k : document.createTextNode(String(k))); });
+  return e;
+};
+const Q = new URLSearchParams(location.search);
+const PREVIEW = Q.get('preview') === '1';
+const MODE = ['pilot', 'baseline'].indexOf(Q.get('mode')) >= 0 ? Q.get('mode') : '';
+const SRC = (Q.get('src') || '').slice(0, 60);
+const LINKGROUP = Q.get('g') || '';
+const API = (() => {
+  const a = Q.get('api'), s = Q.get('s');
+  if (a && /^(https:\/\/script\.google(usercontent)?\.com\/|http:\/\/(127\.0\.0\.1|localhost)(:\d+)?\/)/.test(a)) return a;
+  if (s && /^[A-Za-z0-9_-]{20,120}$/.test(s)) return 'https://script.google.com/macros/s/' + s + '/exec';
+  return '';
+})();
+const STORE = 'isp1:' + (PREVIEW ? 'preview' : (Q.get('s') || Q.get('api') || 'none')) + ':' + MODE;
+const ls = {
+  get(k) { try { return JSON.parse(localStorage.getItem(k) || 'null'); } catch (e) { return null; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { } },
+  del(k) { try { localStorage.removeItem(k); } catch (e) { } }
+};
+let C = null, VER = 0, S = null, FLOW = [], PV = {}, timer = null, dwell = null, saving = Promise.resolve(), lastInput = Date.now();
+
+function freshState() {
+  return { v: VER, pid: '', token: ISP.uid(24), mode: MODE, src: SRC, linkGroup: LINKGROUP, group: '', methods: [], at: 0, atKey: 'welcome', answers: {}, blocks: [],
+    pages: {}, consent: null, started: Date.now(), seq: 0, status: 'new', contact: '', device: device(), font: Number(ls.get('isp-font')) || 17 };
+}
+function device() {
+  const w = window.innerWidth;
+  return { w, h: window.innerHeight, touch: 'ontouchstart' in window, kind: w < 600 ? 'phone' : w < 1024 ? 'tablet' : 'desktop' };
+}
+const T = k => (C.texts || {})[k] || '';
+function vars(extra) {
+  const r = C.researcher || {}, st = C.settings || {};
+  const n = S && S.methods.length && MODE !== 'baseline' ? S.methods.length : ((C.allocation || {}).perPerson || 3);
+  return Object.assign({ n, minutes: MODE === 'baseline' ? (st.baselineMinutes || 10) : (st.minutes || 25), count: ISP.activeMethods(C).length,
+    researcher: r.name || '', affiliation: r.affiliation || '', email: r.email || '', pid: (S && S.pid) || '' }, extra || {});
+}
+const fill = (t, extra) => ISP.fill(t, { group: S && S.group, vars: vars(extra) });
+const md = (t, extra) => h('div', { class: 'lead', html: ISP.md(fill(t, extra)) });
+function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('on'), 2600); }
+
+/* =============================== talking to the backend =============================== */
+async function call(action, data, tries = 3) {
+  let last;
+  for (let i = 0; i < tries; i++) {
+    try {
+      const res = await fetch(API, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(Object.assign({ action }, data || {})) });
+      const j = await res.json();
+      if (j.ok) return j;
+      if (!j.busy) throw Object.assign(new Error(j.error || 'The server said no.'), { server: true });
+      last = new Error(j.error);
+    } catch (e) { if (e.server) throw e; last = e; }
+    await new Promise(r => setTimeout(r, 900 * (i + 1) * (i + 1)));
+  }
+  throw last || new Error('No connection');
+}
+function persist() { if (S) ls.set(STORE, { S, VER, t: Date.now() }); }
+function stateForServer() {
+  const s = Object.assign({}, S);
+  delete s.token; delete s.contact;
+  return s;
+}
+function saveRemote() {
+  if (PREVIEW || !S.pid || S.status === 'done') return saving;
+  S.seq++; persist();
+  const body = { pid: S.pid, token: S.token, seq: S.seq, step: S.atKey, state: stateForServer() };
+  saving = saving.then(() => call('save', body, 3).catch(() => { S.unsaved = true; persist(); }));
+  return saving;
+}
+
+/* =============================== the pages of the study =============================== */
+function partShown(p) {
+  if (!ISP.shown(p, S.group || null) && S.group) return false;
+  if (p.showTo && p.showTo.length && !S.group) return false;
+  const items = (p.items || []).filter(it => itemShown(it));
+  return items.length > 0 || String(p.intro || '').trim();
+}
+function itemShown(it) { return !it.showTo || !it.showTo.length || (S.group && it.showTo.indexOf(S.group) >= 0); }
+function buildFlow() {
+  const f = [{ key: 'welcome', type: 'welcome' }, { key: 'consent', type: 'consent' }];
+  const before = (C.parts || []).filter(p => p.where !== 'after'), after = (C.parts || []).filter(p => p.where === 'after');
+  before.forEach(p => f.push({ key: p.id, type: 'part', part: p }));
+  if (MODE === 'baseline') S.methods.forEach((id, i) => f.push({ key: 'g' + (i + 1), type: 'guess', i }));
+  else {
+    S.methods.forEach((id, i) => { f.push({ key: 'm' + (i + 1) + 'r', type: 'read', i }); f.push({ key: 'm' + (i + 1) + 'q', type: 'ask', i }); });
+    after.forEach(p => f.push({ key: p.id, type: 'part', part: p }));
+  }
+  f.push({ key: 'end', type: 'end' });
+  FLOW = f.filter(x => x.type !== 'part' || partShown(x.part));
+  const at = FLOW.findIndex(x => x.key === S.atKey);
+  S.at = at >= 0 ? at : Math.min(S.at, FLOW.length - 1);
+}
+// allocation happens when the person leaves the page with the question that decides the group (or the consent page if there is none)
+function decidesGroup(page) {
+  const gi = ISP.groupItem(C);
+  if (!gi) return page.type === 'consent';
+  return page.type === 'part' && page.part.id === gi.part.id;
+}
+function firstBackIndex() {
+  if (S.methods.length) { const i = FLOW.findIndex(p => p.type === 'part' && decidesGroup(p)); return Math.max(FLOW.findIndex(p => p.type === 'consent') + 1, i + 1); }
+  return FLOW.findIndex(p => p.type === 'consent') + 1;
+}
+
+/* =============================== timing =============================== */
+['mousemove', 'keydown', 'scroll', 'touchstart', 'wheel', 'click'].forEach(ev => window.addEventListener(ev, () => { lastInput = Date.now(); }, { passive: true, capture: true }));
+function startTimer(key) {
+  stopTimer();
+  timer = { key, t0: Date.now(), active: 0, last: Date.now() };
+}
+function tickTimer() {
+  if (!timer) return;
+  const now = Date.now(), dt = now - timer.last;
+  timer.last = now;
+  if (document.visibilityState === 'visible' && now - lastInput < 120000 && dt < 5000) timer.active += dt;
+  if (dwell) dwell.tick(dt);
+}
+function stopTimer() {
+  if (!timer) return null;
+  tickTimer();
+  const t = timer, pg = S.pages[t.key] || { ms: 0, active: 0, visits: 0 };
+  pg.ms += Date.now() - t.t0; pg.active += t.active; pg.visits += 1;
+  S.pages[t.key] = pg;
+  timer = null;
+  const d = dwell; dwell = null;
+  return { ms: Date.now() - t.t0, active: t.active, dwell: d ? d.result() : null };
+}
+setInterval(tickTimer, 1000);
+document.addEventListener('visibilitychange', tickTimer);
+// seconds the reader spends on each information element: the element crossing a line a third of the way down
+function Dwell(scroller, isActive) {
+  const els = {}, line = () => { const r = scroller === window ? { top: 0, height: window.innerHeight } : scroller.getBoundingClientRect(); return r.top + r.height * 0.35; };
+  let reachedEnd = false;
+  return {
+    tick(dt) {
+      if (document.visibilityState !== 'visible' || dt > 5000 || (isActive && !isActive())) return;
+      if (Date.now() - lastInput > 120000) return;
+      const y = line(), root = scroller === window ? document : scroller;
+      for (const s of root.querySelectorAll('.el[data-el]')) {
+        const r = s.getBoundingClientRect();
+        if (r.top <= y && r.bottom > y) { els[s.dataset.el] = (els[s.dataset.el] || 0) + dt; break; }
+      }
+      const end = root.querySelector('.el-end');
+      if (end && end.getBoundingClientRect().top < (scroller === window ? window.innerHeight : scroller.getBoundingClientRect().bottom)) reachedEnd = true;
+    },
+    result() { const o = {}; Object.keys(els).forEach(k => { o[k] = Math.round(els[k] / 100) / 10; }); return { elements: o, end: reachedEnd }; }
+  };
+}
+
+/* =============================== rendering =============================== */
+function setChrome() {
+  $('#top').hidden = false; $('#foot').hidden = false;
+  $('#pvb').hidden = !PREVIEW;
+  $('#brand').textContent = C.title || 'Study';
+  document.title = C.title || 'Study';
+  const pages = FLOW.length - 1, at = Math.min(S.at, pages);
+  $('#bar').style.width = (pages ? Math.round(at / pages * 100) : 0) + '%';
+  const page = FLOW[S.at];
+  $('#stepinfo').textContent = page && page.type !== 'welcome' && page.type !== 'end' && S.methods.length ? 'Page ' + S.at + ' of ' + (pages - 1) : '';
+  const f = $('#foot'); f.innerHTML = '';
+  if (S.pid && S.status !== 'done' && S.status !== 'withdrawn' && page.type !== 'end') {
+    if (!PREVIEW) f.append(h('button', { onclick: laterDialog }, 'Continue later on another device'));
+    f.append(h('button', { onclick: withdrawDialog }, 'Withdraw from the study'));
+  }
+  const r = C.researcher || {};
+  if (r.email && !/^\[/.test(r.email)) f.append(h('span', {}, 'Questions? ', h('a', { href: 'mailto:' + r.email }, r.email)));
+}
+function render() {
+  const page = FLOW[S.at];
+  S.atKey = page.key;
+  persist();
+  setChrome();
+  const app = $('#app');
+  app.className = page.type === 'ask' && (C.settings || {}).openBook !== 'off' ? 'wide' : page.type === 'read' || page.type === 'welcome' || page.type === 'consent' || page.type === 'end' ? 'narrow' : '';
+  app.innerHTML = '';
+  const fn = { welcome: pWelcome, consent: pConsent, part: pPart, read: pRead, ask: pAsk, guess: pGuess, end: pEnd }[page.type];
+  app.append(fn(page));
+  startTimer(page.key);
+  if (page.type === 'read') dwell = Dwell(window);
+  if (page.type === 'ask' && page.panel) dwell = page.panel;
+  window.scrollTo(0, 0);
+  app.focus({ preventScroll: true });
+}
+function navButtons(page, opts = {}) {
+  const row = h('div', { class: 'btns' });
+  const canBack = (C.settings || {}).allowBack !== false && S.at > firstBackIndex() && page.type !== 'end';
+  if (canBack) row.append(h('button', { class: 'btn sec', type: 'button', onclick: back }, 'Back'));
+  row.append(h('span', { class: 'sp' }));
+  const last = FLOW[S.at + 1] && FLOW[S.at + 1].type === 'end';
+  row.append(h('button', { class: 'btn', type: 'button', id: 'next', onclick: next }, opts.label || (last ? 'Submit my answers' : 'Next')));
+  return row;
+}
+function pWelcome() {
+  const done = ls.get(STORE + ':done');
+  const box = h('div', { class: 'card' },
+    MODE === 'baseline' ? h('h1', {}, T('baselineTitle') || T('welcomeTitle')) : h('h1', {}, fill(T('welcomeTitle'))),
+    md(MODE === 'baseline' ? T('baseline') : T('welcome')));
+  if (done && !PREVIEW) box.append(h('p', { class: 'hint' }, 'This browser has already finished the study (code ' + done.pid + '). Thank you! If someone else is using this device, they can start below.'));
+  box.append(h('div', { class: 'btns' }, h('span', { class: 'sp' }), h('button', { class: 'btn', type: 'button', onclick: next }, 'Start')));
+  return box;
+}
+function pConsent() {
+  const items = T('consentItems') || [];
+  const ticked = S.consent ? S.consent.items.slice() : items.map(() => false);
+  const agree = h('button', { class: 'btn', type: 'button', id: 'next', disabled: ticked.every(Boolean) ? null : true, onclick: next }, T('consentAgree') || 'I agree');
+  const list = h('div', {}, items.map((t, i) => {
+    const cb = h('input', { type: 'checkbox', checked: ticked[i] ? true : null });
+    const row = h('label', { class: 'check' + (ticked[i] ? ' on' : '') }, cb, h('span', {}, fill(t)));
+    cb.addEventListener('change', () => { ticked[i] = cb.checked; row.classList.toggle('on', cb.checked); S.consent = { items: ticked.slice(), at: Date.now() }; agree.disabled = !ticked.every(Boolean); persist(); });
+    return row;
+  }));
+  return h('div', { class: 'card' }, h('h1', {}, T('infoTitle') || 'Information'), h('div', { class: 'info-box', html: ISP.md(fill(T('info'))) }),
+    h('h2', { style: 'margin-top:22px' }, 'Consent'), h('p', { class: 'muted small' }, 'Please tick each statement to take part.'), list,
+    h('div', { class: 'btns' }, h('button', { class: 'btn sec', type: 'button', onclick: declined }, T('consentDecline') || 'I do not want to take part'), h('span', { class: 'sp' }), agree));
+}
+function declined() {
+  stopTimer();
+  ls.del(STORE);
+  $('#foot').hidden = true;
+  $('#app').innerHTML = '';
+  $('#app').append(h('div', { class: 'card' }, h('h1', {}, 'Thank you'), md(T('declined'))));
+}
+function pPart(page) {
+  const p = page.part, box = h('div', { class: 'card' });
+  box.append(h('h1', {}, fill(p.title)));
+  if (String(p.intro || '').trim()) box.append(md(p.intro));
+  const body = h('div', { class: 'items' });
+  box.append(body);
+  renderItems(body, p.items || [], S.answers, { part: p });
+  box.append(navButtons(page));
+  return box;
+}
+/* ---------- items ---------- */
+// consecutive rating statements on the same scale share one grid
+function renderItems(root, items, store, ctx) {
+  root.innerHTML = '';
+  const vis = items.filter(itemShown);
+  for (let i = 0; i < vis.length; i++) {
+    const it = vis[i];
+    if (it.type === 'likert') {
+      const run = [it];
+      while (vis[i + 1] && vis[i + 1].type === 'likert' && vis[i + 1].scale === it.scale) run.push(vis[++i]);
+      root.append(grid(null, run.map(x => ({ id: x.id, text: fill(x.text) })), it.scale, store, ctx));
+      continue;
+    }
+    if (it.type === 'matrix') {
+      const rows = ISP.matrixRows(C, it, S.methods).map(r => ({ id: r.id, text: r.text, md: true }));
+      root.append(grid(fill(it.text), rows, it.scale, store, ctx));
+      continue;
+    }
+    root.append(question(it, store, ctx));
+  }
+}
+function grid(stem, rows, scaleId, store, ctx) {
+  const sc = ISP.scale(C, scaleId), pts = sc.points || [];
+  const g = h('div', { class: 'grid', style: '--n:' + pts.length, 'data-scale': scaleId });
+  if (stem) g.append(h('div', { class: 'gstem', html: ISP.inline(stem) }));
+  g.append(h('div', { class: 'ghead', 'aria-hidden': 'true' }, h('div', {}, ''), pts.map(p => h('div', {}, p[0] + '\n', h('br'), p[1]))));
+  rows.forEach(r => {
+    const name = 'v_' + r.id + '_' + Math.random().toString(36).slice(2, 6);
+    const row = h('div', { class: 'grow', role: 'radiogroup', 'aria-label': ISP.mdText(r.text), 'data-var': r.id });
+    row.append(h('div', { class: 'gt', html: r.md ? ISP.inline(r.text) : ISP.esc(r.text) }));
+    const cells = h('div', { class: 'cells' });
+    pts.forEach(p => {
+      const inp = h('input', { type: 'radio', name, value: p[0], 'aria-label': p[0] + ' ' + p[1], checked: store[r.id] === p[0] ? true : null });
+      const cell = h('label', { class: 'cell' + (store[r.id] === p[0] ? ' on' : ''), title: p[1] }, inp, h('span', { class: 'cn' }, p[0]));
+      inp.addEventListener('change', () => { store[r.id] = p[0]; $$('.cell', row).forEach(c => c.classList.toggle('on', c.contains(inp) && inp.checked)); row.classList.remove('missing'); changed(ctx); });
+      cells.append(cell);
+    });
+    row.append(cells);
+    row.append(h('div', { class: 'endcap' }, h('span', {}, pts.length ? pts[0][1] : ''), h('span', {}, pts.length ? pts[pts.length - 1][1] : '')));
+    g.append(row);
+  });
+  return g;
+}
+function question(it, store, ctx) {
+  const fs = h('fieldset', { class: 'q', 'data-var': it.id });
+  const title = h('legend', { html: ISP.inline(fill(it.text)) });
+  fs.append(title);
+  if (it.help) fs.append(h('div', { class: 'help', html: ISP.inline(fill(it.help)) }));
+  if (it.type === 'note') { fs.className = 'q note'; return fs; }
+  if (it.type === 'single' || it.type === 'multi') {
+    const multi = it.type === 'multi', name = 'q_' + it.id + '_' + Math.random().toString(36).slice(2, 6);
+    const box = h('div', { class: 'opts' + ((it.options || []).length > 4 && !it.long ? ' c2' : '') });
+    let otherIn = null;
+    (it.options || []).forEach(o => {
+      const cur = store[it.id];
+      const on = multi ? (cur || []).indexOf(o.id) >= 0 : cur === o.id;
+      const inp = h('input', { type: multi ? 'checkbox' : 'radio', name, value: o.id, checked: on ? true : null });
+      const lab = h('label', { class: 'opt' + (on ? ' on' : '') }, inp, h('span', { html: ISP.inline(fill(o.text)) }));
+      inp.addEventListener('change', () => {
+        if (multi) { const s = new Set(store[it.id] || []); inp.checked ? s.add(o.id) : s.delete(o.id); store[it.id] = Array.from(s); }
+        else store[it.id] = o.id;
+        $$('.opt', box).forEach(l => l.classList.toggle('on', l.querySelector('input').checked));
+        if (otherIn) otherIn.hidden = !$$('input', box).some(x => x.checked && (it.options.find(q => q.id === x.value) || {}).other);
+        fs.classList.remove('missing');
+        changed(ctx, it);
+      });
+      box.append(lab);
+    });
+    fs.append(box);
+    if ((it.options || []).some(o => o.other)) {
+      otherIn = h('input', { type: 'text', class: 'other-in', placeholder: 'Please say which', value: store[it.id + '_other'] || '', maxlength: 300 });
+      otherIn.addEventListener('input', () => { store[it.id + '_other'] = otherIn.value; changed(ctx); });
+      const cur = store[it.id], sel = multi ? (cur || []) : [cur];
+      otherIn.hidden = !sel.some(v => (it.options.find(q => q.id === v) || {}).other);
+      fs.append(otherIn);
+    }
+    return fs;
+  }
+  if (it.type === 'number') {
+    const inp = h('input', { type: 'number', inputmode: 'numeric', min: it.min, max: it.max, step: 1, value: store[it.id] !== undefined ? store[it.id] : '' });
+    inp.addEventListener('input', () => { const v = inp.value === '' ? undefined : Number(inp.value); if (v === undefined) delete store[it.id]; else store[it.id] = v; fs.classList.remove('missing'); changed(ctx); });
+    fs.append(h('div', {}, inp, it.unit ? h('span', { class: 'unit' }, it.unit) : null));
+    return fs;
+  }
+  if (it.type === 'text' || it.type === 'longtext') {
+    const inp = it.type === 'text' ? h('input', { type: 'text', maxlength: 500, value: store[it.id] || '' }) : h('textarea', { maxlength: 5000 }, store[it.id] || '');
+    inp.addEventListener('input', () => { store[it.id] = inp.value; fs.classList.remove('missing'); changed(ctx); });
+    fs.append(inp);
+    return fs;
+  }
+  if (it.type === 'email') {
+    const inp = h('input', { type: 'email', autocomplete: 'email', maxlength: 200, value: S.contact || '', placeholder: 'name@example.org' });
+    inp.addEventListener('input', () => { S.contact = inp.value.trim(); fs.classList.remove('missing'); persist(); });
+    fs.append(inp);
+    return fs;
+  }
+  return fs;
+}
+function changed(ctx, it) {
+  persist();
+  if (it && it.role === 'group') {   // show the questions for this person's group straight away
+    const before = S.group;
+    S.group = ISP.groupOf(C, S.answers) || '';
+    if (before !== S.group && ctx && ctx.part) { const body = $('.items'); renderItems(body, ctx.part.items || [], S.answers, ctx); }
+  }
+}
+/* ---------- method description ---------- */
+function description(m, opts = {}) {
+  const st = C.settings || {};
+  const wrap = h('div', { class: 'read' + (st.listMarkers === 'bullets' ? '' : ' nomark'), style: '--read:' + S.font + 'px' });
+  if (!opts.noTitle) wrap.append(h('div', { class: 'mname' }, m.name));
+  if (st.elementNav && !opts.noToc) wrap.append(h('nav', { class: 'toc', 'aria-label': 'Information elements' }, (C.elements || []).filter(e => String((m.elements || {})[e.id] || '').trim())
+    .map(e => h('a', { href: '#el-' + e.id, onclick: ev => { ev.preventDefault(); const t = wrap.querySelector('[data-el="' + e.id + '"]'); if (t) t.scrollIntoView({ behavior: 'smooth' }); } }, e.label))));
+  (C.elements || []).forEach(e => {
+    const body = String((m.elements || {})[e.id] || '').trim();
+    if (!body) return;
+    wrap.append(h('section', { class: 'el', 'data-el': e.id, id: opts.noToc ? null : 'el-' + e.id }, h('h3', {}, e.label), h('div', { html: ISP.md(body) })));
+  });
+  wrap.append(h('div', { class: 'el-end' }));
+  return wrap;
+}
+function fontBar(target) {
+  const set = d => { S.font = Math.max(14, Math.min(24, S.font + d)); ls.set('isp-font', S.font); $$('.read').forEach(r => r.style.setProperty('--read', S.font + 'px')); persist(); };
+  return h('div', { class: 'readbar' }, h('span', { class: 'muted small' }, 'Text size'),
+    h('button', { type: 'button', 'aria-label': 'Smaller text', onclick: () => set(-1) }, 'A−'), h('button', { type: 'button', 'aria-label': 'Larger text', onclick: () => set(1) }, 'A+'));
+}
+function pRead(page) {
+  const m = ISP.methodById(C, S.methods[page.i]);
+  const box = h('div', { class: 'card' });
+  box.append(h('div', { class: 'kicker' }, 'Method description ' + (page.i + 1) + ' of ' + S.methods.length));
+  const hint = T('readHint');
+  if (hint) box.append(h('div', { class: 'hint', html: ISP.inline(fill(hint)) }));
+  box.append(fontBar());
+  box.append(description(m));
+  const btn = h('button', { class: 'btn', type: 'button', id: 'next', onclick: next }, T('readDone') || 'I have finished reading');
+  const row = h('div', { class: 'btns donebar' });
+  if ((C.settings || {}).allowBack !== false && S.at > firstBackIndex()) row.append(h('button', { class: 'btn sec', type: 'button', onclick: back }, 'Back'));
+  row.append(h('span', { class: 'sp' }), btn);
+  const min = Number((C.settings || {}).minReadSeconds) || 0;
+  if (min > 0 && !(S.pages[page.key] && S.pages[page.key].visits)) {
+    btn.disabled = true;
+    const t0 = Date.now(), lab = btn.textContent;
+    const iv = setInterval(() => { const left = Math.ceil(min - (Date.now() - t0) / 1000); if (left <= 0 || !document.body.contains(btn)) { clearInterval(iv); btn.disabled = false; btn.textContent = lab; } else btn.textContent = lab + ' (' + left + ')'; }, 500);
+  }
+  box.append(row);
+  return box;
+}
+function blockFor(i) {
+  const id = S.methods[i];
+  let b = S.blocks[i];
+  if (!b || b.method !== id) { b = S.blocks[i] = { method: id, answers: {}, order: {} }; }
+  return b;
+}
+function knowledge(m, b, ctx) {
+  const st = C.settings || {}, out = [];
+  (m.knowledge || []).forEach((q, qi) => {
+    if (!b.order[q.id]) {
+      let ids = (q.options || []).map(o => o.id);
+      if (st.shuffleOptions !== false) ids = ISP.shuffle(ids);
+      if (st.dontKnow) ids.push('_dk');
+      b.order[q.id] = ids;
+    }
+    const opts = b.order[q.id].map(id => id === '_dk' ? { id, text: "I don't know" } : (q.options || []).find(o => o.id === id)).filter(Boolean);
+    const fs = question({ id: q.id, type: 'single', text: q.stem, options: opts, long: true }, b.answers, ctx);
+    fs.classList.add('kq');
+    fs.prepend(h('div', { class: 'label' }, 'Question ' + (qi + 1) + ' of ' + (m.knowledge || []).length));
+    out.push(fs);
+  });
+  return out;
+}
+function pAsk(page) {
+  const m = ISP.methodById(C, S.methods[page.i]), b = blockFor(page.i), pm = C.perMethod || {}, st = C.settings || {};
+  const ext = { method: m.name, phase: ISP.phaseLabel(C, m.phase), position: page.i + 1 };
+  const qs = h('div', { class: 'card' });
+  qs.append(h('div', { class: 'kicker' }, 'Method description ' + (page.i + 1) + ' of ' + S.methods.length));
+  qs.append(h('h1', {}, fill(pm.title || '{method}', ext)));
+  const book = st.openBook || 'side';
+  if (book !== 'off' && pm.intro) qs.append(md(pm.intro, ext));
+  const panelBody = book !== 'off' ? description(m, { noToc: true }) : null;
+  let overlayOpen = false, panelActive = 0;
+  if (book !== 'off') qs.append(h('button', { class: 'btn sec openpanel', type: 'button', onclick: () => openOverlay() }, 'Show the method description'));
+  const ctx = { block: b };
+  knowledge(m, b, ctx).forEach(x => qs.append(x));
+  const its = (pm.items || []).filter(itemShown);
+  if (its.length) {
+    if (pm.ratingText) qs.append(h('div', { class: 'gstem', style: 'font-weight:600;margin:6px 0 10px' }, fill(pm.ratingText, ext)));
+    const body = h('div');
+    renderItems(body, its.map(x => Object.assign({}, x, { text: fill(x.text, ext) })), b.answers, ctx);
+    qs.append(body);
+  }
+  qs.append(navButtons(page));
+  if (book === 'off') return qs;
+  const wide = window.innerWidth >= 1100 && book === 'side';
+  const panel = h('aside', { class: 'panel', 'aria-label': 'Method description' }, h('div', { class: 'phead' }, 'Method description: ' + m.name), panelBody);
+  ['scroll', 'mousemove', 'wheel', 'touchstart'].forEach(ev => panel.addEventListener(ev, () => { panelActive = Date.now(); }, { passive: true }));
+  const lay = h('div', { class: 'asklay' + (wide ? ' side' : '') }, panel, qs);
+  // looking back counts while the person scrolls or points in the side panel (last 10 s), or while the overlay is open
+  const sideD = Dwell(panel, () => wide && Date.now() - panelActive < 10000);
+  const ovEls = {};
+  let ov = null, od = null, panelMs = 0, opens = 0;
+  const addEls = (a, o) => Object.keys(o).forEach(k => { a[k] = Math.round(((a[k] || 0) + o[k]) * 10) / 10; });
+  page.panel = {
+    tick(dt) {
+      if (document.visibilityState !== 'visible' || dt > 5000) return;
+      if (overlayOpen && od) { od.tick(dt); panelMs += dt; }
+      else if (wide && Date.now() - panelActive < 10000) { panelMs += dt; sideD.tick(dt); }
+    },
+    result() {
+      const a = sideD.result().elements;
+      addEls(a, ovEls);
+      if (od) addEls(a, od.result().elements);
+      return { elements: a, panel: panelMs, opens };
+    }
+  };
+  function openOverlay() {
+    opens++; overlayOpen = true;
+    ov = h('div', { class: 'overlay', role: 'dialog', 'aria-label': 'Method description' },
+      h('div', { class: 'ohead' }, h('strong', {}, m.name), h('button', { class: 'btn sec', type: 'button', onclick: closeOverlay }, 'Back to the questions')), description(m, { noToc: true }));
+    document.body.append(ov);
+    od = Dwell(ov, () => overlayOpen);
+    document.body.style.overflow = 'hidden';
+    const b = ov.querySelector('button'); if (b) b.focus();
+  }
+  function closeOverlay() {
+    if (od) { addEls(ovEls, od.result().elements); od = null; }
+    overlayOpen = false; if (ov) ov.remove(); ov = null; document.body.style.overflow = '';
+  }
+  page.closeOverlay = closeOverlay;
+  return lay;
+}
+function pGuess(page) {
+  const m = ISP.methodById(C, S.methods[page.i]), b = blockFor(page.i);
+  const box = h('div', { class: 'card' });
+  box.append(h('div', { class: 'kicker' }, 'Method ' + (page.i + 1) + ' of ' + S.methods.length));
+  box.append(h('h1', {}, m.name));
+  box.append(h('p', { class: 'muted' }, 'Answer as best you can, without looking the method up.'));
+  knowledge(m, b, { block: b }).forEach(x => box.append(x));
+  box.append(navButtons(page));
+  return box;
+}
+function pEnd() {
+  $('#foot').innerHTML = '';
+  const box = h('div', { class: 'card' }, h('h1', {}, fill(T('endTitle') || 'Thank you')), md(T('end')));
+  if (PREVIEW) {
+    box.append(h('p', { class: 'hint' }, 'Preview finished: nothing was saved. Below is what the study would have recorded.'));
+    const s = stateForServer();
+    box.append(h('pre', { class: 'json' }, JSON.stringify({ group: s.group, methods: s.methods, answers: s.answers, blocks: s.blocks.map(b => ({ method: b.method, answers: b.answers, read_s: b.read && Math.round(b.read.active / 1000), elements: b.read && b.read.elements })), pages: s.pages }, null, 1)));
+    box.append(h('div', { class: 'btns' }, h('button', { class: 'btn sec', type: 'button', onclick: () => { ls.del(STORE); location.reload(); } }, 'Run the preview again')));
+  }
+  return box;
+}
+function message(title, text, extra) {
+  stopTimer();
+  $('#app').className = ''; $('#app').innerHTML = '';
+  $('#foot').hidden = true;
+  $('#app').append(h('div', { class: 'card' }, h('h1', {}, title), md(text), extra || null));
+}
+
+/* =============================== moving on =============================== */
+function missing(page) {
+  const out = [];
+  const req = it => it.required !== false && it.type !== 'note' && it.type !== 'email';
+  const check = (items, store) => items.filter(itemShown).forEach(it => {
+    if (!req(it)) return;
+    if (it.type === 'matrix') { ISP.matrixRows(C, it, S.methods).forEach(r => { if (store[r.id] === undefined) out.push(r.id); }); return; }
+    const v = store[it.id];
+    if (v === undefined || v === '' || (Array.isArray(v) && !v.length)) { out.push(it.id); return; }
+    if (it.type === 'number' && ((it.min !== undefined && v < it.min) || (it.max !== undefined && v > it.max) || !Number.isInteger(v))) out.push(it.id);
+    if (it.type === 'single' && (it.options || []).some(o => o.other && o.id === v) && !String(store[it.id + '_other'] || '').trim()) out.push(it.id);
+  });
+  if (page.type === 'part') check(page.part.items || [], S.answers);
+  if (page.type === 'ask' || page.type === 'guess') {
+    const m = ISP.methodById(C, S.methods[page.i]), b = blockFor(page.i);
+    (m.knowledge || []).forEach(q => { if (b.answers[q.id] === undefined) out.push(q.id); });
+    if (page.type === 'ask') check((C.perMethod || {}).items || [], b.answers);
+  }
+  return out;
+}
+function showMissing(ids, extra) {
+  $$('.pagerr').forEach(e => e.remove());
+  ids.forEach(id => $$('[data-var="' + id + '"]').forEach(e => e.classList.add('missing')));
+  const first = $('.missing');
+  const msg = h('div', { class: 'pagerr', role: 'alert' }, extra || (ids.length === 1 ? 'Please answer the highlighted question.' : 'Please answer the ' + ids.length + ' highlighted questions.'));
+  const btns = $$('.btns').pop();
+  if (btns) btns.before(msg);
+  if (first) first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+function busy(on, label) {
+  const b = $('#next');
+  if (!b) return;
+  if (on) { b.dataset.l = b.textContent; b.disabled = true; b.innerHTML = '<span class="spinner"></span>' + (label || 'Saving…'); }
+  else { b.disabled = false; b.textContent = b.dataset.l || 'Next'; }
+}
+async function next() {
+  const page = FLOW[S.at];
+  if (page.type === 'part' || page.type === 'ask' || page.type === 'guess') {
+    const miss = missing(page);
+    if (miss.length) return showMissing(miss);
+    const em = page.type === 'part' && (page.part.items || []).find(it => it.type === 'email' && itemShown(it));
+    if (em && S.contact && !/^[^\s@<>"']+@[^\s@<>"']+\.[^\s@<>"']+$/.test(S.contact)) { $$('[data-var="' + em.id + '"]').forEach(e => e.classList.add('missing')); return showMissing([], 'That email address does not look right. Please check it, or leave the box empty.'); }
+  }
+  const t = stopTimer();
+  if (t && (page.type === 'read' || page.type === 'ask')) {
+    const b = blockFor(page.i), k = page.type === 'read' ? 'read' : 'ask', prev = b[k] || { ms: 0, active: 0, visits: 0, elements: {} };
+    const d = t.dwell || {}, els = Object.assign({}, prev.elements);
+    Object.keys(d.elements || {}).forEach(e => { els[e] = Math.round(((els[e] || 0) + d.elements[e]) * 10) / 10; });
+    b[k] = { ms: prev.ms + t.ms, active: prev.active + t.active, visits: prev.visits + 1, elements: els };
+    if (k === 'read') b.read.end = !!(prev.end || d.end);
+    if (k === 'ask') { b.ask.panel = (prev.panel || 0) + (d.panel || 0); b.ask.opens = (prev.opens || 0) + (d.opens || 0); }
+    if (page.closeOverlay) page.closeOverlay();
+  }
+  try {
+    if (page.type === 'welcome') { S.status = S.status === 'new' ? 'new' : S.status; }
+    if (page.type === 'consent' && !S.pid && !PREVIEW) {
+      busy(true, 'Starting…');
+      const r = await call('join', { token: S.token, mode: MODE, src: SRC, version: VER });
+      busy(false);
+      if (r.closed) return message('Thank you', T('closed'));
+      S.pid = r.pid; S.status = 'joined';
+    }
+    if (page.type === 'consent' && PREVIEW && !S.pid) { S.pid = 'PREVIEW'; S.status = 'joined'; }
+    if (decidesGroup(page) && !S.methods.length) {
+      const g = ISP.groupItem(C) ? ISP.groupOf(C, S.answers) : null;
+      if (g === '_none') return finish('ineligible');
+      const groups = (C.groups || []).map(x => x.id);
+      S.group = g && groups.indexOf(g) >= 0 ? g : (groups.indexOf(LINKGROUP) >= 0 ? LINKGROUP : (PV.group || groups[0]));
+      busy(true, 'One moment…');
+      if (PREVIEW) S.methods = MODE === 'baseline' ? ISP.shuffle(ISP.activeMethods(C).map(m => m.id)) : (PV.methods && PV.methods.length ? PV.methods.slice() : ISP.choose(ISP.metaOf(C), [], S.group));
+      else {
+        const r = await call('allocate', { pid: S.pid, token: S.token, group: S.group });
+        if (r.full) { busy(false); S.status = 'full'; persist(); return message('Thank you', T('full')); }
+        S.methods = r.methods; S.group = r.group || S.group;
+      }
+      busy(false);
+      S.status = 'allocated';
+      buildFlow();
+    }
+    if (FLOW[S.at + 1] && FLOW[S.at + 1].type === 'end') return finish('completed');
+    S.at++;
+    S.atKey = FLOW[S.at].key;
+    buildFlow();
+    saveRemote();
+    render();
+  } catch (e) {
+    busy(false);
+    startTimer(page.key);
+    showMissing([], 'Something went wrong: ' + e.message + ' Please try again in a moment.');
+  }
+}
+function back() {
+  const page = FLOW[S.at];
+  const t = stopTimer();
+  if (t && (page.type === 'read' || page.type === 'ask')) {
+    const b = blockFor(page.i), k = page.type === 'read' ? 'read' : 'ask', prev = b[k] || { ms: 0, active: 0, visits: 0, elements: {} };
+    b[k] = Object.assign(prev, { ms: prev.ms + t.ms, active: prev.active + t.active, visits: prev.visits + 1 });
+    if (page.closeOverlay) page.closeOverlay();
+  }
+  if (S.at > firstBackIndex()) { S.at--; S.atKey = FLOW[S.at].key; render(); }
+}
+async function finish(outcome) {
+  stopTimer();
+  S.finished = Date.now();
+  if (PREVIEW) { S.status = 'done'; S.at = FLOW.length - 1; S.atKey = 'end'; if (outcome === 'ineligible') return message('Thank you', T('notEligible')); return render(); }
+  busy(true, 'Sending your answers…');
+  try {
+    await saving;
+    S.seq++;
+    await call('submit', { pid: S.pid, token: S.token, seq: S.seq, state: stateForServer(), outcome }, 4);
+    if (outcome === 'completed' && S.contact) { try { await call('contact', { pid: S.pid, token: S.token, email: S.contact }, 3); } catch (e) { } }
+    S.status = 'done'; S.contact = '';
+    ls.set(STORE + ':done', { pid: S.pid, at: Date.now() });
+    ls.del(STORE);
+    if (outcome === 'ineligible') return message('Thank you', T('notEligible'));
+    S.at = FLOW.length - 1; S.atKey = 'end';
+    render();
+  } catch (e) {
+    busy(false);
+    persist();
+    const dl = h('button', { class: 'btn sec', type: 'button', onclick: () => {
+      const a = h('a', { href: URL.createObjectURL(new Blob([JSON.stringify({ pid: S.pid, state: stateForServer() })], { type: 'application/json' })), download: 'my_answers_' + (S.pid || 'study') + '.json' });
+      document.body.append(a); a.click(); a.remove();
+    } }, 'Download my answers');
+    showMissing([], 'We could not reach the study server (' + e.message + '). Your answers are kept in this browser: please try again in a moment. If it keeps failing, download your answers and email them to ' + ((C.researcher || {}).email || 'the researcher') + '.');
+    const err = $('.pagerr'); if (err) err.append(h('div', { style: 'margin-top:8px' }, dl));
+  }
+}
+
+/* =============================== dialogs =============================== */
+function modal(...kids) {
+  const m = $('#modal'); m.innerHTML = '';
+  const box = h('div', { class: 'box', role: 'dialog', 'aria-modal': 'true' }, ...kids);
+  m.append(box); m.hidden = false;
+  const f = box.querySelector('button, input'); if (f) f.focus();
+  m.onclick = e => { if (e.target === m) closeModal(); };
+}
+function closeModal() { $('#modal').hidden = true; $('#modal').innerHTML = ''; }
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('#modal').hidden) closeModal(); });
+function withdrawDialog() {
+  modal(h('h2', {}, 'Withdraw from the study?'), h('p', {}, 'Your answers will be deleted and you will leave the study. You can close the page instead if you only want a break: your answers stay saved.'),
+    h('div', { class: 'btns' }, h('button', { class: 'btn sec', type: 'button', onclick: closeModal }, 'Cancel'), h('span', { class: 'sp' }),
+      h('button', { class: 'btn', type: 'button', style: 'background:#b3261e;border-color:#b3261e', onclick: async () => {
+        closeModal();
+        try { if (!PREVIEW && S.pid) await call('withdraw', { pid: S.pid, token: S.token }); } catch (e) { toast('Could not reach the server: ' + e.message); return; }
+        S.status = 'withdrawn'; ls.del(STORE);
+        message('Withdrawn', T('withdrawn') || 'Your answers have been deleted.');
+      } }, 'Withdraw and delete my answers')));
+}
+function laterDialog() {
+  const base = location.href.split('?')[0], q = new URLSearchParams();
+  if (Q.get('s')) q.set('s', Q.get('s')); if (Q.get('api')) q.set('api', Q.get('api')); if (MODE) q.set('mode', MODE);
+  q.set('resume', S.pid + '.' + S.token);
+  const link = base + '?' + q.toString();
+  saveRemote();
+  const inp = h('input', { type: 'text', readonly: true, value: link });
+  modal(h('h2', {}, 'Continue later'), h('p', {}, 'Your answers are saved. In this browser, just open the study link again. On another device, use this personal link (keep it to yourself):'),
+    h('div', { class: 'copyrow' }, inp, h('button', { class: 'btn sec', type: 'button', onclick: () => { inp.select(); try { navigator.clipboard.writeText(link); } catch (e) { document.execCommand('copy'); } toast('Link copied'); } }, 'Copy')),
+    h('div', { class: 'btns' }, h('span', { class: 'sp' }), h('button', { class: 'btn', type: 'button', onclick: closeModal }, 'Close')));
+}
+
+/* =============================== start =============================== */
+async function loadContent(v) {
+  const url = API + '?action=content' + (v ? '&v=' + encodeURIComponent(v) : '');
+  let last;
+  for (let i = 0; i < 3; i++) {
+    try { const r = await (await fetch(url)).json(); if (r.ok) return r; last = new Error(r.error); } catch (e) { last = e; }
+    await new Promise(r => setTimeout(r, 1000 * (i + 1)));
+  }
+  throw last;
+}
+function startFresh() { S = freshState(); buildFlow(); render(); }
+async function boot() {
+  if (PREVIEW) {
+    const got = await new Promise(res => {
+      const on = e => { if (e.data && e.data.type === 'isp-preview' && (!window.opener || e.source === window.opener)) { window.removeEventListener('message', on); res(e.data); } };
+      window.addEventListener('message', on);
+      if (window.opener) window.opener.postMessage({ type: 'isp-preview-ready' }, '*');
+      setTimeout(() => res(ls.get('isp:preview')), 2500);
+    });
+    if (!got || !got.content) return message('Preview', 'Open the preview from the editor (Preview button).');
+    C = got.content; VER = 0; PV = got.opts || {};
+    S = freshState(); S.group = PV.group || '';
+    if (PV.start === 'reading' && MODE !== 'baseline') {
+      S.pid = 'PREVIEW'; S.status = 'allocated';
+      const groups = (C.groups || []).map(x => x.id);
+      S.group = groups.indexOf(PV.group) >= 0 ? PV.group : groups[0];
+      S.methods = PV.methods && PV.methods.length ? PV.methods.slice() : ISP.choose(ISP.metaOf(C), [], S.group);
+      const gi = ISP.groupItem(C);
+      if (gi) { const o = (gi.item.options || []).find(x => x.group === S.group); if (o) S.answers[gi.item.id] = o.id; }
+      S.atKey = 'm1r';
+    } else S.group = '';
+    buildFlow(); return render();
+  }
+  if (!API) return message('Study link incomplete', 'This page needs the full study link. Please check that you copied the whole link you were sent.');
+  const resume = Q.get('resume');
+  try {
+    if (resume && /^[A-Z]{1,2}\d+\.[a-z0-9]{12,40}$/i.test(resume)) {
+      const [pid, token] = resume.split('.');
+      const r = await call('resume', { pid, token });
+      if (r.status === 'completed') return message('Thank you', 'This study session is already finished. Thank you!');
+      if (r.status === 'withdrawn') return message('Withdrawn', T('withdrawn') || 'This session was withdrawn.');
+      const cr = await loadContent(r.version);
+      C = cr.content; VER = cr.version;
+      S = Object.assign(freshState(), r.state || {}, { pid, token, group: r.group || (r.state || {}).group || '', methods: r.methods.length ? r.methods : ((r.state || {}).methods || []) });
+      history.replaceState(null, '', location.pathname + '?' + [...Q.entries()].filter(([k]) => k !== 'resume').map(([k, v]) => k + '=' + encodeURIComponent(v)).join('&'));
+      buildFlow(); return render();
+    }
+    const saved = ls.get(STORE);
+    if (saved && saved.S && saved.S.status !== 'done' && saved.S.pid) {
+      const cr = await loadContent(saved.VER);
+      C = cr.content; VER = cr.version; S = saved.S;
+      buildFlow();
+      if (S.at > 1) {
+        $('#top').hidden = false; $('#brand').textContent = C.title;
+        $('#app').innerHTML = '';
+        $('#app').append(h('div', { class: 'card' }, h('h1', {}, 'Welcome back'), h('p', {}, 'You started this study earlier in this browser. You can carry on where you left off.'),
+          h('div', { class: 'btns' }, h('button', { class: 'btn sec', type: 'button', onclick: async () => {
+            try { if (S.pid) await call('withdraw', { pid: S.pid, token: S.token }); } catch (e) { }
+            ls.del(STORE); const cr2 = await loadContent(); C = cr2.content; VER = cr2.version; startFresh();
+          } }, 'Start again'), h('span', { class: 'sp' }), h('button', { class: 'btn', type: 'button', onclick: () => render() }, 'Carry on'))));
+        return;
+      }
+    }
+    const cr = await loadContent();
+    if (cr.status === 'empty') return message('Not open yet', 'This study is not ready yet. Please try again later.');
+    C = cr.content; VER = cr.version;
+    if (cr.status === 'closed') { $('#brand').textContent = C.title; return message('Thank you', T('closed')); }
+    startFresh();
+  } catch (e) {
+    message('Cannot reach the study', 'The study server did not answer (' + ISP.esc(e.message) + '). Please check your connection and reload the page in a moment.');
+  }
+}
+window.addEventListener('pagehide', () => { if (S && timer) { tickTimer(); persist(); } });
+boot();
+window.__isp = { get S() { return S; }, get C() { return C; }, get FLOW() { return FLOW; } };   // for the automated tests
+</script>
+</body>
+</html>
