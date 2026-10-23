@@ -34,7 +34,7 @@ h3{font-size:15px;margin:16px 0 8px}
 .card.tight{padding:10px 14px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-@media (max-width:980px){.layout{grid-template-columns:1fr}nav.side{position:static;height:auto;display:flex;flex-wrap:wrap}nav.side button{width:auto}.grid2,.grid3{grid-template-columns:1fr}}
+@media (max-width:980px){.layout{grid-template-columns:minmax(0,1fr)}nav.side{position:static;height:auto;display:flex;flex-wrap:wrap}nav.side button{width:auto}.grid2,.grid3{grid-template-columns:1fr}}
 label.f{display:block;margin:0 0 12px}
 label.f>span.l{display:block;font-weight:600;font-size:13px;margin:0 0 4px}
 label.f>span.hint,.hint{display:block;font-size:12.5px;color:var(--muted);margin-top:3px}
@@ -85,6 +85,214 @@ table.tbl tr:hover td{background:#fafbfc}
 .tile .td{font-size:12.5px;color:var(--ink2)}
 .meter{height:8px;background:var(--track);border-radius:4px;overflow:hidden;margin-top:6px}
 .meter>div{height:100%;background:var(--s1);border-radius:0 4px 4px 0}
+/* dashboard: colour carries meaning only (design phase, group, status); text stays in ink */
+.dash{--dgrid:#e8ebee;--daxis:#c5ccd2;--dblue:#2a78d6;--dtrack:#e3e8ed}
+.dtop{position:sticky;top:50px;z-index:6;background:var(--bg);display:flex;align-items:center;justify-content:space-between;gap:10px 16px;flex-wrap:wrap;padding:10px 0;margin:-10px 0 0}
+.dtop h1{margin:0}
+.dctl{display:flex;align-items:center;gap:10px 16px;flex-wrap:wrap}
+.dseg{display:inline-flex;flex-wrap:wrap;max-width:100%;background:#e4e8ec;border-radius:9px;padding:3px;gap:2px}
+.dseg button{border:0;background:none;font:inherit;font-size:13.5px;padding:4px 12px;border-radius:7px;color:var(--ink2);cursor:pointer;display:inline-flex;gap:7px;align-items:baseline}
+.dseg button:hover{color:var(--ink)}
+.dseg button .n{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.dseg button.on{background:#fff;color:var(--ink);font-weight:600;box-shadow:0 0 0 1px #d3d9de}
+.dseg button:focus-visible{outline:2px solid #9fc4e3;outline-offset:1px}
+.dlive{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.dlive i{width:8px;height:8px;border-radius:50%;background:#aab3ba}
+.dlive.on i{background:var(--good)}
+.dctl label.chk{font-size:13px;align-items:center}
+.dctl label.chk input{margin:0}
+.dpanel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:0 0 16px;min-width:0}
+.dph{margin:0 0 14px}
+.dph h2{font-size:16px;margin:0}
+.dph p{margin:4px 0 0;color:var(--muted);font-size:13px;line-height:1.45;max-width:88ch}
+.dgrid{display:grid;gap:16px;margin:0 0 16px}
+.dgrid>.dpanel{margin:0}
+.dgrid.g21{grid-template-columns:minmax(0,2fr) minmax(0,1fr)}
+.dgrid.g32{grid-template-columns:minmax(0,3fr) minmax(0,2fr);align-items:start}
+.dgrid.g11{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+@media (max-width:1180px){.dgrid.g21,.dgrid.g32,.dgrid.g11{grid-template-columns:minmax(0,1fr)}}
+.droute{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 22px 0;margin:0 0 16px}
+.droute .dph{margin-bottom:10px}
+.droute>.scroll{margin:0 -22px;padding:0 22px;background:#f8fafc;border-top:1px solid #eef1f4;border-bottom:1px solid var(--line)}
+.route{display:grid;grid-template-rows:auto 30px auto auto;column-gap:0;min-width:660px;padding:16px 0 0}
+.rtop{display:flex;flex-wrap:wrap-reverse;justify-content:center;align-content:flex-start;align-items:flex-end;gap:5px;padding:0 6px 10px;align-self:end;min-height:40px}
+.rline{position:relative;display:flex;align-items:center;justify-content:center}
+.rtrack,.rflow{position:absolute;left:50%;width:100%;top:50%;transform:translateY(-50%);border-radius:2px}
+.rtrack{height:16px;background:#dce8f7}
+.rflow{background:var(--dblue)}
+.rflow.anim{animation:rgrow .7s cubic-bezier(.3,.7,.2,1) both}
+@keyframes rgrow{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+.rnode{position:relative;z-index:1;width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid #c5ccd2}
+.rnode.on{border-color:var(--dblue)}
+.rnode.end{width:28px;height:28px;border:0;background:#dde3e8;color:#fff;display:grid;place-items:center;font-size:15px;font-weight:700}
+.rnode.end.on{background:var(--good)}
+.rlab{text-align:center;padding:8px 6px 0;line-height:1.3}
+.rlab b{display:block;font-size:13.5px;font-weight:600}
+.rlab span{display:block;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;margin-top:1px}
+.rbot{display:flex;flex-wrap:wrap;justify-content:center;align-content:flex-start;gap:5px;padding:10px 6px 16px}
+.rbig{font-size:34px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.rdot{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--dblue);transition:transform .12s;flex:none}
+.rdot.idle{background:#fab219;box-shadow:inset 0 0 0 1.5px #c98a00}
+.rdot.stop{background:#fff;box-shadow:inset 0 0 0 2px #ec835a}
+.rdot.hot{transform:scale(1.4)}
+.rmore{font-size:11.5px;color:var(--muted);align-self:center}
+.rflowkey{display:inline-flex;width:26px;height:12px;background:#dce8f7;border-radius:2px}
+.rflowkey i{display:block;width:100%;height:100%;background:var(--dblue);clip-path:polygon(0 0,100% 32%,100% 68%,0 100%)}
+.rcap{flex-basis:100%;text-align:center;font-size:11.5px;color:var(--ink2);margin-top:1px}
+.kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));margin:0 -22px}
+.kpi{padding:14px 16px 16px 22px;border-left:1px solid var(--line);min-width:0}
+.kpi:first-child{border-left:0}
+.kpi .kv{font-size:28px;font-weight:650;line-height:1.1;font-variant-numeric:tabular-nums}
+.kpi .kl{font-size:13px;font-weight:600;display:flex;gap:6px;align-items:center;margin-top:4px}
+.kpi .kl i{font-style:normal;font-size:12px}
+.kpi .kd{font-size:12px;color:var(--muted);margin-top:1px;line-height:1.35}
+@media (max-width:1180px){.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}.kpi:nth-child(3n+1){border-left:0}.kpi:nth-child(n+4){border-top:1px solid var(--line)}}
+@media (max-width:640px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.kpi{border-top:1px solid var(--line)}.kpi:nth-child(-n+2){border-top:0}.kpi:nth-child(odd){border-left:0}.kpi:nth-child(4){border-left:1px solid var(--line)}}
+.droute>details.dnums{margin:0 -22px;padding:9px 22px 11px;border-top:1px solid var(--line)}
+.dlegend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:12.5px;color:var(--ink2);margin:0 0 12px;align-items:center}
+.dlegend>span{display:inline-flex;align-items:center;gap:7px}
+.dlegend .sw{width:12px;height:12px;border-radius:3px;display:inline-block}
+.dlegend .lkey{width:18px;height:3px;border-radius:2px;display:inline-block}
+.dlegend .dotkey{width:11px;height:11px;border-radius:50%;display:inline-block}
+.dlegend .tickkey{width:2px;height:14px;background:var(--ink);display:inline-block}
+.dlegend .cikey{width:20px;height:2px;background:#9aa5ae;border-radius:1px;display:inline-block}
+.dlegend .critkey{width:0;height:14px;border-left:1.5px dashed var(--ink);display:inline-block}
+details.dnums{margin-top:12px;border-top:1px solid #eef1f4;padding-top:8px}
+details.dnums>summary{font-size:12.5px;font-weight:500;color:var(--accent);width:max-content}
+details.dnums[open]>summary{margin-bottom:8px}
+.dfit{position:relative}
+.dsvg{display:block;max-width:none;overflow:visible}
+.dsvg text{font-family:inherit;font-size:12px;fill:var(--ink2)}
+.dsvg .ax{font-size:11.5px;fill:var(--muted);font-variant-numeric:tabular-nums}
+.dsvg .lb{font-size:12.5px;fill:var(--ink)}
+.dsvg .num{font-size:12.5px;fill:var(--ink);font-variant-numeric:tabular-nums}
+.dsvg .el{font-size:12.5px;fill:var(--ink2)}
+.dsvg .ev{font-weight:700;fill:var(--ink)}
+.dsvg .ok{font-size:14px;font-weight:700;fill:#006300}
+.dsvg .grid{stroke:var(--dgrid)}
+.dsvg .base{stroke:var(--daxis)}
+.dsvg .mid{stroke:var(--daxis);stroke-dasharray:3 3}
+.dsvg .sep{stroke:#f0f2f4}
+.dsvg .ln{fill:none;stroke-width:2;stroke-linejoin:round}
+.dsvg .cross{stroke:#52514e;stroke-dasharray:3 3}
+.dsvg .crit{stroke:var(--ink);stroke-width:1.5;stroke-dasharray:4 3}
+.dsvg .hit{cursor:crosshair}
+.dsvg .mk.hot path{opacity:.8}
+.dsvg .mk.hot circle+circle{r:7px}
+.rings{display:flex;gap:12px 20px;justify-content:space-around;flex-wrap:wrap;padding:4px 0}
+.ringbox{display:grid;justify-items:center;text-align:center;gap:2px;width:148px}
+.ring{width:120px;height:120px;margin-bottom:6px}
+.ring .rv{font-size:30px;font-weight:700;fill:var(--ink);font-variant-numeric:tabular-nums}
+.ring .rs{font-size:12.5px;fill:var(--muted)}
+.ringbox b{font-size:13.5px}
+.ringbox span{font-size:12.5px;color:var(--muted)}
+.split{display:flex;gap:2px;height:30px;margin:4px 0 14px}
+.split .seg{display:grid;place-items:center;color:#fff;font-weight:650;font-size:13px;min-width:6px}
+.split .seg:first-child{border-radius:6px 0 0 6px}
+.split .seg:last-child{border-radius:0 6px 6px 0}
+.split .seg:only-child{border-radius:6px}
+.gsplit{display:grid;gap:8px}
+.gsplit>div{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:13.5px}
+.gchip{display:inline-block;font-size:11px;font-weight:700;color:#fff;border-radius:4px;padding:1px 5px;line-height:1.35}
+.plist{margin:0 -8px}
+.prow{display:grid;grid-template-columns:150px 124px minmax(230px,1.25fr) minmax(220px,1fr) 118px;grid-template-areas:"who st way meth act";gap:8px 16px;align-items:center;padding:12px 8px;border-top:1px solid #eef1f4}
+.prow.phead{padding:0 8px 8px;border-top:0;font-size:12px;font-weight:600;color:var(--muted)}
+.prow:not(.phead):hover{background:#fafbfc}
+.pwho{grid-area:who;display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.pwho b{font-variant-numeric:tabular-nums;font-size:13.5px}
+.ptag{font-size:11.5px;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:0 5px}
+.pst{grid-area:st}
+.pway{grid-area:way;min-width:0}
+.pmeth{grid-area:meth;display:flex;flex-wrap:wrap;gap:5px}
+.pact{grid-area:act;display:flex;flex-direction:column;align-items:flex-end;gap:2px}
+.s-withdrawn .pwho b,.s-ineligible .pwho b{color:var(--muted)}
+.dchip{display:inline-flex;gap:6px;align-items:center;font-size:13px;font-weight:600;white-space:nowrap}
+.dchip i{font-style:normal;font-size:12px;width:12px;text-align:center}
+.jtrack{display:flex;gap:7px;align-items:center;flex-wrap:wrap;min-height:14px}
+.jsec{display:inline-flex;gap:2px;align-items:center}
+.jp{display:inline-block;width:13px;height:8px;border-radius:2px;background:var(--dtrack);flex:none}
+.jp.past{background:var(--dblue)}
+.jp.past.off{background:#a9b5bf}
+.jp.cur{background:#0d366b;height:14px;width:15px;border-radius:3px}
+.jp.cur.stop{background:#ec835a}
+.jp.hot{outline:2px solid #9fc4e3;outline-offset:1px}
+.pcap{display:flex;gap:2px 10px;flex-wrap:wrap;font-size:12.5px;margin-top:6px;line-height:1.35}
+.pcap .pg{font-weight:500}
+.mchip{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;border:1px solid var(--line);border-radius:999px;padding:1px 10px 1px 8px;background:#fff;white-space:nowrap;line-height:1.5}
+.mchip i{width:8px;height:8px;border-radius:50%;display:inline-block;flex:none}
+.mchip.now{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.mchip.sm{font-size:12px;padding:0 8px 0 7px}
+@media (max-width:1180px){.prow{grid-template-columns:140px minmax(0,1fr) auto;grid-template-areas:"who way act" "st meth meth"}.prow.phead{display:none}}
+@media (max-width:640px){.prow{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"who act" "st st" "way way" "meth meth"}}
+.agrid{display:grid;column-gap:20px;align-items:center;min-width:470px}
+.agrid .ah{font-size:12.5px;font-weight:600;display:flex;gap:8px;align-items:center;padding:0 0 6px}
+.agrid .ah:first-child{color:var(--muted);font-size:12px}
+.agrid .aph{font-size:11.5px;color:var(--muted);padding:8px 0 2px;border-top:1px solid #eef1f4}
+.agrid .an{font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:3px 0}
+.acell{display:grid;grid-template-columns:minmax(0,1fr) 24px 30px;gap:8px;align-items:center;padding:3px 4px;margin:0 -4px;border-radius:4px}
+.acell.hot{background:#f4f6f8}
+.atrack{display:flex;gap:2px;height:12px}
+.aseg{display:block;min-width:2px}
+.aseg.end{border-radius:0 4px 4px 0}
+.av{font-weight:650;font-size:12.5px;text-align:right;font-variant-numeric:tabular-nums}
+.ar{display:inline-flex;gap:4px;align-items:center;font-size:11.5px;color:var(--ink2);font-variant-numeric:tabular-nums}
+.ar i,.arkey{width:9px;height:9px;border-radius:50%;box-shadow:inset 0 0 0 2px #ec835a;display:inline-block;flex:none}
+.dphrow{display:flex;justify-content:space-between;align-items:flex-end;gap:10px 20px;flex-wrap:wrap}
+.dseg.small button{font-size:12.5px;padding:3px 10px}
+.pmore{display:flex;gap:12px;align-items:center;padding:12px 0 0;border-top:1px solid #eef1f4}
+.tline{list-style:none;margin:0;padding:0}
+.tline li{display:grid;grid-template-columns:14px minmax(0,1fr);gap:12px;padding:0 0 16px;position:relative}
+.tline li::before{content:'';position:absolute;left:6px;top:18px;bottom:-1px;width:2px;background:#eef1f4}
+.tline li:last-child{padding-bottom:0}
+.tline li:last-child::before{display:none}
+.tdot{width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:inset 0 0 0 3px #ec835a;margin-top:3px}
+.tline li.soon .tdot{box-shadow:inset 0 0 0 3px #fab219}
+.tline .th{display:flex;gap:4px 10px;flex-wrap:wrap;align-items:baseline;font-size:13.5px}
+.tline .small{color:var(--ink2);margin-top:1px}
+.tm{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.tline+.hint{margin-top:12px}
+.dnone{color:var(--muted);font-size:13.5px;margin:0;padding:22px 16px;border:1px dashed var(--line);border-radius:8px;text-align:center}
+.dsect{display:flex;justify-content:space-between;align-items:flex-end;gap:10px 20px;flex-wrap:wrap;margin:32px 0 14px}
+.dsect h2{font-size:19px;margin:0}
+.dsect p{margin:4px 0 0;color:var(--muted);font-size:13px;max-width:80ch}
+.dsect label.chk{font-size:13px}
+.heat2{display:grid;gap:3px;min-width:440px;font-size:12.5px;align-items:center}
+.heat2 .hh{font-size:11.5px;color:var(--muted);font-weight:600;align-self:end;padding:0 2px 5px;line-height:1.25}
+.heat2 .hh.c{text-align:center}
+.heat2 .hh.r{text-align:right}
+.heat2 .hh span{display:block;font-weight:400}
+.heat2 .hm{display:flex;align-items:center;gap:8px;min-width:0;padding-right:8px}
+.heat2 .hm span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.heat2 .hm i{width:8px;height:8px;border-radius:50%;flex:none}
+.heat2 .hc{height:30px;border-radius:4px;display:grid;place-items:center;font-variant-numeric:tabular-nums;font-weight:600}
+.heat2 .hc.empty{background:repeating-linear-gradient(135deg,#f1f3f5 0 4px,#fff 4px 8px)}
+.heat2 .hc.hot{outline:2px solid var(--ink);outline-offset:-2px}
+.heat2 .hr{display:flex;gap:8px;align-items:baseline;justify-content:flex-end;font-variant-numeric:tabular-nums;padding-left:6px}
+.heat2 .hr span{color:var(--muted);font-size:12px}
+.hscale{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink2);margin-top:12px;flex-wrap:wrap}
+.hgrad{display:inline-flex;height:10px;width:150px;border-radius:3px;overflow:hidden}
+.hgrad i{flex:1}
+.wgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px 36px}
+.wbox h3{font-size:13.5px;margin:0 0 8px}
+.wrow{display:grid;grid-template-columns:minmax(120px,1.15fr) minmax(60px,1fr) 70px;gap:10px;align-items:center;font-size:12.5px;padding:3px 0}
+.wl{line-height:1.3}
+.wb{display:block;height:12px}
+.wb span{display:block;height:12px;border-radius:0 4px 4px 0;min-width:3px}
+.wv{font-variant-numeric:tabular-nums;color:var(--ink2);white-space:nowrap;text-align:right}
+.wsum{font-size:12.5px;margin:0 0 2px;color:var(--ink2)}
+.dqual{font-size:13px;color:var(--ink2);margin:0 0 8px}
+.dempty h2{font-size:16px;margin:0 0 6px}
+.dempty p{margin:0;color:var(--muted)}
+.dtip{position:fixed;z-index:90;pointer-events:none;background:#fff;border:1px solid var(--line);border-radius:8px;padding:8px 11px;font-size:12.5px;line-height:1.45;box-shadow:0 8px 28px rgba(20,30,40,.16);max-width:320px;color:var(--ink)}
+.dtip[hidden]{display:none}
+.dtip .tt{font-weight:650;margin:0 0 3px}
+.dtip .tr{display:flex;gap:7px;align-items:baseline}
+.dtip .tk{width:9px;height:9px;border-radius:2px;flex:none;align-self:center}
+.dtip .tr b{font-variant-numeric:tabular-nums}
+.dtip .tr span{color:var(--ink2)}
+@media (prefers-reduced-motion:reduce){.rflow.anim{animation:none}.rdot{transition:none}}
+.small{font-size:12.5px}
+.nowrap{white-space:nowrap}
 .barcell{display:flex;align-items:center;gap:6px;min-width:120px}
 .barcell .b{height:10px;background:var(--s1);border-radius:0 4px 4px 0;min-width:1px}
 .barcell .v{font-size:12.5px;color:var(--ink2);font-variant-numeric:tabular-nums;white-space:nowrap}
@@ -134,7 +342,7 @@ details>summary{cursor:pointer;font-weight:600}
 .right{text-align:right}
 .mt{margin-top:12px}
 </style>
-<script src="common.js"></script>
+<script src="common.js?v=d7fb98e698"></script>
 </head>
 <body>
 <header class="bar">
@@ -151,6 +359,12 @@ details>summary{cursor:pointer;font-weight:600}
 <div class="modal" id="modal" hidden></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>
+/* this page needs a common.js with everything it uses: the one from the same download, or another that still has it all */
+const ISP_EXPECTED = 'd7fb98e698', ISP_NEEDS = ["activeMethods", "allItems", "alpha", "balance", "candidateSets", "ci95", "clone", "cvr", "cvrCritical", "fill", "importDescription", "itemVars", "knowledgeOn", "kq", "matrixRows", "md", "mdText", "mean", "median", "metaOf", "methodById", "phaseLabel", "scale", "scaleRange", "score", "sd", "shown", "simulate", "slug", "uid", "validate", "words"];
+if (!window.ISP || (window.ISP.VERSION !== ISP_EXPECTED && ISP_NEEDS.some(k => window.ISP[k] === undefined))) {
+  document.body.innerHTML = '<div style="max-width:640px;margin:60px auto;padding:24px 28px;border:1px solid #e3b4b0;background:#fdf1f0;border-radius:10px;font:16px/1.55 system-ui,sans-serif;color:#1c2328">' + '<h2 style="margin:0 0 10px;font-size:20px">common.js does not match this editor</h2>' + '<p>The file <b>common.js</b> on your site does not come from the same download as <b>editor.html</b>. Upload all three website files (index.html, editor.html and common.js) from the same download, so that each replaces the file with the same name.</p>' + '<p>Then wait about a minute and reload this page with <b>Ctrl+F5</b> (on a Mac, Cmd+Shift+R).</p>' + '<p style="color:#5a6670;font-size:14px">Tip: if your browser saved a new download as <i>common (1).js</i>, rename it to <i>common.js</i> before uploading.</p></div>';
+  throw new Error('common.js (' + ((window.ISP && window.ISP.VERSION) || 'an older version') + ') does not match this page (' + ISP_EXPECTED + ')');
+}
 'use strict';
 /* =====================================================================================
    IS perception study: the researcher's editor. Part 1: core (state, backend, layout,
@@ -265,7 +479,7 @@ function setSave(text, err) { const s = $('#savest'); s.textContent = text; s.cl
 window.addEventListener('beforeunload', e => { if (E.dirty && E.conn) { pushDraft(); e.preventDefault(); e.returnValue = ''; } });
 
 /* ------------------------------------------------------------------ layout */
-const NAV = [['overview', 'Overview'], ['texts', 'Study texts'], ['methods', 'Method descriptions'], ['structure', 'Elements, phases, groups'], ['questions', 'Questionnaire'],
+const NAV = [['overview', 'Overview'], ['dashboard', 'Dashboard'], null, ['texts', 'Study texts'], ['methods', 'Method descriptions'], ['structure', 'Elements, phases, groups'], ['questions', 'Questionnaire'],
   ['allocation', 'Allocation'], ['quality', 'Screening rules'], null, ['publish', 'Publish & versions'], ['data', 'Data & Excel export'], ['connect', 'Connect & set up']];
 const VIEWS = {};
 function renderNav() {
@@ -512,6 +726,7 @@ VIEWS.overview = () => {
     E.conn ? h('button', { class: 'btn sec small', type: 'button', onclick: async e => { e.target.disabled = true; try { await loadData(); render(); } catch (er) { toast(er.message, 5000); e.target.disabled = false; } } }, E.data ? 'Refresh (' + new Date(E.data.at).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' }) + ')' : 'Load the answers') : null));
   if (!E.data) prog.append(h('p', { class: 'muted' }, E.conn ? 'Load the answers to see progress, balance and screening.' : 'Connect a backend to see progress.'));
   else prog.append(progressView());
+  if (E.conn) prog.append(h('p', { class: 'small' }, 'The ', h('a', { href: '#', onclick: e => { e.preventDefault(); go('dashboard'); } }, 'Dashboard'), ' shows each participant\'s progress, drop-outs and first results.'));
   box.append(prog);
   // checklist
   box.append(checklist());
@@ -1700,6 +1915,671 @@ const XLSX = (() => {
   return { build };
 })();
 
+/* =====================================================================================
+   Part 6: Dashboard. Who is taking part right now, where each person is on their way through
+   the study, who stopped and when their methods were released, and first descriptive results.
+   It only reads the answers (the same ones as Data & Excel export) and never changes the study.
+   Charts are plain SVG and HTML. Colour always means something (design phase, group or status),
+   every value can be read without hovering (labels, captions or "Show the numbers"), and
+   hovering adds detail.
+   ===================================================================================== */
+const DASH_REFRESH_MS = 120000;   // automatic refresh every 2 minutes while the dashboard is open and visible
+E.dash = { kind: '', auto: true, kept: true, drawn: false, pf: 'all', pall: false, open: new Set() };
+
+/* ------------------------------------------------------------------ colour roles (validated palette) */
+const DBLUE = '#2a78d6';
+const DCAT = ['#2a78d6', '#eb6834', '#1baf7a', '#eda100', '#e87ba4', '#008300', '#6250d6', '#e34948'];   // categorical, in fixed order
+const DGRP = ['#6250d6', '#008300'];   // the two participant groups (validated as a pair)
+const DST = { good: '#0ca30c', warn: '#fab219', serious: '#ec835a', crit: '#d03b3b' };   // status only, always with an icon and a label
+const DSEQ = ['#cde2fb', '#b7d3f6', '#9ec5f4', '#86b6ef', '#6da7ec', '#5598e7', '#3987e5', '#2a78d6', '#256abf', '#1c5cab', '#184f95', '#104281', '#0d366b'];
+const DNEG = '#e34948';   // negative arm of the diverging pair (blue for positive)
+const phaseCol = id => { const i = (C().phases || []).findIndex(p => p.id === id); return i >= 0 && i < DCAT.length ? DCAT[i] : '#9aa5ae'; };
+const groupCol = id => { const i = (C().groups || []).findIndex(g => g.id === id); return i >= 0 && i < DGRP.length ? DGRP[i] : '#6b737a'; };
+const groupLabel = id => ((C().groups || []).find(g => g.id === id) || { label: id || 'no group yet' }).label;
+const stripes = col => 'repeating-linear-gradient(135deg,' + col + ' 0 2px,' + col + '59 2px 5px)';
+function rampCol(t) { const i = Math.max(0, Math.min(DSEQ.length - 1, Math.round(t * (DSEQ.length - 1)))); return { bg: DSEQ[i], fg: i >= 7 ? '#fff' : '#1c2328' }; }
+
+/* ------------------------------------------------------------------ time and people */
+const HM = { hour: 'numeric', minute: '2-digit' };
+const dMin = ms => Math.round(ms / 60000);
+const fmtMin = m => m < 1 ? 'under 1 min' : Math.round(m) + ' min';
+function dAgo(ms) {
+  const m = dMin(ms);
+  if (m < 1) return 'just now';
+  if (m < 60) return m + ' min ago';
+  const hh = Math.floor(m / 60);
+  return hh < 24 ? hh + ' h ' + (m % 60) + ' min ago' : Math.floor(hh / 24) + ' d ' + (hh % 24) + ' h ago';
+}
+function dClock(t) {
+  const d = new Date(t), today = new Date();
+  const time = d.toLocaleTimeString(undefined, HM);
+  return d.toDateString() === today.toDateString() ? time : d.toLocaleDateString(undefined, { day: 'numeric', month: 'short' }) + ', ' + time;
+}
+// how long an unfinished person keeps their methods (the published version's rule, as the backend uses it)
+function dHoldMs() {
+  const pub = E.vc[E.published], a = (pub && pub.allocation) || C().allocation || {};
+  return (Number(a.holdMinutes) || 120) * 60000;
+}
+// the pages one person goes through, in order: the same rule as the participant page
+function dashFlow(c, p) {
+  const group = p.group || '', k = (p.methods && p.methods.length) || Number((c.allocation || {}).perPerson) || 3;
+  const itemShown = it => !it.showTo || !it.showTo.length || (!!group && it.showTo.indexOf(group) >= 0);
+  const partShown = pt => {
+    if (group && !ISP.shown(pt, group)) return false;
+    if (pt.showTo && pt.showTo.length && !group) return false;
+    return (pt.items || []).some(itemShown) || !!String(pt.intro || '').trim();
+  };
+  const f = [['welcome', 'Welcome'], ['consent', 'Information and consent']];
+  (c.parts || []).filter(x => x.where !== 'after' && partShown(x)).forEach(x => f.push([x.id, x.title || 'Part ' + x.id]));
+  if (p.mode === 'baseline') for (let i = 1; i <= k; i++) f.push(['g' + i, 'Questions on method ' + i + ' of ' + k]);
+  else {
+    for (let i = 1; i <= k; i++) f.push(['m' + i + 'r', 'Reading method ' + i + ' of ' + k], ['m' + i + 'q', 'Rating method ' + i + ' of ' + k]);
+    (c.parts || []).filter(x => x.where === 'after' && partShown(x)).forEach(x => f.push([x.id, x.title || 'Part ' + x.id]));
+  }
+  f.push(['end', 'Finished']);
+  return f;
+}
+// one person's situation: state, page, progress, and what happens to their methods
+function dashPerson(p, now, hold) {
+  const flow = dashFlow(p.c || C(), p), last = flow.length - 1;
+  const upd = new Date(p.updated).getTime() || new Date(p.started).getTime() || now;
+  let at = flow.findIndex(x => x[0] === p.step);
+  if (at < 0) at = p.methods.length ? 2 : 1;
+  let state;
+  if (p.status === 'completed') { state = 'finished'; at = last; }
+  else if (p.status === 'withdrawn') state = 'withdrawn';
+  else if (p.status === 'ineligible') { state = 'ineligible'; at = last; }
+  else state = now - upd < hold ? 'active' : 'stopped';
+  const idle = now - upd;
+  // withdrawing deletes the answers, the page and the methods: nothing is left to place on the way
+  const page = state === 'ineligible' ? 'Not eligible' : state === 'withdrawn' ? 'Answers deleted on request' : flow[at][1];
+  return { p, flow, at, last, frac: state === 'withdrawn' ? 0 : last ? at / last : 0, page, state, upd, idle,
+    releaseAt: p.methods.length && (state === 'active' || state === 'stopped') ? upd + hold : null };
+}
+const methodName = (c, id) => (ISP.methodById(c, id) || ISP.methodById(C(), id) || { name: id }).name;
+const methodPhase = (c, id) => (ISP.methodById(c, id) || ISP.methodById(C(), id) || { phase: '' }).phase;
+const IDLE_MS = 10 * 60000;
+const STATE = {
+  active: { icon: '●', label: 'In progress', col: DBLUE }, idle: { icon: '◷', label: 'Idle', col: '#c98a00' },
+  stopped: { icon: '■', label: 'Stopped', col: DST.serious }, finished: { icon: '✓', label: 'Finished', col: DST.good },
+  withdrawn: { icon: '✕', label: 'Withdrew', col: DST.crit }, ineligible: { icon: '–', label: 'Not eligible', col: '#8d9aa5' }
+};
+const stateOf = d => d.state === 'active' && d.idle >= IDLE_MS ? 'idle' : d.state;
+function stateChip(d) {
+  const k = stateOf(d), s = STATE[k];
+  return h('span', { class: 'dchip' }, h('i', { style: { color: s.col }, 'aria-hidden': 'true' }, s.icon), s.label + (k === 'idle' ? ' ' + dMin(d.idle) + ' min' : ''));
+}
+// when something happened, and what it means for the person's methods
+function whenText(d) {
+  const p = d.p;
+  if (d.state === 'finished') return 'finished ' + dClock(p.submitted || p.updated) + (Number(p.minutes) > 0 ? ', in ' + fmtMin(Number(p.minutes)) : '');
+  if (d.state === 'withdrawn') return 'withdrew ' + dAgo(d.idle);
+  if (d.state === 'ineligible') return '';
+  if (d.state === 'stopped') return 'last active ' + dAgo(d.idle) + (d.releaseAt ? '; methods released ' + dClock(d.releaseAt) : '');
+  return 'active ' + dAgo(d.idle) + (d.releaseAt && d.idle >= IDLE_MS ? '; methods held until ' + dClock(d.releaseAt) : '');
+}
+
+/* ------------------------------------------------------------------ small building blocks */
+const SVGNS = 'http://www.w3.org/2000/svg';
+function sv(tag, attrs, ...kids) {
+  const e = document.createElementNS(SVGNS, tag);
+  Object.entries(attrs || {}).forEach(([k, v]) => { if (v !== null && v !== undefined && v !== false) e.setAttribute(k, v); });
+  kids.flat(Infinity).forEach(k => { if (k !== null && k !== undefined && k !== false) e.append(k.nodeType ? k : document.createTextNode(String(k))); });
+  return e;
+}
+// one tooltip for the whole dashboard. Rows are { value, label, color }; text always goes in as text, never as HTML
+function dTip() {
+  let t = document.getElementById('dtip');
+  if (!t) {
+    t = h('div', { id: 'dtip', class: 'dtip', role: 'tooltip' }); t.hidden = true; document.body.append(t);
+    window.addEventListener('scroll', tipHide, { passive: true });
+  }
+  return t;
+}
+function tipPlace(t, x, y) {
+  const w = t.offsetWidth, hh = t.offsetHeight;
+  t.style.left = Math.max(8, Math.min(window.innerWidth - w - 8, x + 14)) + 'px';
+  t.style.top = (y - hh - 12 < 8 ? y + 18 : y - hh - 12) + 'px';
+}
+function tipShow(x, y, title, rows) {
+  const t = dTip(); t.innerHTML = '';
+  if (title) t.append(h('div', { class: 'tt' }, title));
+  (rows || []).forEach(r => t.append(h('div', { class: 'tr' }, r.color ? h('span', { class: 'tk', style: { background: r.color } }) : null,
+    r.value !== undefined && r.value !== '' ? h('b', {}, String(r.value)) : null, r.label ? h('span', {}, r.label) : null)));
+  t.hidden = false;
+  tipPlace(t, x, y);
+}
+function tipHide() { const t = document.getElementById('dtip'); if (t) t.hidden = true; }
+// hover detail for one mark; fn() returns [title, rows]. Keyboard users get the same numbers from "Show the numbers"
+function tipOn(el, fn) {
+  el.addEventListener('pointerenter', e => { const [t, r] = fn(); tipShow(e.clientX, e.clientY, t, r); el.classList.add('hot'); });
+  el.addEventListener('pointermove', e => { const t = document.getElementById('dtip'); if (t && !t.hidden) tipPlace(t, e.clientX, e.clientY); });
+  el.addEventListener('pointerleave', () => { tipHide(); el.classList.remove('hot'); });
+  return el;
+}
+// a chart drawn at the width it actually has, so its text is never scaled down; redrawn when that width changes.
+// The box has a fixed height, so drawing never changes its size. Below minW it scrolls sideways.
+function fitChart(draw, height, minW) {
+  const box = h('div', { class: 'dfit', style: { height: height + 'px' } });
+  let lastW = 0;
+  const ro = new ResizeObserver(() => {
+    if (!box.isConnected) { ro.disconnect(); return; }
+    const cw = Math.floor(box.clientWidth);
+    if (!cw) return;
+    const w = Math.max(minW || 280, cw);
+    if (Math.abs(w - lastW) < 2) return;
+    lastW = w; tipHide(); box.innerHTML = ''; box.append(draw(w));
+  });
+  ro.observe(box);
+  return h('div', { class: 'scroll' }, box);
+}
+// a panel: title, one line on how to read it, the chart, and the numbers behind it
+function panel(title, desc, body, table, cls, key) {
+  return h('section', { class: 'dpanel' + (cls ? ' ' + cls : ''), 'data-panel': key || null }, h('div', { class: 'dph' }, h('h2', {}, title), desc ? h('p', {}, desc) : null), body,
+    table ? numbers(key, table) : null);
+}
+// "Show the numbers": the table behind a chart. It stays open across refreshes once opened
+function numbers(key, table) {
+  return h('details', { class: 'dnums', open: E.dash.open.has(key) ? true : null, ontoggle: e => { if (e.target.open) E.dash.open.add(key); else E.dash.open.delete(key); } },
+    h('summary', {}, 'Show the numbers'), h('div', { class: 'scroll' }, table));
+}
+function numTable(head, rows) {
+  return h('table', { class: 'tbl' }, h('thead', {}, h('tr', {}, head.map((x, i) => h('th', { class: i ? 'n' : null }, x)))),
+    h('tbody', {}, rows.map(r => h('tr', {}, r.map((x, i) => h('td', { class: i ? 'n' : null }, x === null || x === undefined || x === '' ? '–' : x))))));
+}
+function niceStep(max, n) { const raw = Math.max(1, max) / (n || 4), p = Math.pow(10, Math.floor(Math.log10(raw))); return [1, 2, 5, 10].map(m => m * p).find(s => s >= raw && Number.isInteger(s)) || Math.ceil(raw); }
+// dashboard controls: unlike sl() and ck(), they never mark the study content as changed
+function dSeg(obj, key, options) {
+  return h('div', { class: 'dseg', role: 'group', 'aria-label': 'Which participants' }, options.map(([v, l, n]) => h('button', { type: 'button', class: obj[key] === v ? 'on' : null,
+    'aria-pressed': obj[key] === v ? 'true' : 'false', 'data-kind': v, onclick: () => { if (obj[key] !== v) { obj[key] = v; E.dash.pall = false; render(); } } }, l, h('span', { class: 'n' }, n))));
+}
+function dChk(obj, key, label) {
+  const i = h('input', { type: 'checkbox', checked: obj[key] ? true : null });
+  i.addEventListener('change', () => { obj[key] = i.checked; render(); });
+  return h('label', { class: 'chk', style: { margin: 0 } }, i, h('span', {}, label));
+}
+
+function dashRefresh(silent) {
+  if (E.dashBusy || !E.conn) return;
+  E.dashBusy = true;
+  loadData().then(() => { if (E.section === 'dashboard') render(); }).catch(e => { if (!silent) toast(e.message, 6000); })
+    .finally(() => { E.dashBusy = false; });
+}
+function dashTimer() {
+  if (E.dashT) return;
+  E.dashT = setInterval(() => {
+    if (E.section !== 'dashboard' || !E.dash.auto || document.visibilityState !== 'visible') return;
+    dashRefresh(true);
+  }, DASH_REFRESH_MS);
+}
+
+/* ------------------------------------------------------------------ the view */
+VIEWS.dashboard = () => {
+  const c = C(), box = h('div', { class: 'dash' });
+  tipHide();
+  const top = h('div', { class: 'dtop' }, h('h1', {}, 'Study dashboard'));
+  box.append(top, h('p', { class: 'sub' }, 'Live from your Google Sheet. The dashboard only reads the answers: nothing here changes the study or the data.'));
+  if (!E.conn) { box.append(h('div', { class: 'msg warn' }, 'Connect a backend first (Connect & set up).')); return box; }
+  dashTimer();
+  if (!E.data) {
+    box.append(h('div', { class: 'dpanel' }, h('span', { class: 'spinner' }), 'Loading the answers…'));
+    dashRefresh();
+    return box;
+  }
+  const all = prepared().filter(p => p.mode !== 'baseline'), now = Date.now(), hold = dHoldMs();
+  const nLive = all.filter(p => !p.mode).length, nPilot = all.filter(p => p.mode === 'pilot').length;
+  if (!E.dash.kind) E.dash.kind = nLive ? 'live' : nPilot ? 'pilot' : 'live';
+  const kind = E.dash.kind;
+  const list = all.filter(p => kind === 'all' || (kind === 'live' ? !p.mode : p.mode === 'pilot'));
+  const ds = list.map(p => dashPerson(p, now, hold));
+  top.append(h('div', { class: 'dctl' },
+    dSeg(E.dash, 'kind', [['live', 'Live link', nLive], ['pilot', 'Pilot', nPilot], ['all', 'Both', nLive + nPilot]]),
+    h('span', { class: 'dlive' + (E.dash.auto ? ' on' : '') }, h('i', { 'aria-hidden': 'true' }), 'Updated ' + new Date(E.data.at).toLocaleTimeString(undefined, HM)),
+    dChk(E.dash, 'auto', 'Auto-refresh'),
+    h('button', { class: 'btn sec small', type: 'button', onclick: e => { e.currentTarget.disabled = true; e.currentTarget.textContent = 'Refreshing…'; dashRefresh(); } }, 'Refresh')));
+  if (!list.length) {
+    box.append(h('section', { class: 'dpanel dempty' }, h('h2', {}, 'Nobody yet'),
+      h('p', {}, 'Nobody has started with the ' + (kind === 'pilot' ? 'pilot link' : kind === 'live' ? 'live link' : 'live or pilot link') + ' yet. People appear here once they agree on the consent page; people who only open the link are not recorded.' + (kind === 'live' && nPilot ? ' The pilot has ' + nPilot + (nPilot === 1 ? ' person.' : ' people.') : ''))));
+    return box;
+  }
+  box.append(dashRoute(c, ds));
+  box.append(h('div', { class: 'dgrid g21' }, dashTimeline(c, ds), kind === 'live' ? dashTargets(c, ds) : dashGroups(c, ds)));
+  box.append(dashPeople(c, ds, kind));
+  box.append(h('div', { class: 'dgrid g32' }, dashAlloc(c, ds, kind), dashReleases(c, ds, kind, hold)));
+  box.append(dashResults(c, ds));
+  E.dash.drawn = true;
+  return box;
+};
+
+/* ------------------------------------------------------------------ the route: where everyone is */
+function dashRoute(c, ds) {
+  const k = Number(c.allocation.perPerson) || 3;
+  const before = (c.parts || []).find(x => x.where !== 'after');
+  const stations = [before && before.title ? before.title : 'About you'];
+  for (let i = 1; i <= k; i++) stations.push('Method ' + i);
+  stations.push('Final questions', 'Finished');
+  const last = stations.length - 1;
+  const stationOf = d => {
+    if (d.state === 'finished') return last;
+    const key = (d.flow[d.at] || [''])[0], m = /^m(\d+)[rq]$/.exec(key);
+    if (m) return Math.min(k, Number(m[1]));
+    let lastQ = -1; d.flow.forEach((x, i) => { if (/^m\d+q$/.test(x[0])) lastQ = i; });
+    return lastQ >= 0 && d.at > lastQ ? k + 1 : 0;
+  };
+  const on = ds.filter(d => d.state !== 'withdrawn' && d.state !== 'ineligible').map(d => ({ d, s: stationOf(d) }));
+  const reached = stations.map((_, s) => on.filter(x => x.s >= s).length), base = reached[0];
+  const here = s => on.filter(x => x.s === s && x.d.state === 'active').map(x => x.d);
+  const stoppedAt = s => on.filter(x => x.s === s && x.d.state === 'stopped').map(x => x.d);
+  const dot = (d, cls) => tipOn(h('span', { class: 'rdot ' + cls, 'data-pid': d.p.pid }),
+    () => [d.p.pid + ', ' + groupLabel(d.p.group), [{ value: d.page }, { label: whenText(d) }].concat(d.p.methods.length ? [{ label: d.p.methods.map(id => methodName(d.p.c, id)).join(', ') }] : [])]);
+  const first = !E.dash.drawn;
+  const route = h('div', { class: 'route', style: { gridTemplateColumns: 'repeat(' + stations.length + ', minmax(108px, 1fr))' } });
+  stations.forEach((label, s) => {
+    const fin = s === last, act = fin ? [] : here(s), stop = fin ? [] : stoppedAt(s), next = fin ? 0 : reached[s + 1];
+    const cell = (row, cls, kids) => h('div', { class: cls, style: { gridColumn: String(s + 1), gridRow: String(row) } }, kids);
+    // the pale band is the whole way; the blue line inside it is as thick as the share of people who got that far
+    route.append(
+      cell(1, 'rtop', fin ? h('span', { class: 'rbig' }, reached[s]) : [act.slice(0, 30).map(d => dot(d, stateOf(d) === 'idle' ? 'idle' : 'act')), act.length > 30 ? h('span', { class: 'rmore' }, '+' + (act.length - 30)) : null]),
+      cell(2, 'rline', [fin ? null : h('span', { class: 'rtrack' }),
+        fin || !next ? null : h('span', { class: 'rflow' + (first ? ' anim' : ''), style: { height: (3 + Math.round(13 * next / Math.max(1, base))) + 'px', animationDelay: first ? (150 + s * 120) + 'ms' : null } }),
+        h('span', { class: 'rnode' + (reached[s] ? ' on' : '') + (fin ? ' end' : '') }, fin && reached[s] ? '✓' : null)]),
+      cell(3, 'rlab', [h('b', {}, label), h('span', {}, s === 0 ? base + ' taking part' : fin ? (base ? pct(reached[s] / base) + ' of those taking part' : '') : reached[s] + ' reached' + (base ? ', ' + pct(reached[s] / base) : ''))]),
+      cell(4, 'rbot', stop.length ? [stop.slice(0, 24).map(d => dot(d, 'stop')), stop.length > 24 ? h('span', { class: 'rmore' }, '+' + (stop.length - 24)) : null, h('span', { class: 'rcap' }, stop.length + ' stopped here')] : null));
+  });
+  const legend = h('div', { class: 'dlegend' },
+    h('span', {}, h('span', { class: 'rdot act' }), 'in progress'), h('span', {}, h('span', { class: 'rdot idle' }), 'idle for 10 min or more'),
+    h('span', {}, h('span', { class: 'rdot stop' }), 'stopped there'), h('span', {}, h('span', { class: 'rflowkey' }, h('i')), 'line thickness: how many got that far'));
+  // headline figures along the bottom
+  const n = s => ds.filter(d => stateOf(d) === s).length;
+  const fin = ds.filter(d => d.state === 'finished'), mins = fin.map(d => Number(d.p.minutes)).filter(x => x > 0), md = mins.length ? ISP.median(mins) : null;
+  const kpi = (key, value, label, detail, st) => h('div', { class: 'kpi', 'data-kpi': key }, h('div', { class: 'kv' }, value),
+    h('div', { class: 'kl' }, st ? h('i', { style: { color: STATE[st].col }, 'aria-hidden': 'true' }, STATE[st].icon) : null, label), h('div', { class: 'kd' }, detail));
+  const kpis = h('div', { class: 'kpis' },
+    kpi('started', ds.length, 'Started', 'agreed on the consent page'),
+    kpi('active', n('active') + n('idle'), 'In progress', n('idle') ? n('idle') + ' idle for 10 min or more' : 'all active in the last 10 min', 'active'),
+    kpi('stopped', n('stopped'), 'Stopped', 'no activity for ' + Math.round(dHoldMs() / 60000) + ' min or more', 'stopped'),
+    kpi('withdrew', n('withdrawn'), 'Withdrew', 'answers deleted on request' + (n('ineligible') ? '; ' + n('ineligible') + ' not eligible' : ''), 'withdrawn'),
+    kpi('finished', fin.length, 'Finished', pct(fin.length / ds.length) + ' of everyone who started', 'finished'),
+    kpi('median', md === null ? '–' : md < 1 ? '<1 min' : Math.round(md) + ' min', 'Median time to finish', mins.length >= 4
+      ? 'middle half ' + (quant(mins, 0.75) < 1 ? 'under 1 min' : Math.round(quant(mins, 0.25)) + '–' + Math.round(quant(mins, 0.75)) + ' min')
+      : (mins.length ? 'from ' + mins.length + (mins.length === 1 ? ' person' : ' people') + '; ' : '') + 'the welcome page says ' + ((C().settings || {}).minutes || 25) + ' min'));
+  const table = numTable(['Point in the study', 'Reached', 'In progress here', 'Stopped here'], stations.map((st, s) => [st, reached[s], s === last ? '' : here(s).length, s === last ? '' : stoppedAt(s).length]));
+  const nW = n('withdrawn'), nI = n('ineligible');
+  const gone = [nW ? nW + (nW === 1 ? ' person who withdrew' : ' people who withdrew') : '', nI ? nI + (nI === 1 ? ' person who was not eligible' : ' people who were not eligible') : ''].filter(Boolean).join(' and ');
+  return h('section', { class: 'droute', 'data-panel': 'route' }, h('div', { class: 'dph' }, h('h2', {}, 'Where everyone is'),
+    h('p', {}, 'Each dot is one person, at the part of the study they are on now; hover a dot for details. Percentages are of the ' + base + ' taking part' + (gone ? ' (the figures below also count the ' + gone + ')' : '') + '.')),
+    legend, h('div', { class: 'scroll' }, route), kpis, numbers('route', table));
+}
+
+/* ------------------------------------------------------------------ over time: started and finished */
+function timeTicks(t0, t1, most) {
+  const M = 60000, Hh = 60 * M, D = 24 * Hh, span = t1 - t0;
+  const step = [5 * M, 10 * M, 15 * M, 30 * M, Hh, 2 * Hh, 3 * Hh, 6 * Hh, 12 * Hh, D, 2 * D, 7 * D, 14 * D, 28 * D].find(s => span / s <= (most || 6)) || 28 * D;
+  const d = new Date(t0);
+  if (step < Hh) { const m = step / M; d.setSeconds(0, 0); d.setMinutes(Math.floor(d.getMinutes() / m) * m + m); }
+  else if (step < D) { const k = step / Hh; d.setMinutes(0, 0, 0); d.setHours(Math.floor(d.getHours() / k) * k + k); }
+  else { d.setHours(0, 0, 0, 0); d.setDate(d.getDate() + 1); }
+  const out = [], multi = new Date(t0).toDateString() !== new Date(t1).toDateString();
+  let prev = new Date(t0).toDateString();
+  for (let t = d.getTime(); t < t1 && out.length < 16; t += step) {
+    const x = new Date(t), day = x.toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
+    let lab = step >= D ? day : x.toLocaleTimeString(undefined, HM);
+    if (step < D && multi && x.toDateString() !== prev) lab = day + ', ' + lab;
+    prev = x.toDateString();
+    out.push([t, lab]);
+  }
+  return out;
+}
+function dashTimeline(c, ds) {
+  const st = ds.map(d => new Date(d.p.started).getTime()).filter(x => x > 0).sort((a, b) => a - b);
+  const fi = ds.filter(d => d.state === 'finished').map(d => new Date(d.p.submitted || d.p.updated).getTime()).filter(x => x > 0).sort((a, b) => a - b);
+  const now = Date.now(), M = 60000, t1 = now;
+  let t0 = st.length ? st[0] : now - 60 * M;
+  if (t1 - t0 < 30 * M) t0 = t1 - 30 * M;
+  else t0 -= (t1 - t0) * 0.02;
+  const H = 236, L = 38, R = 104, T = 14, B = 30, ph = H - T - B;
+  const ymax = Math.max(1, st.length), ys = niceStep(ymax, 4), ytop = Math.ceil(ymax / ys) * ys, Y = v => T + ph - v / ytop * ph;
+  const count = (arr, t) => { let k = 0; for (const x of arr) { if (x <= t) k++; else break; } return k; };
+  const draw = W => {
+    const pw = W - L - R, X = t => L + (t - t0) / (t1 - t0) * pw;
+    const stepPath = arr => { let p = 'M' + X(t0) + ',' + Y(0), k = 0; arr.forEach(t => { p += ' H' + X(t) + ' V' + Y(++k); }); return p + ' H' + X(t1); };
+    const svg = sv('svg', { width: W, height: H, viewBox: '0 0 ' + W + ' ' + H, class: 'dsvg', role: 'img', 'aria-label': 'People who started and finished over time' });
+    for (let v = 0; v <= ytop; v += ys) svg.append(sv('line', { x1: L, x2: W - R, y1: Y(v), y2: Y(v), class: v ? 'grid' : 'base' }), sv('text', { x: L - 8, y: Y(v) + 4, class: 'ax', 'text-anchor': 'end' }, v));
+    timeTicks(t0, t1, Math.max(3, Math.min(7, Math.floor(pw / 90)))).forEach(([t, lab]) => svg.append(sv('line', { x1: X(t), x2: X(t), y1: T + ph, y2: T + ph + 4, class: 'base' }), sv('text', { x: X(t), y: H - 8, class: 'ax', 'text-anchor': 'middle' }, lab)));
+    svg.append(sv('path', { d: stepPath(fi) + ' V' + Y(0) + ' H' + X(t0) + ' Z', fill: DBLUE, 'fill-opacity': '0.1', stroke: 'none' }),
+      sv('path', { d: stepPath(st), class: 'ln', stroke: '#8d9aa5' }), sv('path', { d: stepPath(fi), class: 'ln', stroke: DBLUE }));
+    // end labels: the value, then the series
+    const ends = [[st.length, 'started', '#8d9aa5'], [fi.length, 'finished', DBLUE]], ey = ends.map(e => Y(e[0]));
+    if (Math.abs(ey[0] - ey[1]) < 16) { const mid = (ey[0] + ey[1]) / 2; ey[0] = mid - 8; ey[1] = mid + 8; }
+    ends.forEach((e, i) => svg.append(sv('circle', { cx: X(t1), cy: Y(e[0]), r: 4, fill: e[2], stroke: '#fff', 'stroke-width': 2 }),
+      sv('text', { x: X(t1) + 10, y: ey[i] + 4, class: 'el' }, sv('tspan', { class: 'ev' }, e[0]), ' ' + e[1])));
+    // crosshair: one readout for both lines at the pointer's time
+    const cross = sv('line', { y1: T, y2: T + ph, class: 'cross', visibility: 'hidden' });
+    const cd = ends.map(e => sv('circle', { r: 4, fill: e[2], stroke: '#fff', 'stroke-width': 2, visibility: 'hidden' }));
+    const hit = sv('rect', { x: L, y: T, width: pw, height: ph, fill: 'transparent', class: 'hit' });
+    hit.addEventListener('pointermove', ev => {
+      const b = svg.getBoundingClientRect(), cx = Math.max(L, Math.min(L + pw, (ev.clientX - b.left) / b.width * W));
+      const t = t0 + (cx - L) / pw * (t1 - t0), vals = [count(st, t), count(fi, t)];
+      cross.setAttribute('x1', cx); cross.setAttribute('x2', cx); cross.setAttribute('visibility', 'visible');
+      cd.forEach((x, i) => { x.setAttribute('cx', cx); x.setAttribute('cy', Y(vals[i])); x.setAttribute('visibility', 'visible'); });
+      tipShow(ev.clientX, ev.clientY, dClock(t), [{ value: vals[0], label: 'started', color: '#8d9aa5' }, { value: vals[1], label: 'finished', color: DBLUE }]);
+    });
+    hit.addEventListener('pointerleave', () => { tipHide(); cross.setAttribute('visibility', 'hidden'); cd.forEach(x => x.setAttribute('visibility', 'hidden')); });
+    svg.append(cross, ...cd, hit);
+    return svg;
+  };
+  const legend = h('div', { class: 'dlegend' }, h('span', {}, h('span', { class: 'lkey', style: { background: '#8d9aa5' } }), 'started (agreed on the consent page)'), h('span', {}, h('span', { class: 'lkey', style: { background: DBLUE } }), 'finished'));
+  const byDay = new Map();
+  const add = (t, i) => { const k = new Date(t).toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'short' }); if (!byDay.has(k)) byDay.set(k, [0, 0]); byDay.get(k)[i]++; };
+  st.forEach(t => add(t, 0)); fi.forEach(t => add(t, 1));
+  return panel('Over time', 'Running totals since the first person started. Hover the chart to read any moment.', h('div', {}, legend, fitChart(draw, H, 420)),
+    numTable(['Day', 'Started', 'Finished'], [...byDay.entries()].map(([d, v]) => [d, v[0], v[1]])), null, 'time');
+}
+
+/* ------------------------------------------------------------------ targets per group (live link) or the split (pilot) */
+function ring(value, target, color, label) {
+  const r = 46, CIRC = 2 * Math.PI * r, f = target ? Math.min(1, value / target) : 0;
+  return sv('svg', { viewBox: '0 0 120 120', class: 'ring', role: 'img', 'aria-label': label + ': ' + value + (target ? ' of ' + target : '') },
+    sv('circle', { cx: 60, cy: 60, r, fill: 'none', stroke: '#e6eaee', 'stroke-width': 10 }),
+    f > 0 ? sv('circle', { cx: 60, cy: 60, r, fill: 'none', stroke: color, 'stroke-width': 10, 'stroke-linecap': f < 1 ? 'round' : 'butt', 'stroke-dasharray': (CIRC * f) + ' ' + CIRC, transform: 'rotate(-90 60 60)' }) : null,
+    sv('text', { x: 60, y: target ? 62 : 70, 'text-anchor': 'middle', class: 'rv' }, value),
+    target ? sv('text', { x: 60, y: 82, 'text-anchor': 'middle', class: 'rs' }, 'of ' + target) : null);
+}
+function dashTargets(c, ds) {
+  const fin = ds.filter(d => d.state === 'finished');
+  const per = c.groups.map(g => ({ g, n: fin.filter(d => d.p.group === g.id).length, t: Number(g.target) || 0, act: ds.filter(d => d.p.group === g.id && d.state === 'active').length }));
+  const body = h('div', { class: 'rings' }, per.map(x => h('div', { class: 'ringbox', 'data-group': x.g.id }, ring(x.n, x.t, groupCol(x.g.id), x.g.label),
+    h('b', {}, x.g.label), h('span', {}, (x.t ? pct(x.n / x.t) + ' of the target' : 'no target set') + (x.act ? ', ' + x.act + ' in progress' : '')))));
+  return panel('Targets', 'Finished participants per group, against the targets set under Elements, phases and groups.', body,
+    numTable(['Group', 'Finished', 'Target', 'In progress'], per.map(x => [x.g.label, x.n, x.t || '–', x.act])), null, 'targets');
+}
+function dashGroups(c, ds) {
+  const people = ds.filter(d => d.p.group), tot = Math.max(1, people.length);
+  const per = c.groups.map(g => ({ g, n: people.filter(d => d.p.group === g.id).length, f: people.filter(d => d.p.group === g.id && d.state === 'finished').length }));
+  const bar = h('div', { class: 'split' }, per.filter(x => x.n).map(x => tipOn(h('span', { class: 'seg', style: { flexGrow: String(x.n), background: groupCol(x.g.id) } }, x.n / tot >= 0.15 ? String(x.n) : ''),
+    () => [x.g.label, [{ value: x.n, label: pct(x.n / tot) + ' of people with a group', color: groupCol(x.g.id) }, { value: x.f, label: 'finished' }]])));
+  const rows = h('div', { class: 'gsplit' }, per.map(x => h('div', {}, h('span', { class: 'gchip', style: { background: groupCol(x.g.id) } }, x.g.id), h('b', {}, x.g.label),
+    h('span', { class: 'muted' }, x.n + ' started, ' + x.f + ' finished'))));
+  const none = ds.length - people.length;
+  return panel('Groups', 'Participants per group so far' + (none ? '; ' + none + ' have not answered the group question yet' : '') + '. Targets apply to the live link.',
+    h('div', {}, people.length ? bar : null, rows), null, null, 'groups');
+}
+
+/* ------------------------------------------------------------------ every person, with their own way through the study */
+function journey(d) {
+  const pages = d.flow.slice(2, -1).map((pg, j) => ({ pg, i: j + 2 }));
+  const firstM = pages.findIndex(x => /^m\d+r$/.test(x.pg[0]));
+  const secOf = (x, j) => { const m = /^m(\d+)[rq]$/.exec(x.pg[0]); return m ? 'm' + m[1] : firstM >= 0 && j < firstM ? 'about' : 'final'; };
+  const secs = [];
+  pages.forEach((x, j) => { const s = secOf(x, j); if (!secs.length || secs[secs.length - 1].s !== s) secs.push({ s, items: [] }); secs[secs.length - 1].items.push(x); });
+  const cls = i => d.state === 'finished' || d.state === 'ineligible' ? 'past' : i < d.at ? 'past' + (d.state === 'stopped' ? ' off' : '') : i === d.at ? 'cur' + (d.state === 'stopped' ? ' stop' : '') : '';
+  const note = i => d.state === 'finished' || i < d.at ? 'done' : i === d.at ? (d.state === 'stopped' ? 'stopped here' : 'here now') : 'still to come';
+  return h('div', { class: 'jtrack', 'aria-hidden': 'true' }, secs.map(s => h('span', { class: 'jsec' + (s.s[0] === 'm' ? ' m' : '') },
+    s.items.map(x => tipOn(h('span', { class: 'jp ' + cls(x.i) }), () => [x.pg[1], [{ label: note(x.i) }]])))));
+}
+function dashPeople(c, ds, kind) {
+  const order = { active: 0, idle: 1, stopped: 2, finished: 3, withdrawn: 4, ineligible: 5 };
+  const FILTERS = [['all', 'Everyone'], ['active', 'In progress'], ['stopped', 'Stopped'], ['finished', 'Finished'], ['withdrawn', 'Withdrew or not eligible']];
+  const match = (d, f) => f === 'all' || (f === 'withdrawn' ? d.state === 'withdrawn' || d.state === 'ineligible' : d.state === f);
+  const f = FILTERS.some(x => x[0] === E.dash.pf) ? E.dash.pf : 'all', cap = E.dash.pall || f !== 'all' ? 300 : 20;
+  const sel = ds.filter(d => match(d, f)).sort((a, b) => order[stateOf(a)] - order[stateOf(b)] || b.upd - a.upd), rows = sel.slice(0, cap);
+  const filters = h('div', { class: 'dseg small', role: 'group', 'aria-label': 'Show' }, FILTERS.filter(x => x[0] !== 'withdrawn' || ds.some(d => match(d, 'withdrawn'))).map(([v, l]) =>
+    h('button', { type: 'button', class: f === v ? 'on' : null, 'aria-pressed': f === v ? 'true' : 'false', 'data-filter': v, onclick: () => { E.dash.pf = v; E.dash.pall = false; render(); } }, l, h('span', { class: 'n' }, ds.filter(d => match(d, v)).length))));
+  const head = h('div', { class: 'prow phead', 'aria-hidden': 'true' }, h('div', { class: 'pwho' }, 'Person'), h('div', { class: 'pst' }, 'Status'),
+    h('div', { class: 'pway' }, 'Way through the study'), h('div', { class: 'pmeth' }, 'Their methods'), h('div', { class: 'pact' }, 'Started'));
+  const list = h('div', { class: 'plist' }, head, rows.map(d => {
+    const p = d.p, curM = /^m(\d+)[rq]$/.exec((d.flow[d.at] || [''])[0]), when = whenText(d);
+    return h('div', { class: 'prow s-' + stateOf(d), 'data-pid': p.pid },
+      h('div', { class: 'pwho' }, h('b', {}, p.pid), p.group ? h('span', { class: 'gchip', style: { background: groupCol(p.group) }, title: groupLabel(p.group) }, p.group) : null,
+        kind === 'all' && p.mode === 'pilot' ? h('span', { class: 'ptag' }, 'pilot') : null),
+      h('div', { class: 'pst' }, stateChip(d)),
+      h('div', { class: 'pway' }, d.state === 'withdrawn' ? null : journey(d), h('div', { class: 'pcap' }, h('span', { class: 'pg' }, d.page), when ? h('span', { class: 'muted' }, when) : null)),
+      h('div', { class: 'pmeth' }, p.methods.length ? p.methods.map((id, i) => h('span', { class: 'mchip' + (d.state === 'active' && curM && Number(curM[1]) === i + 1 ? ' now' : ''), title: ISP.phaseLabel(C(), methodPhase(p.c, id)) },
+        h('i', { style: { background: phaseCol(methodPhase(p.c, id)) } }), methodName(p.c, id))) : h('span', { class: 'muted small' }, d.state === 'withdrawn' ? '' : 'not given yet')),
+      h('div', { class: 'pact' }, h('span', { class: 'muted small' }, dClock(p.started)), h('button', { class: 'btn ghost small', type: 'button', onclick: () => personDialog(p) }, 'View answers')));
+  }));
+  const legend = h('div', { class: 'dlegend' }, h('span', {}, h('span', { class: 'jp past' }), 'done'), h('span', {}, h('span', { class: 'jp cur' }), 'here now'),
+    h('span', {}, h('span', { class: 'jp cur stop' }), 'stopped here'), h('span', {}, h('span', { class: 'jp' }), 'still to come'), h('span', { class: 'muted' }, 'one block per page; the gaps separate the parts and the three methods'));
+  const more = sel.length - rows.length;
+  return h('section', { class: 'dpanel', 'data-panel': 'people' }, h('div', { class: 'dph dphrow' }, h('div', {}, h('h2', {}, 'Participants'),
+    h('p', {}, 'Everyone who agreed on the consent page, the most recently active first. Each row is that person\'s way through the study; the dot in a method shows its design phase.')), filters), legend,
+    rows.length ? list : h('p', { class: 'dnone' }, 'Nobody here at the moment.'),
+    more > 0 ? h('div', { class: 'pmore' }, h('button', { class: 'btn sec small', type: 'button', onclick: () => { E.dash.pall = true; render(); } }, 'Show all ' + sel.length),
+      h('span', { class: 'muted small' }, 'showing ' + rows.length + ' of ' + sel.length)) : null,
+    sel.length > 300 ? h('p', { class: 'hint' }, 'Showing the first 300. The Excel workbook has everyone.') : null);
+}
+
+/* ------------------------------------------------------------------ allocation: what is counted per group, by phase */
+function dashAlloc(c, ds, kind) {
+  const scope = kind === 'all' ? ds.filter(d => !d.p.mode) : ds, ms = ISP.activeMethods(c), G = c.groups;
+  const cnt = (g, id, f) => scope.filter(d => d.p.group === g && d.p.methods.indexOf(id) >= 0 && f(d)).length;
+  const isFin = d => d.state === 'finished', isAct = d => d.state === 'active', isGone = d => d.state === 'stopped';
+  const max = Math.max(1, ...G.flatMap(g => ms.map(m => cnt(g.id, m.id, d => isFin(d) || isAct(d)))));
+  const cells = [h('div', { class: 'ah' }, 'Method'), G.map(g => h('div', { class: 'ah', 'data-group': g.id }, h('span', { class: 'gchip', style: { background: groupCol(g.id) } }, g.id), g.label))];
+  c.phases.forEach(ph => {
+    const pm = ms.filter(m => m.phase === ph.id);
+    if (!pm.length) return;
+    cells.push(h('div', { class: 'aph', style: { gridColumn: '1 / -1' } }, ph.label));
+    pm.forEach(m => {
+      const col = phaseCol(ph.id);
+      cells.push(h('div', { class: 'an' }, m.name));
+      G.forEach(g => {
+        const f = cnt(g.id, m.id, isFin), a = cnt(g.id, m.id, isAct), r = cnt(g.id, m.id, isGone);
+        cells.push(tipOn(h('div', { class: 'acell' },
+          h('span', { class: 'atrack' }, f ? h('span', { class: 'aseg' + (a ? '' : ' end'), style: { width: (f / max * 100) + '%', background: col } }) : null,
+            a ? h('span', { class: 'aseg end', style: { width: (a / max * 100) + '%', background: stripes(col) } }) : null),
+          h('b', { class: 'av' }, f + a), h('span', { class: 'ar' }, r ? [h('i', { 'aria-hidden': 'true' }), String(r)] : null)),
+        () => [m.name + ', ' + g.label, [{ value: f + a, label: 'counted by the allocation', color: col }, { value: f, label: 'finished' }, { value: a, label: 'in progress' }, { value: r, label: 'released: stopped, no longer counted' }]]));
+      });
+    });
+  });
+  const grid = h('div', { class: 'agrid', style: { gridTemplateColumns: 'minmax(108px, 150px) repeat(' + G.length + ', minmax(150px, 1fr))' } }, cells);
+  const legend = h('div', { class: 'dlegend' }, h('span', {}, h('span', { class: 'sw', style: { background: '#52514e' } }), 'finished'),
+    h('span', {}, h('span', { class: 'sw', style: { background: stripes('#52514e') } }), 'in progress'), h('span', {}, h('span', { class: 'arkey' }), 'released'), h('span', { class: 'muted' }, 'colour shows the design phase'));
+  return panel('How the methods are shared out', 'For each group, how many people the allocation counts per method: those who finished plus those still in progress. Methods of people who stopped are released and no longer count.' + (kind === 'all' ? ' Live and pilot are balanced separately; this shows the live link.' : ''),
+    h('div', {}, legend, h('div', { class: 'scroll' }, grid)),
+    numTable(['Method', 'Phase'].concat(G.flatMap(g => [g.id + ' finished', g.id + ' in progress', g.id + ' released'])),
+      ms.map(m => [m.name, ISP.phaseLabel(c, m.phase)].concat(G.flatMap(g => [cnt(g.id, m.id, isFin), cnt(g.id, m.id, isAct), cnt(g.id, m.id, isGone)])))), null, 'alloc');
+}
+function dashReleases(c, ds, kind, hold) {
+  const scope = kind === 'all' ? ds.filter(d => !d.p.mode) : ds;
+  const released = scope.filter(d => d.state === 'stopped' && d.releaseAt).sort((a, b) => b.releaseAt - a.releaseAt);
+  const due = scope.filter(d => d.state === 'active' && d.releaseAt && d.idle >= IDLE_MS).sort((a, b) => a.releaseAt - b.releaseAt);
+  const mins = Math.round(hold / 60000), holdTxt = mins % 60 ? mins + ' minutes' : (mins / 60) + (mins === 60 ? ' hour' : ' hours');
+  const item = (d, soon) => h('li', { class: soon ? 'soon' : null, 'data-pid': d.p.pid }, h('span', { class: 'tdot', 'aria-hidden': 'true' }), h('div', {},
+    h('div', { class: 'th' }, h('b', {}, (soon ? 'Due ' : 'Released ') + dClock(d.releaseAt)), h('span', { class: 'muted' }, d.p.pid + (d.p.group ? ', ' + groupLabel(d.p.group) : ''))),
+    h('div', { class: 'small' }, (soon ? 'Idle on ' : 'Stopped on ') + d.page.charAt(0).toLowerCase() + d.page.slice(1) + ', last active ' + dClock(d.upd)),
+    h('div', { class: 'tm' }, d.p.methods.map(id => h('span', { class: 'mchip sm' }, h('i', { style: { background: phaseCol(methodPhase(d.p.c, id)) } }), methodName(d.p.c, id))))));
+  const shown = released.slice(0, 5), soon = due.slice(0, 3);
+  return panel('Drop-outs and released methods', 'Someone who stops keeps their methods for ' + holdTxt + ' after their last activity. Then the allocation stops counting them, so new people in their group are more likely to get those methods. If they come back, they carry on with their own.',
+    released.length || due.length ? h('div', {}, h('ul', { class: 'tline' }, soon.map(d => item(d, true)), shown.map(d => item(d, false))),
+      released.length + due.length > shown.length + soon.length ? h('p', { class: 'hint' }, (due.length > soon.length ? (due.length - soon.length) + ' more due soon' + (released.length > shown.length ? ', ' : '') : '') + (released.length > shown.length ? (released.length - shown.length) + ' released earlier' : '') + '. Participants, filtered by Stopped, lists everyone.') : null)
+      : h('p', { class: 'dnone' }, 'No methods released so far: nobody has stopped for longer than ' + holdTxt + '.'), null, null, 'releases');
+}
+
+/* ------------------------------------------------------------------ first descriptive results */
+function dashResults(c, ds) {
+  const fin = ds.filter(d => d.state === 'finished').map(d => d.p);
+  const people = E.dash.kept ? fin.filter(p => !p.sc.excluded) : fin, setAside = fin.filter(p => p.sc.excluded);
+  const out = h('div', { class: 'dresults' });
+  out.append(h('div', { class: 'dsect' }, h('div', {}, h('h2', {}, 'First results'),
+    h('p', {}, 'From ' + people.length + ' finished ' + (people.length === 1 ? 'person' : 'people') + (E.dash.kept && setAside.length ? ', leaving out ' + setAside.length + ' set aside by the screening' : '') + '. Early numbers from few people move a lot; the Excel workbook is for the analysis.')),
+    dChk(E.dash, 'kept', 'Leave out people set aside by the screening')));
+  if (!people.length) {
+    out.append(h('section', { class: 'dpanel dempty' }, h('p', {}, fin.length ? 'All ' + fin.length + ' finished ' + (fin.length === 1 ? 'person is' : 'people are') + ' set aside by the screening. Untick the box above to include them, or check the rules under Screening rules.' : 'Results appear here once someone has finished.')));
+    return out;
+  }
+  out.append(h('div', { class: 'dgrid g11' }, dashScales(c, people), dashHeat(c, people)));
+  const cv = dashCvr(c, people);
+  if (cv) out.append(cv);
+  out.append(dashWho(c, people));
+  // the screening reasons, grouped into a few kinds
+  const kindOfReason = r => /^read /.test(r) ? 'read a description too fast' : / per item$/.test(r) ? 'answered ' + r.replace(/^part (\S+).*$/, 'Part $1') + ' too fast'
+    : /^same answer/.test(r) ? 'same answer many times in a row' : /^opposite pairs/.test(r) ? 'opposite pairs inconsistent'
+    : / answered .*, not /.test(r) ? r.split(' ')[0] + ' wrong' : / = /.test(r) ? r.split(' ')[0] + ' high' : /not to use/.test(r) ? 'asked not to use their answers' : r.split(':')[0];
+  const reasons = {}; fin.forEach(p => (p.sc.exclude || []).concat(p.sc.flags || []).forEach(r => { const k = kindOfReason(r); reasons[k] = (reasons[k] || 0) + 1; }));
+  out.append(h('p', { class: 'dqual' }, h('b', {}, 'Answer quality: '), fin.length + ' finished, ' + fin.filter(p => p.sc.flags.length && !p.sc.excluded).length + ' with flags but kept, ' + setAside.length + ' set aside' + (Object.keys(reasons).length ? ' (' + Object.entries(reasons).map(([k, v]) => v + ' ' + k).join(', ') + ')' : '') + '. The rules are under Screening rules.'));
+  return out;
+}
+// scale scores: dot and whisker per group on the answer scale
+function dashScales(c, people) {
+  const rows = [];
+  c.constructs.forEach(x => {
+    const its = []; c.parts.forEach(pt => (pt.items || []).forEach(it => { if (it.type === 'likert' && it.construct === x.id) its.push(it); }));
+    if (!its.length) return;
+    const [lo, hi] = ISP.scaleRange(c, its[0].scale);
+    const stat = ps => { const sc = ps.map(p => p.sc.scales[x.id]).filter(v => typeof v === 'number'); return { sc, n: sc.length, m: ISP.mean(sc), sd: ISP.sd(sc), ci: sc.length > 1 ? ISP.ci95(sc) : null }; };
+    const all = stat(people);
+    if (!all.n) return;
+    const per = c.groups.map(g => Object.assign({ g: g.id }, stat(people.filter(p => p.group === g.id))));
+    const mat = people.map(p => its.map(it => { const v = (p.state.answers || {})[it.id]; return typeof v === 'number' ? (it.reverse ? lo + hi - v : v) : null; })).filter(r => r.every(v => typeof v === 'number'));
+    const al = mat.length > 2 ? ISP.alpha(mat) : null, thr = lo + (hi - lo) * 2 / 3;
+    rows.push({ x, lo, hi, per, all, al, thr, agree: all.sc.filter(v => v >= thr - 1e-9).length / all.n, scale: its[0].scale });
+  });
+  if (!rows.length) return panel('Scale scores', 'No scale answers yet.', h('div'), null, null, 'scales');
+  const lo = rows[0].lo, hi = rows[0].hi, pts = (ISP.scale(c, rows[0].scale).points || []);
+  const L = 150, R = 96, T = 26, rh = 36, B = 42, H = T + rows.length * rh + B, yb = T + rows.length * rh;
+  const draw = W => {
+    const pw = W - L - R, X = v => L + (v - lo) / (hi - lo) * pw;
+    const svg = sv('svg', { width: W, height: H, viewBox: '0 0 ' + W + ' ' + H, class: 'dsvg', role: 'img', 'aria-label': 'Mean scale scores per group' });
+    for (let v = lo; v <= hi; v++) svg.append(sv('line', { x1: X(v), x2: X(v), y1: T - 4, y2: yb, class: v === (lo + hi) / 2 ? 'mid' : 'grid' }), sv('text', { x: X(v), y: yb + 16, class: 'ax', 'text-anchor': 'middle' }, v));
+    if (pts.length) svg.append(sv('text', { x: X(lo) - 4, y: yb + 32, class: 'ax' }, pts[0][1]), sv('text', { x: X(hi) + 4, y: yb + 32, class: 'ax', 'text-anchor': 'end' }, pts[pts.length - 1][1]));
+    svg.append(sv('text', { x: W - R + 14, y: T - 10, class: 'ax' }, 'agree'), sv('text', { x: W - 6, y: T - 10, class: 'ax', 'text-anchor': 'end' }, 'α'));
+    rows.forEach((r, i) => {
+      const cy = T + i * rh + rh / 2;
+      if (i) svg.append(sv('line', { x1: 0, x2: W, y1: T + i * rh, y2: T + i * rh, class: 'sep' }));
+      svg.append(sv('text', { x: L - 14, y: cy + 4, class: 'lb', 'text-anchor': 'end' }, r.x.label));
+      const shown = r.per.filter(z => z.n);
+      svg.append(sv('line', { x1: X(r.all.m), x2: X(r.all.m), y1: cy - 12, y2: cy + 12, stroke: '#1c2328', 'stroke-width': 2 }));
+      shown.forEach((z, j) => {
+        const y = cy + (shown.length > 1 ? (j - (shown.length - 1) / 2) * 10 : 0), col = groupCol(z.g);
+        if (z.ci) svg.append(sv('line', { x1: X(Math.max(lo, z.ci[0])), x2: X(Math.min(hi, z.ci[1])), y1: y, y2: y, stroke: col, 'stroke-width': 2, 'stroke-linecap': 'round', 'stroke-opacity': 0.55 }));
+        svg.append(tipOn(sv('g', { class: 'mk' }, sv('circle', { cx: X(z.m), cy: y, r: 12, fill: 'transparent' }), sv('circle', { cx: X(z.m), cy: y, r: 5.5, fill: col, stroke: '#fff', 'stroke-width': 2 })),
+          () => [r.x.label + ', ' + groupLabel(z.g), [{ value: fix(z.m, 2), label: 'mean on ' + lo + '–' + hi, color: col }, { value: z.n, label: z.n === 1 ? 'person' : 'people' }]
+            .concat(z.sd !== null ? [{ value: fix(z.sd, 2), label: 'SD' }] : [], z.ci ? [{ value: fix(z.ci[0], 2) + ' to ' + fix(z.ci[1], 2), label: '95% CI' }] : [])]));
+      });
+      svg.append(sv('text', { x: W - R + 14, y: cy + 4, class: 'num' }, pct(r.agree)), sv('text', { x: W - 6, y: cy + 4, class: 'num', 'text-anchor': 'end' }, r.al !== null && isFinite(r.al) ? fix(r.al, 2) : '–'));
+    });
+    return svg;
+  };
+  const legend = h('div', { class: 'dlegend' }, c.groups.map(g => h('span', {}, h('span', { class: 'dotkey', style: { background: groupCol(g.id) } }), g.label)),
+    h('span', {}, h('span', { class: 'tickkey' }), 'everyone'), h('span', {}, h('span', { class: 'cikey' }), '95% confidence interval'));
+  return panel('Scale scores', 'Mean of each person\'s answers after reading all three descriptions (negatively worded statements reversed). Agree: share of people at ' + fix(rows[0].thr, rows[0].thr % 1 ? 1 : 0) + ' or above. α: Cronbach\'s alpha, from 3 people on.',
+    h('div', {}, legend, fitChart(draw, H, 400)),
+    numTable(['Measure'].concat(c.groups.map(g => g.id + ' mean (n)'), ['All mean', 'All SD', 'Agree', 'Alpha']),
+      rows.map(r => [r.x.label].concat(r.per.map(z => z.n ? fix(z.m, 2) + ' (' + z.n + ')' : '–'), [fix(r.all.m, 2), fix(r.all.sd, 2), pct(r.agree), r.al !== null && isFinite(r.al) ? fix(r.al, 2) : '–']))), null, 'scales');
+}
+// ratings after each description: methods by statement
+function dashHeat(c, people) {
+  const pm = ((c.perMethod || {}).items || []).filter(it => it.type === 'likert');
+  if (!pm.length) return panel('Ratings after each description', 'No rating statements after the descriptions.', h('div'), null, null, 'ratings');
+  const [lo, hi] = ISP.scaleRange(c, pm[0].scale);
+  const cname = it => (c.constructs.find(x => x.id === it.construct) || { label: it.id }).label;
+  const cells = [h('div', { class: 'hh' }, 'Method'),
+    pm.map(it => h('div', { class: 'hh c' }, cname(it), h('span', {}, it.id + (it.reverse ? ', reversed' : '') + (it.showTo && it.showTo.length ? ', ' + it.showTo.join('/') + ' only' : '')))),
+    h('div', { class: 'hh r' }, 'Readers', h('span', {}, 'reading min'))];
+  const rows = [];
+  ISP.activeMethods(c).forEach(m => {
+    const bl = []; people.forEach(p => (p.state.blocks || []).forEach((b, i) => { if (b.method === m.id) bl.push({ b, sb: p.sc.blocks[i] || {} }); }));
+    const rd = bl.map(x => x.sb.read_s).filter(x => typeof x === 'number'), rmed = rd.length ? ISP.median(rd) / 60 : null;
+    cells.push(h('div', { class: 'hm', title: ISP.phaseLabel(c, m.phase) }, h('i', { style: { background: phaseCol(m.phase) } }), h('span', {}, m.name)));
+    const vals = pm.map(it => {
+      const v = bl.map(x => (x.b.answers || {})[it.id]).filter(z => typeof z === 'number').map(z => it.reverse ? lo + hi - z : z), mv = ISP.mean(v);
+      if (mv === null) { cells.push(h('div', { class: 'hc empty', title: 'no ratings yet' })); return null; }
+      const col = rampCol((mv - lo) / (hi - lo));
+      cells.push(tipOn(h('div', { class: 'hc', style: { background: col.bg, color: col.fg } }, fix(mv, 1)),
+        () => [m.name, [{ value: fix(mv, 2), label: cname(it) + (it.reverse ? ' (reversed)' : ''), color: col.bg }, { value: v.length, label: v.length === 1 ? 'reader' : 'readers' }]]));
+      return mv;
+    });
+    cells.push(h('div', { class: 'hr' }, h('b', {}, bl.length || '–'), rmed !== null ? h('span', {}, fix(rmed, 1)) : null));
+    rows.push([m.name, bl.length].concat(vals.map(v => v === null ? '–' : fix(v, 2)), [rmed !== null ? fix(rmed, 1) : '–']));
+  });
+  const grid = h('div', { class: 'heat2', style: { gridTemplateColumns: 'minmax(136px, 1.6fr) repeat(' + pm.length + ', minmax(52px, 1fr)) minmax(64px, auto)' } }, cells);
+  const scale = h('div', { class: 'hscale' }, h('span', {}, lo), h('span', { class: 'hgrad' }, DSEQ.map(x => h('i', { style: { background: x } }))), h('span', {}, hi), h('span', { class: 'muted' }, 'mean rating; higher is better'));
+  return panel('Ratings after each description', 'Mean rating per method on ' + lo + '–' + hi + '. Clarity is reversed, so that higher always means better. The dot shows the method\'s design phase.',
+    h('div', {}, h('div', { class: 'scroll' }, grid), scale), numTable(['Method', 'Readers'].concat(pm.map(it => it.id + ' ' + cname(it)), ['Median reading min']), rows), null, 'ratings');
+}
+// necessity of each information element: content validity ratio from -1 to 1, with the exact critical value
+function dashCvr(c, people) {
+  const ei = ISP.allItems(c).map(x => x.item).find(it => it.type === 'matrix' && it.rows === 'elements');
+  if (!ei) return null;
+  const [, hi] = ISP.scaleRange(c, ei.scale);
+  const rows = c.elements.map(e => {
+    const v = ei.id + '_' + e.id, vals = people.map(p => (p.state.answers || {})[v]).filter(x => typeof x === 'number');
+    const N = vals.length, ne = vals.filter(x => x === hi).length, crit = ISP.cvrCritical(N);
+    return { e, N, ne, cvr: N ? ISP.cvr(ne, N) : null, crit: crit && crit.cvr !== null ? crit.cvr : null,
+      per: c.groups.map(g => { const w = people.filter(p => p.group === g.id).map(p => (p.state.answers || {})[v]).filter(x => typeof x === 'number'); return w.length ? ISP.cvr(w.filter(x => x === hi).length, w.length) : null; }) };
+  });
+  const N = Math.max(0, ...rows.map(r => r.N)), top = rows.find(r => r.N === N), crit = top ? top.crit : null;
+  let minN = 0; for (let k = 1; k <= 40 && !minN; k++) { const cc = ISP.cvrCritical(k); if (cc && cc.cvr !== null) minN = k; }
+  const L = 200, R = 176, T = crit !== null ? 30 : 12, rh = 25, B = 30, H = T + rows.length * rh + B, yb = T + rows.length * rh;
+  const draw = W => {
+    const pw = W - L - R, X = v => L + (v + 1) / 2 * pw;
+    const svg = sv('svg', { width: W, height: H, viewBox: '0 0 ' + W + ' ' + H, class: 'dsvg', role: 'img', 'aria-label': 'Content validity ratio per information element' });
+    [-1, -0.5, 0, 0.5, 1].forEach(v => svg.append(sv('line', { x1: X(v), x2: X(v), y1: T - 6, y2: yb, class: v === 0 ? 'base' : 'grid' }),
+      sv('text', { x: X(v), y: yb + 18, class: 'ax', 'text-anchor': 'middle' }, v === 0 ? '0' : (v < 0 ? '−' : '') + Math.abs(v).toFixed(1))));
+    if (crit !== null) svg.append(sv('line', { x1: X(crit), x2: X(crit), y1: T - 8, y2: yb, class: 'crit' }), sv('text', { x: X(crit), y: T - 14, class: 'ax', 'text-anchor': 'middle' }, 'critical value ' + fix(crit, 2)));
+    rows.forEach((r, i) => {
+      const cy = T + i * rh + rh / 2, meets = r.N && r.crit !== null ? r.cvr >= r.crit - 1e-9 : null;
+      svg.append(sv('text', { x: L - 16, y: cy + 4, class: 'lb', 'text-anchor': 'end' }, r.e.label));
+      if (r.cvr !== null) {
+        const x0 = X(0), w = Math.abs(X(r.cvr) - x0), pos = r.cvr > 0, neg = r.cvr < 0, col = pos ? DBLUE : neg ? DNEG : '#8d9aa5', hh = 14, rad = Math.min(4, w / 2);
+        let d;
+        if (!pos && !neg) d = 'M' + (x0 - 1) + ',' + (cy - hh / 2) + ' h2 v' + hh + ' h-2 Z';
+        else { const s = pos ? 1 : -1, xe = x0 + s * w; d = 'M' + x0 + ',' + (cy - hh / 2) + ' H' + (xe - s * rad) + ' Q' + xe + ',' + (cy - hh / 2) + ' ' + xe + ',' + (cy - hh / 2 + rad) + ' V' + (cy + hh / 2 - rad) + ' Q' + xe + ',' + (cy + hh / 2) + ' ' + (xe - s * rad) + ',' + (cy + hh / 2) + ' H' + x0 + ' Z'; }
+        svg.append(tipOn(sv('g', { class: 'mk' }, sv('rect', { x: L, y: cy - rh / 2, width: pw, height: rh, fill: 'transparent' }), sv('path', { d, fill: col })),
+          () => [r.e.label, [{ value: fix(r.cvr, 2), label: 'content validity ratio', color: col }, { value: r.ne + ' of ' + r.N, label: 'rated it essential' }]
+            .concat(c.groups.map((g, j) => ({ value: r.per[j] === null ? '–' : fix(r.per[j], 2), label: g.label, color: groupCol(g.id) })),
+              r.crit !== null ? [{ value: meets ? '✓ meets' : 'below', label: 'the critical value ' + fix(r.crit, 2) }] : [])]));
+      }
+      svg.append(sv('text', { x: W - R + 18, y: cy + 4, class: 'num' }, r.N ? pct(r.ne / r.N) + ' (' + r.ne + ' of ' + r.N + ')' : '–'));
+      if (meets) svg.append(sv('text', { x: W - 8, y: cy + 4, class: 'ok', 'text-anchor': 'end' }, '✓'));
+    });
+    return svg;
+  };
+  const legend = h('div', { class: 'dlegend' }, h('span', {}, h('span', { class: 'sw', style: { background: DBLUE } }), 'more than half rated it essential'),
+    h('span', {}, h('span', { class: 'sw', style: { background: DNEG } }), 'fewer than half'),
+    h('span', {}, 'right: share rating it essential'),
+    crit !== null ? h('span', {}, h('span', { class: 'critkey' }), 'critical value for ' + N + ' raters; ', h('b', { style: { color: '#006300' } }, '✓'), ' meets it')
+      : h('span', { class: 'muted' }, 'A critical value needs at least ' + (minN || 5) + ' raters; there ' + (N === 1 ? 'is 1' : 'are ' + N) + ' so far.'));
+  return panel('Necessity of each information element (Part E)', 'Content validity ratio (Lawshe): (essential − N/2) / (N/2), from −1 (nobody rated the element essential) to 1 (everyone did), with the exact critical value for this number of raters (one-tailed, p = .05).',
+    h('div', {}, legend, fitChart(draw, H, 640)),
+    numTable(['Element', 'N', 'Essential', 'CVR'].concat(c.groups.map(g => g.id + ' CVR'), ['Critical', 'Meets']),
+      rows.map(r => [r.e.label, r.N, r.ne, r.cvr === null ? '–' : fix(r.cvr, 2)].concat(r.per.map(v => v === null ? '–' : fix(v, 2)), [r.crit === null ? '–' : fix(r.crit, 2), r.N && r.crit !== null ? (r.cvr >= r.crit - 1e-9 ? 'yes' : 'no') : '–']))), null, 'cvr');
+}
+// who took part: choices as bars, numbers as dots on a line
+function dashWho(c, people) {
+  const items = [];
+  (c.parts || []).filter(pt => pt.where !== 'after').forEach(pt => (pt.items || []).forEach(it => { if ((it.type === 'single' && it.options && it.options.length) || it.type === 'number') items.push(it); }));
+  const blocks = items.map(it => {
+    const ans = people.map(p => (p.state.answers || {})[it.id]), title = h('h3', {}, ISP.mdText(it.text));
+    if (it.type === 'number') {
+      const v = ans.filter(x => typeof x === 'number');
+      if (!v.length) return h('div', { class: 'wbox' }, title, h('p', { class: 'muted small' }, 'No answers yet.'));
+      const mx = Math.max(1, ...v), md = ISP.median(v), Hh = 64, base = 36;
+      const draw = W => {
+        const P = 10, X = x => P + x / mx * (W - 2 * P);
+        const svg = sv('svg', { width: W, height: Hh, viewBox: '0 0 ' + W + ' ' + Hh, class: 'dsvg', role: 'img', 'aria-label': ISP.mdText(it.text) },
+          sv('line', { x1: P, x2: W - P, y1: base, y2: base, class: 'base' }), sv('text', { x: P, y: Hh - 6, class: 'ax' }, '0'),
+          sv('text', { x: W - P, y: Hh - 6, class: 'ax', 'text-anchor': 'end' }, mx + (it.unit ? ' ' + it.unit : '')),
+          sv('line', { x1: X(md), x2: X(md), y1: 6, y2: base + 8, stroke: '#1c2328', 'stroke-width': 2 }));
+        const seen = {};
+        v.slice().sort((a, b) => a - b).forEach(x => { const k = Math.round(X(x) / 8); seen[k] = (seen[k] || 0) + 1; svg.append(sv('circle', { cx: X(x), cy: base - 6 - (seen[k] - 1) * 8, r: 4, fill: DBLUE, stroke: '#fff', 'stroke-width': 1.5 })); });
+        return svg;
+      };
+      return h('div', { class: 'wbox' }, title, h('p', { class: 'wsum' }, h('b', {}, fix(md, 1)), ' median' + (it.unit ? ' ' + it.unit : '') + (v.length >= 4 ? ', middle half ' + fix(quant(v, 0.25), 1) + '–' + fix(quant(v, 0.75), 1) : '') + ', n = ' + v.length), fitChart(draw, Hh, 220));
+    }
+    const n = ans.filter(x => x !== undefined && x !== null && x !== '').length, counts = it.options.map(o => ans.filter(x => x === o.id).length), max = Math.max(1, ...counts);
+    return h('div', { class: 'wbox' }, title, h('div', { class: 'wbars' }, it.options.map((o, i) => h('div', { class: 'wrow' },
+      h('span', { class: 'wl' }, o.text), h('span', { class: 'wb' }, counts[i] ? h('span', { style: { width: (counts[i] / max * 100) + '%', background: it.role === 'group' && o.group ? groupCol(o.group) : DBLUE } }) : null),
+      h('span', { class: 'wv' }, counts[i] + (n ? ' (' + pct(counts[i] / n) + ')' : ''))))));
+  });
+  return panel('Who took part', 'Answers to the questions before the reading, from the finished participants above. The black line marks the median.', h('div', { class: 'wgrid' }, blocks), null, null, 'who');
+}
+
+/* =====================================================================================
+   Part 9: start-up. Kept last, so that every view is defined before the first render.
+   ===================================================================================== */
 /* ------------------------------------------------------------------ start */
 $('#pv-btn').addEventListener('click', () => { if (!E.draft) return toast('Load the study content first.'); openPreview(); });
 $('#pub-btn').addEventListener('click', () => { if (!E.draft) return toast('Load the study content first.'); go('publish'); });
@@ -1711,7 +2591,7 @@ async function start() {
     setSave('Connecting…');
     try {
       const p = await api('ping');
-      E.sheet = p.sheet; E.sheetUrl = p.url; E.status = p.status; E.published = p.published;
+      E.sheet = p.sheet; E.sheetUrl = p.url; E.status = p.status; E.published = p.published; E.backend = p.backend || 1;
       const d = await api('getDraft');
       if (d.draft && (!E.draft || (d.saved && d.saved !== E.saved && !E.dirty))) { E.draft = migrate(d.draft); E.saved = d.saved; }
       else if (d.draft && d.saved !== E.saved && E.dirty) {
@@ -1722,7 +2602,7 @@ async function start() {
       setSave('Connected');
       if (E.published) { try { E.vc[E.published] = (await api('getVersion', { v: E.published })).content; } catch (e) { } }
       render();
-      try { await loadData(); if (['overview', 'data', 'allocation', 'quality'].indexOf(E.section) >= 0) render(); } catch (e) { }
+      try { await loadData(); if (['overview', 'dashboard', 'data', 'allocation', 'quality'].indexOf(E.section) >= 0) render(); } catch (e) { }
     } catch (e) { setSave('Backend not reachable: ' + e.message, true); }
   } else setSave(E.draft ? 'Not connected: changes stay in this browser' : '');
 }
